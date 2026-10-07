@@ -157,6 +157,7 @@
         "collection_linklist": "",
         "enable_grid_video": true,
         "grid_video": "{{ collection.metafields.custom.video_landing_collection.value }}",
+        "grid_video_mobile": "{{ collection.metafields.custom.video_landing_collection_mobile.value }}",
         "grid": 4,
         "grid_mobile": "2",
         "products_per_page": 24,
