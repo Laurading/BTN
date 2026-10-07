@@ -1,0 +1,458 @@
+<!doctype html>
+<html class="no-touch supports-no-cookies" lang="{{ request.locale.iso_code }}">
+  <head>
+    {%- render 'head' -%}
+
+    {{ content_for_header }}
+  
+<style>
+#omnisend-form-6aa965d6d89cb68af28c2803 {font-family:inherit;}
+#omnisend-form-6aa965d6d89cb68af28c2803 * {font-family:inherit!important;box-sizing:border-box;}
+#omnisend-form-6aa965d6d89cb68af28c2803 .omnisend-form-6aa965d6d89cb68af28c2803-content {width:400px!important;max-width:calc(100vw - 24px)!important;background:#f1eeea!important;border:1px solid #d8d0ca;border-radius:12px;box-shadow:0 12px 48px #2b1c1733;}
+#omnisend-form-6aa965d6d89cb68af28c2803 .omnisend-form-6aa965d6d89cb68af28c2803-content-inner {background:#f1eeea!important;border-radius:12px;}
+#omnisend-form-6aa965d6d89cb68af28c2803 input[type=email],#omnisend-form-6aa965d6d89cb68af28c2803 input[type=text] {border:1px solid #704a41!important;border-radius:4px!important;font-size:16px!important;background:#fff!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 button[type=submit] {background:#2b1c17!important;color:#fff!important;width:100%!important;padding:12px 16px!important;font-size:13px!important;letter-spacing:2px!important;border-radius:4px!important;}
+</style>
+
+<style id="bestini-site-newsletter-compact">
+@media(max-width:749px){
+#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-content"]{width:343px!important;max-width:calc(100vw - 32px)!important;max-height:calc(100dvh - 32px)!important;overflow:auto!important;border-radius:10px!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-section-624ab2f927652f651edfd0ac"]{padding:14px!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-column-624ab2f927652f651edfd0ae"]{padding:0!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-text-624ab2f927652f651edfd0b0"]{padding:0 28px 8px 0!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-text-624ab2f927652f651edfd0b0"] *{font-size:18px!important;line-height:1.2!important;margin:0!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-field-container-62a34db0f7b3732a01429b16"],#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-field-container-6aa86428edbcef1584f992ad"],#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-field-container-62a9d6b641ae6e18923f204d"],#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-action-container-627932485028ebd8c6660c51"]{padding:4px 0!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 label{padding:4px 0!important;font-size:13px!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 input[type=email]{height:44px!important;min-height:44px!important;padding:10px!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-field-container-6aa86428edbcef1584f992ad-field-wrapper"]{display:flex!important;gap:8px!important;justify-content:flex-start!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 input[id*="-birthdate"]{flex:0 0 64px!important;width:64px!important;min-width:0!important;height:36px!important;min-height:36px!important;padding:6px 8px!important;border:1px solid #d8d2cc!important;border-radius:4px!important;text-align:center!important;font-size:16px!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 input[id*="-birthdateYear-"]{flex-basis:80px!important;width:80px!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-field-container-62a9d6b641ae6e18923f204d-label"] *{font-size:12px!important;line-height:1.35!important;margin:0!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-description-container"] *{font-size:11.5px!important;line-height:1.3!important;margin:0!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 button[type=submit]{height:44px!important;min-height:44px!important;padding:12px 16px!important;line-height:18px!important;font-size:13px!important;border-radius:0!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-close-button"]{top:4px!important;right:4px!important;}
+#omnisend-form-6aa965d6d89cb68af28c2803 [class$="-close-action"]{width:36px!important;height:36px!important;}
+}
+</style>
+
+<style id="bestini-mobile-product-prices">
+@media(max-width:749px){
+.product-item .product-item__title-row{display:flex;align-items:flex-start;gap:8px;}
+.product-item .product-item__title{flex:1 1 0;min-width:0;}
+.product-item .product-item__price__holder{flex:0 0 auto;width:auto;max-width:none;}
+.product-item .product-item__price .new-price,.product-item .product-item__price .old-price{display:inline-block;white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important;}
+.product-item .product-item__price .price{display:flex;flex-direction:column;align-items:flex-end;}
+}
+</style>
+</head>
+
+  <body
+    id="{{ page_title | handle }}"
+    class="template-{{ template.name | handle }} grid-{{ settings.grid_style }}{% if customer %} customer-logged-in{% endif %}{% if settings.animations_enable %} aos-initialized{% endif %}{% if settings.product_grid_outline %} has-line-design{% endif %}"
+    data-animations="{{ settings.animations_enable }}"
+  >
+    {%- render 'loading' -%}
+
+    <a class="in-page-link visually-hidden skip-link" data-skip-content href="#MainContent">
+      {{- 'general.accessibility.skip_to_content' | t -}}
+    </a>
+
+    <div class="container" data-site-container>
+      <div class="header-sections">
+        {% sections 'group-header' %}
+      </div>
+
+      {% sections 'group-overlay' %}
+
+      <!-- CONTENT -->
+      <main role="main" id="MainContent" class="main-content">
+        {{ content_for_layout }}
+      </main>
+    </div>
+
+    {% sections 'group-pre-footer' %}
+
+    <footer class="footer-sections">
+      {% sections 'group-footer' %}
+    </footer>
+
+    {% render 'zoom-pswp' %}
+    {% render 'cart-toast' %}
+
+    {%- if template.name != 'product' and settings.show_scroll_top_button -%}
+      <button
+        type="button"
+        class="btn btn--scroll-top btn--black btn--solid"
+        aria-label="{{ 'general.accessibility.scroll_to_top' | t }}"
+        data-scroll-top-button
+      >
+        {%- render 'icon-nav-arrow-up' -%}
+      </button>
+    {%- endif -%}
+
+    {%- comment -%}
+      In order to use your custom javascript file at assets/custom.js
+      just cut this next line and paste it outside this comment:
+      <script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
+    {%- endcomment -%}
+    <!-- Paste marketing code or third party scripts below this comment line ============== -->
+
+    <!-- And above this comment line ================================================== -->
+    
+    {%- assign bestini_blindbox_variant = all_products['blindbox-babi-edition-mantra'].selected_or_first_available_variant -%}
+{%- if bestini_blindbox_variant != blank -%}
+<script id="bestini-upsell-config" type="application/json">
+{"variantId":{{ bestini_blindbox_variant.id | json }},"regularPrice":{{ bestini_blindbox_variant.price | json }},"country":{{ localization.country.iso_code | json }},"currency":{{ localization.country.currency.iso_code | json }},"customerLoggedIn":{% if customer %}true{% else %}false{% endif %}}
+</script>
+<script>
+(() => {
+  const config = JSON.parse(document.getElementById('bestini-upsell-config').textContent);
+  if (window.__bestiniShopifyUpsellPrice) return;
+  window.__bestiniShopifyUpsellPrice = true;
+  const gid = 'gid://shopify/ProductVariant/' + config.variantId;
+  const root = window.Shopify?.routes?.root || '/';
+  let timer, busy = false, pending = false, revision = 0, cached = null;
+  const query = 'mutation UpsellQuote($input: CartInput) { cartCreate(input: $input) { userErrors { message } warnings { code message } cart { lines(first: 100) { pageInfo { hasNextPage } nodes { quantity merchandise { ... on ProductVariant { id } } cost { subtotalAmount { amount currencyCode } totalAmount { amount currencyCode } } } } } } }';
+  function cards() {
+    return [...document.querySelectorAll('cart-drawer quick-add-product, [data-section-type="cart"] quick-add-product')]
+      .filter(card => card.querySelector('a[href*="/products/blindbox-babi-edition-mantra"]') && String(card.querySelector('input[name="id"]')?.value) === String(config.variantId));
+  }
+  function paint(result) {
+    const currency = result?.currency || config.currency;
+    const regular = result?.regular ?? config.regularPrice / 100;
+    const amount = result?.amount ?? regular;
+    const sale = amount < regular - 0.001;
+    const money = new Intl.NumberFormat(document.documentElement.lang || 'fr-FR', { style: 'currency', currency });
+    for (const card of cards()) {
+      const price = card.querySelector('.product-upsell__price');
+      if (!price) continue;
+      const signature = [amount, regular, currency, !!result].join(':');
+      if (price.dataset.bestiniDynamicPrice !== signature) {
+        price.dataset.bestiniDynamicPrice = signature;
+        const current = document.createElement('span');
+        current.className = 'new-price';
+        current.textContent = amount === 0 ? (document.documentElement.lang.startsWith('fr') ? 'Gratuit' : 'Free') : money.format(amount);
+        const children = [current];
+        if (sale) {
+          const old = document.createElement('s');
+          old.className = 'old-price';
+          old.textContent = money.format(regular);
+          children.push(document.createTextNode(' '), old);
+        }
+        price.replaceChildren(...children);
+        price.classList.toggle('sale', sale);
+      }
+    }
+  }
+  async function json(url, options = {}) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    try {
+      const response = await fetch(url, { ...options, signal: controller.signal, cache: 'no-store' });
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      return await response.json();
+    } finally { clearTimeout(timeout); }
+  }
+  async function update() {
+    if (busy) { pending = true; return; }
+    if (!cards().length) return;
+    busy = true;
+    const version = revision;
+    try {
+      const cart = await json(root + 'cart.js', { headers: { Accept: 'application/json' } });
+      // Keep the regular price when an anonymous quote cannot reproduce the cart safely.
+      if (config.customerLoggedIn || !cart.items.length || cart.items.length > 40 || cart.items.some(item => item.item_components?.length || Object.keys(item.properties || {}).some(key => !['Couleur', 'Type de vente', 'Livraison estimée'].includes(key)))) {
+        if (version === revision) paint(null);
+        return;
+      }
+      const lines = cart.items.map(item => ({ merchandiseId: 'gid://shopify/ProductVariant/' + item.variant_id, quantity: item.quantity, attributes: Object.entries(item.properties || {}).map(([key, value]) => ({ key, value: String(value) })), ...(item.selling_plan_allocation ? { sellingPlanId: 'gid://shopify/SellingPlan/' + item.selling_plan_allocation.selling_plan.id } : {}) }));
+      lines.push({ merchandiseId: gid, quantity: 1 });
+      const codes = new Set((cart.discount_codes || []).map(code => code.code).filter(Boolean));
+      (cart.cart_level_discount_applications || []).filter(discount => discount.type === 'discount_code').forEach(discount => codes.add(discount.title));
+      const input = { lines, buyerIdentity: { countryCode: config.country }, discountCodes: [...codes] };
+      const signature = JSON.stringify([input, cart.currency, cart.total_price]);
+      if (cached?.signature === signature && Date.now() - cached.time < 15000) {
+        if (version === revision) paint(cached.result);
+        return;
+      }
+      const response = await json('/api/2026-07/graphql.json', { method: 'POST', credentials: 'omit', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ query, variables: { input } }) });
+      const payload = response.data?.cartCreate;
+      if (response.errors?.length || !payload?.cart || payload.userErrors?.length || payload.warnings?.length || payload.cart.lines.pageInfo.hasNextPage) throw new Error('Quote unavailable');
+      const quoted = payload.cart.lines.nodes.filter(line => line.merchandise.id === gid);
+      const expected = 1 + cart.items.filter(item => String(item.variant_id) === String(config.variantId)).reduce((sum, item) => sum + item.quantity, 0);
+      if (!quoted.length || quoted.reduce((sum, line) => sum + line.quantity, 0) !== expected || quoted.some(line => line.cost.totalAmount.currencyCode !== cart.currency)) throw new Error('Quote mismatch');
+      // Split discounted/full-price lines: do not advertise an already-used offer again.
+      const amount = Math.max(...quoted.map(line => Number(line.cost.totalAmount.amount) / line.quantity));
+      const regular = Math.max(...quoted.map(line => Number(line.cost.subtotalAmount.amount) / line.quantity));
+      if (!Number.isFinite(amount) || !Number.isFinite(regular) || amount < 0) throw new Error('Invalid price');
+      const result = { amount, regular, currency: cart.currency };
+      cached = { signature, result, time: Date.now() };
+      if (version === revision) paint(result);
+    } catch (error) {
+      cached = null;
+      if (version === revision) paint(null);
+    } finally {
+      busy = false;
+      if (pending || version !== revision) { pending = false; schedule(); }
+    }
+  }
+  function schedule() { clearTimeout(timer); timer = setTimeout(update, 180); }
+  function changed() { revision++; cached = null; paint(null); schedule(); }
+  ['theme:cart:change', 'theme:cart:refresh', 'theme:cart:update', 'theme:cart-drawer:open'].forEach(name => document.addEventListener(name, changed));
+  const drawer = document.querySelector('cart-drawer');
+  if (drawer) new MutationObserver(records => {
+    if (records.some(record => !record.target.closest?.('[data-bestini-dynamic-price], [data-bestini-dynamic-title]'))) schedule();
+  }).observe(drawer, { childList: true, subtree: true });
+  paint(null);
+  schedule();
+})();
+</script>
+{%- endif -%}
+<!-- Anthony TEST: adaptive mobile product gallery -->
+<style>
+@media (max-width: 749px) {
+  product-images.product__images--mobile-slider [data-product-media-list][data-bestini-adaptive] {
+    height: var(--bestini-slide-height);
+    min-height: 0;
+    align-items: flex-start;
+    transition: height 180ms ease;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-product-media-list][data-bestini-adaptive] { transition: none !important; }
+}
+</style>
+<script>
+(() => {
+  if (window.__bestiniAdaptiveGallery) return;
+  window.__bestiniAdaptiveGallery = true;
+  const mobile = window.matchMedia('(max-width: 749px)');
+  const instances = new Map();
+  const selector = 'product-images.product__images--mobile-slider';
+  function mount(gallery) {
+    if (instances.has(gallery)) return;
+    const list = gallery.querySelector('[data-product-media-list]');
+    if (!list) return;
+    let frame = 0, timer = 0;
+    function update() {
+      frame = 0;
+      if (!mobile.matches || gallery.hasAttribute('data-fader-mobile')) {
+        list.removeAttribute('data-bestini-adaptive');
+        list.style.removeProperty('--bestini-slide-height');
+        return;
+      }
+      const bounds = list.getBoundingClientRect();
+      if (!bounds.width) return;
+      let selected = null, largest = 0;
+      for (const slide of list.querySelectorAll('[data-slide]')) {
+        const rect = slide.getBoundingClientRect();
+        const visible = Math.max(0, Math.min(rect.right, bounds.right) - Math.max(rect.left, bounds.left));
+        if (visible > largest && rect.height > 0) { largest = visible; selected = slide; }
+      }
+      if (!selected) return;
+      const height = Math.ceil(selected.getBoundingClientRect().height);
+      const value = height + 'px';
+      if (height > 0 && list.style.getPropertyValue('--bestini-slide-height') !== value) {
+        list.style.setProperty('--bestini-slide-height', value);
+      }
+      list.setAttribute('data-bestini-adaptive', '');
+    }
+    function schedule() { if (!frame) frame = requestAnimationFrame(update); }
+    function onScroll() { clearTimeout(timer); timer = setTimeout(schedule, 90); }
+    const resize = new ResizeObserver(schedule);
+    resize.observe(list);
+    list.querySelectorAll('[data-slide]').forEach(slide => resize.observe(slide));
+    list.addEventListener('scroll', onScroll, {passive: true});
+    list.addEventListener('scrollend', schedule);
+    list.addEventListener('load', schedule, true);
+    gallery.addEventListener('theme:media:select', schedule);
+    mobile.addEventListener('change', schedule);
+    instances.set(gallery, () => {
+      resize.disconnect(); clearTimeout(timer); cancelAnimationFrame(frame);
+      list.removeEventListener('scroll', onScroll);
+      list.removeEventListener('scrollend', schedule);
+      list.removeEventListener('load', schedule, true);
+      gallery.removeEventListener('theme:media:select', schedule);
+      mobile.removeEventListener('change', schedule);
+    });
+    schedule();
+  }
+  function scan() {
+    for (const [gallery, dispose] of instances) {
+      if (!gallery.isConnected) { dispose(); instances.delete(gallery); }
+    }
+    document.querySelectorAll(selector).forEach(mount);
+  }
+  const root = document.getElementById('MainContent');
+  if (root) new MutationObserver(scan).observe(root, {childList: true, subtree: true});
+  document.addEventListener('shopify:section:load', scan);
+  document.addEventListener('theme:product-info:loaded', scan);
+  scan();
+})();
+</script>
+<!-- End adaptive mobile product gallery -->
+<!-- Anthony TEST: keep cart quantity and remove controls above upsell on mobile -->
+<style>
+@media (max-width: 749px) {
+  cart-drawer .drawer__body { min-height: 0; flex: 0 0 auto; overflow: visible; }
+  cart-drawer .drawer__foot { flex-shrink: 0; }
+}
+</style>
+
+<!-- Anthony TEST: applied welcome discount and mobile checkout access -->
+<style>
+cart-drawer:has([data-cart-price-holder] [data-discount-code="bienvenue10" i]) .bestini-welcome-help,
+[data-cart-page]:has([data-cart-price-holder] [data-discount-code="bienvenue10" i]) .cart__message:has(a[href*="Newsletter--footer-0"]){display:none!important}
+.bestini-mobile-checkout{display:none}
+.bestini-mobile-checkout.is-merged{visibility:hidden;opacity:0;pointer-events:none}
+@media(max-width:749px){
+.bestini-mobile-checkout{display:grid;gap:6px;padding:10px 15px calc(10px + env(safe-area-inset-bottom));background:var(--bg,#f3f0ec);color:var(--text,#2b1c17);border-top:1px solid #d8d2cc;z-index:5}
+.bestini-mobile-checkout[hidden]{display:none!important}
+.bestini-mobile-checkout__total{display:flex;justify-content:space-between;font-size:14px;line-height:20px}
+.bestini-mobile-checkout button{min-height:44px;width:100%;padding:10px;font-size:12px}
+cart-drawer>.bestini-mobile-checkout{position:fixed;bottom:0;left:auto;right:0;width:min(500px,100%);z-index:6002}
+cart-drawer:not(.is-open)>.bestini-mobile-checkout{display:none!important}
+cart-drawer:has(>.bestini-mobile-checkout:not([hidden])) .drawer__inner{padding-bottom:110px}
+body>.bestini-mobile-checkout{position:fixed;bottom:0;left:0;right:0;z-index:40}
+body:has(>.bestini-mobile-checkout:not([hidden])){padding-bottom:110px}
+}
+</style>
+<script>
+(function(){
+ if(window.__bestiniMobileCheckout)return;
+ window.__bestiniMobileCheckout=true;
+ var queued=false;
+ function update(){
+  queued=false;
+  document.querySelectorAll('cart-drawer,[data-cart-page]').forEach(function(scope){
+   var drawer=scope.matches('cart-drawer');
+   var host=drawer?scope:document.body;
+   var kind=drawer?'drawer':'page';
+   var bar=host.querySelector(':scope > .bestini-mobile-checkout[data-kind="'+kind+'"]');
+   if(!bar){
+    bar=document.createElement('div');bar.className='bestini-mobile-checkout';bar.dataset.kind=kind;
+    bar.innerHTML='<div class="bestini-mobile-checkout__total"><span>{{ 'cart.general.subtotal' | t | escape }}</span><strong></strong></div><button type="button" class="btn btn--primary btn--solid">{{ 'cart.general.checkout' | t | escape }}</button>';
+    bar.querySelector('button').addEventListener('click',function(){
+     var original=scope.querySelector('button[name="checkout"]');
+     if(original && !original.disabled){original.click();}
+    });
+    host.appendChild(bar);
+   }
+   var total=scope.querySelector('[data-cart-price-holder] [data-cart-total]');
+   var original=scope.querySelector('button[name="checkout"]');
+   var hide=scope.classList.contains('is-empty')||!total||!original;
+   if(bar.hidden!==hide)bar.hidden=hide;
+   var nativeRect=original && original.getBoundingClientRect();
+   var nativeVisible=!!nativeRect && nativeRect.height>0 && nativeRect.top < window.innerHeight-100 && nativeRect.bottom>0;
+   var merged=drawer && nativeVisible;
+   if(bar.classList.contains('is-merged')!==merged)bar.classList.toggle('is-merged',merged);
+   var text=total?total.textContent.trim():'';
+   var value=bar.querySelector('strong');if(value.textContent!==text)value.textContent=text;
+   var disabled=!original||original.disabled||!!scope.querySelector('.cart__buttons--disabled');
+   var button=bar.querySelector('button');if(button.disabled!==disabled)button.disabled=disabled;
+  });
+ }
+ function schedule(){if(!queued){queued=true;requestAnimationFrame(update);}}
+ document.addEventListener('scroll',schedule,{capture:true,passive:true});
+ window.addEventListener('resize',schedule,{passive:true});
+ function init(){
+  update();
+  document.querySelectorAll('cart-drawer,[data-cart-page]').forEach(function(scope){
+   new MutationObserver(function(records){
+    if(records.some(function(r){return !r.target.closest || !r.target.closest('.bestini-mobile-checkout');}))schedule();
+   }).observe(scope,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['class','disabled','data-cart-total']});
+  });
+  ['theme:cart:change','theme:cart:refresh','cart-drawer:open'].forEach(function(name){document.addEventListener(name,schedule);});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+
+
+
+<style>
+cart-drawer .bestini-welcome-help{display:none!important}
+
+</style>
+
+{% if localization.available_languages.size > 1 %}
+<details class="bestini-mobile-language" id="BestiniMobileLanguage">
+  <summary class="navlink navlink--toplevel" aria-label="{{ 'bestini.language.change' | t | escape }} — {{ localization.language.endonym_name | escape }}"><span aria-hidden="true">{{ localization.language.iso_code | upcase }}</span></summary>
+  <div class="bestini-mobile-language__panel">
+    {% form 'localization', id: 'BestiniMobileLanguageForm' %}
+      <p>{{ 'bestini.language.title' | t }}</p>
+      {% for language in localization.available_languages %}
+        <button type="submit" name="locale_code" value="{{ language.iso_code }}" lang="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %}>{{ language.endonym_name | capitalize }}{% if language.iso_code == localization.language.iso_code %} ✓{% endif %}</button>
+      {% endfor %}
+    {% endform %}
+  </div>
+</details>
+<style>
+.bestini-mobile-language{display:none}
+@media(max-width:749px){cart-drawer .cart__quantity-field{font-size:14px!important;font-weight:400!important;}cart-drawer .cart__quantity-minus svg,cart-drawer .cart__quantity-plus svg{width:16px!important;height:16px!important;}}
+@media(max-width:749px){
+.bestini-mobile-language{display:block;position:fixed;right:12px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:6003}
+.bestini-mobile-language summary{display:flex;align-items:center;justify-content:center;width:44px;height:44px;list-style:none;border:1px solid #d8d2cc;border-radius:8px;background:#f3f0ec;box-shadow:none;cursor:pointer;font-size:25px;-webkit-appearance:none;appearance:none;overflow:hidden;isolation:isolate;width:48px;height:48px;transform:none}
+.bestini-mobile-language summary::-webkit-details-marker{display:none}
+.bestini-mobile-language__panel{position:absolute;bottom:52px;right:0;background:#f3f0ec;color:#2b1c17;border:1px solid #d8d2cc;border-radius:8px;padding:12px;min-width:170px;max-height:50vh;overflow:auto;box-shadow:0 4px 18px #0002}
+.bestini-mobile-language__panel p{font-size:12px;margin:0 0 6px}
+.bestini-mobile-language__panel button{display:block;width:100%;min-height:44px;text-align:left;background:transparent;color:inherit;border:0;padding:8px;font-size:14px;cursor:pointer}
+body:has(cart-drawer.is-open) .bestini-mobile-language,body:has(>.bestini-mobile-checkout:not([hidden])) .bestini-mobile-language{bottom:calc(120px + env(safe-area-inset-bottom))}
+}
+</style>
+<script>
+(function(){var picker=document.getElementById('BestiniMobileLanguage');if(!picker)return;document.addEventListener('click',function(e){if(picker.open&&!picker.contains(e.target))picker.open=false;});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&picker.open){picker.open=false;picker.querySelector('summary').focus();}});})();
+</script>
+{% endif %}
+
+{% if request.path contains '/account/subscribe' %}
+<script>
+(function(){
+ var box=document.querySelector('.shopify-email-marketing-confirmation__container');
+ if(!box || !box.querySelector('a[href*="/account/unsubscribe"]') || box.querySelector('[data-newsletter-next]'))return;
+ var next=document.createElement('div');next.setAttribute('data-newsletter-next','');
+ {% if cart.item_count > 0 %}
+ next.innerHTML='<a href="{{ routes.root_url }}discount/BIENVENUE10?redirect=%2Fcheckout%3Fdiscount%3DBIENVENUE10" class="btn btn--primary btn--solid">{{ 'bestini.newsletter.resume' | t | escape }}</a>';
+ {% else %}
+ next.innerHTML='<a href="{{ routes.root_url }}" class="btn btn--primary btn--solid">{{ 'bestini.newsletter.discover' | t | escape }}</a>';
+ {% endif %}
+ var paragraphs=box.querySelectorAll('p');
+ box.insertBefore(next,paragraphs[1] || box.querySelector('a'));
+})();
+</script>
+<style>
+.shopify-email-marketing-confirmation__container [data-newsletter-next]{margin:28px 0;text-align:center;}
+.shopify-email-marketing-confirmation__container [data-newsletter-next] .btn{display:inline-flex;align-items:center;justify-content:center;width:auto;min-width:0;min-height:48px;max-width:100%;padding:14px 24px;margin:0 auto;box-sizing:border-box;text-align:center;text-decoration:none;font-size:13px;line-height:1.4;}
+.shopify-email-marketing-confirmation__container>p:last-of-type{font-size:14px;margin-top:24px;}
+.shopify-email-marketing-confirmation__container>a{display:inline-block;font-size:14px;padding:12px;text-decoration:underline;}
+</style>
+{% endif %}
+
+<script id="bestini-birthday-autofocus">
+(function(){
+if(window.bestiniBirthdayAutoFocus)return;window.bestiniBirthdayAutoFocus=true;
+function fields(el){if(!(el instanceof HTMLInputElement)||!el.id.startsWith('omnisend-form-'))return null;var suffix='-birthdateDay-input',part=0;if(el.id.endsWith('-birthdateMonth-input')){suffix='-birthdateMonth-input';part=1;}else if(el.id.endsWith('-birthdateYear-input')){suffix='-birthdateYear-input';part=2;}else if(!el.id.endsWith(suffix))return null;var base=el.id.slice(0,-suffix.length);return {part:part,list:['Day','Month','Year'].map(function(p){return document.getElementById(base+'-birthdate'+p+'-input');})};}
+document.addEventListener('input',function(event){var el=event.target,f=fields(el);if(!f||event.isComposing||event.inputType&&event.inputType.indexOf('delete')===0||document.activeElement!==el)return;var value=el.value;if(f.part<2&&/^\d{2}$/.test(value)&&Number(value)>=1&&Number(value)<=(f.part===0?31:12)){var next=f.list[f.part+1];if(next){next.focus();next.select();}}});
+document.addEventListener('keydown',function(event){var f=fields(event.target);if(f&&event.key==='Backspace'&&!event.target.value&&f.part>0){var previous=f.list[f.part-1];if(previous){event.preventDefault();previous.focus();previous.select();}}});
+})();
+</script>
+
+<style id="bestini-header-language">
+@media(max-width:749px){
+body > .bestini-mobile-language{display:none!important;}
+.header__mobile__right .bestini-mobile-language{display:block;position:relative;right:auto;bottom:auto!important;z-index:5;flex:0 0 auto;}
+.header__mobile__right .bestini-mobile-language summary{width:36px;height:44px;padding:0;border:0;border-radius:0;background:transparent;font-size:11px;letter-spacing:.02em;white-space:nowrap;transform:none;}
+.header__mobile__right .bestini-mobile-language__panel{top:calc(100% + 8px);bottom:auto;right:0;}
+.header__mobile__right{gap:0;}
+.header__mobile__right .header__mobile__button .navlink{padding-left:6px;padding-right:6px;}
+}
+</style>
+<script>
+(function(){
+ function placeLanguage(){var language=document.getElementById('BestiniMobileLanguage');var target=document.querySelector('.header__mobile__right');if(language&&target&&language.parentElement!==target)target.prepend(language);}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',placeLanguage);else placeLanguage();
+ document.addEventListener('shopify:section:load',placeLanguage);
+})();
+</script>
+</body>
+</html>

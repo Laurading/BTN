@@ -1,0 +1,249 @@
+{%- comment -%}
+  Anthony: delivery milestones. Shipping profile verified 2026-09-12.
+  FR: Mondial Relay EUR 50 / Colissimo EUR 75.
+  BE: Mondial Relay EUR 50 / Standard Europe EUR 120.
+  These display thresholds must be kept in sync with Shopify shipping settings.
+{%- endcomment -%}
+{%- if show_progress_bar -%}
+  {%- liquid
+    assign delivery_country = localization.country.iso_code
+    assign delivery_currency = cart.currency.iso_code
+    assign delivery_supported = false
+    if delivery_country == 'FR' or delivery_country == 'BE'
+      if delivery_currency == 'EUR'
+        assign delivery_supported = true
+      endif
+    endif
+    assign delivery_first = 5000
+    assign delivery_last = 7500
+    assign delivery_home = 'bestini.delivery.home' | t
+    if delivery_country == 'BE'
+      assign delivery_last = 12000
+      assign delivery_home = 'bestini.delivery.home' | t
+    endif
+    assign delivery_total = cart.total_price | at_least: 0
+    assign delivery_target = delivery_first
+    assign delivery_base = 0
+    if delivery_total >= delivery_first
+      assign delivery_target = delivery_last
+      assign delivery_base = delivery_first
+    endif
+    assign delivery_range = delivery_target | minus: delivery_base
+    assign delivery_done = delivery_total | minus: delivery_base | at_least: 0 | at_most: delivery_range
+    assign delivery_percent = delivery_done | times: 100.0 | divided_by: delivery_range
+    assign delivery_remaining = delivery_target | minus: delivery_total | at_least: 0
+    assign delivery_money = delivery_remaining | money
+  -%}
+  {%- if delivery_supported -%}
+    {%- render 'stylesheet', name: 'free-shipping.css' -%}
+    <bestini-delivery-progress class="bestini-delivery" data-first="{{ delivery_first }}" data-last="{{ delivery_last }}" data-home="{{ delivery_home }}" data-total="{{ delivery_total }}" data-cart-url="{{ routes.cart_url }}.js" data-country="{{ delivery_country }}" data-locale="{{ request.locale.iso_code }}" data-relay-earned="{{ 'bestini.delivery.relay_earned' | t | escape }}" data-both-earned="{{ 'bestini.delivery.both_earned' | t | escape }}" data-remaining-home="{{ 'bestini.delivery.remaining_home' | t: amount: '__amount__' | escape }}" data-remaining-relay="{{ 'bestini.delivery.remaining_relay' | t: amount: '__amount__' | escape }}" data-progress-home="{{ 'bestini.delivery.progress_home' | t | escape }}" data-progress-relay="{{ 'bestini.delivery.progress_relay' | t | escape }}">
+      <p class="bestini-delivery__message" data-delivery-message role="status" aria-live="polite" aria-atomic="true">
+        <span data-delivery-earned{% if delivery_total < delivery_first %} hidden{% endif %}>{% if delivery_total >= delivery_last %}{{ 'bestini.delivery.both_earned' | t }}{% else %}{{ 'bestini.delivery.relay_earned' | t }}{% endif %}</span>
+        <span data-delivery-pending{% if delivery_total >= delivery_last %} hidden{% endif %}>{% if delivery_total >= delivery_first %}{{ 'bestini.delivery.remaining_home' | t: amount: delivery_money }}{% else %}{{ 'bestini.delivery.remaining_relay' | t: amount: delivery_money }}{% endif %}</span>
+      </p>
+      <div class="bestini-delivery__track" role="progressbar" aria-label="{% if delivery_total >= delivery_first %}{{ 'bestini.delivery.progress_home' | t | escape }}{% else %}{{ 'bestini.delivery.progress_relay' | t | escape }}{% endif %}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ delivery_percent }}" data-delivery-track>
+        <span class="bestini-delivery__fill" style="width: {{ delivery_percent }}%" data-delivery-fill></span>
+      </div>
+      <div class="confetti" aria-hidden="true">{% for i in (1..6) %}<span class="confetti__dot confetti__dot--{{ i }}"></span>{% endfor %}</div>
+      <p class="bestini-delivery__country">{{ 'bestini.delivery.country' | t: country: localization.country.name | escape }}</p>
+    </bestini-delivery-progress>
+    <style>
+      .bestini-delivery { position:relative; display:block; width:100%; padding:0 14px 14px; box-sizing:border-box; color:inherit; }
+      .bestini-delivery [hidden] { display:none !important; }
+      .bestini-delivery [data-delivery-earned] { display:block; margin-bottom:8px; font-size:11px; line-height:1.5; font-weight:400; }
+      .bestini-delivery__message { margin:0 0 14px; font-size:11px; line-height:1.5; font-weight:400; }
+      .bestini-delivery__track { position:relative; height:8px; margin:0 5px 12px; background:rgba(112,74,65,.16); border-radius:8px; }
+      .bestini-delivery__fill { display:block; height:100%; max-width:100%; background:#704a41; border-radius:8px; transition:width .25s ease; }
+      .bestini-delivery__marker, .bestini-delivery__end { position:absolute; top:50%; width:13px; height:13px; border:2px solid #704a41; border-radius:50%; background:var(--bg,#f2efeb); transform:translate(-50%,-50%); }
+      .bestini-delivery__marker { left:var(--delivery-marker); }
+      .bestini-delivery__end { left:100%; }
+      .bestini-delivery .is-reached { background:#704a41; box-shadow:inset 0 0 0 2px var(--bg,#f2efeb); }
+      .bestini-delivery__labels { display:flex; justify-content:space-between; gap:12px; font-size:11px; line-height:1.5; }
+      .bestini-delivery__labels>span:last-child { text-align:right; }
+      .bestini-delivery__labels strong { font-weight:500; }
+      .bestini-delivery__country { margin:8px 0 0; font-size:10px; line-height:1.4; opacity:.7; }
+      @media(prefers-reduced-motion:reduce) { .bestini-delivery__fill { transition:none; } .bestini-delivery .confetti { display:none; } }
+    </style>
+    <script>
+      if (!customElements.get('bestini-delivery-progress')) {
+        customElements.define('bestini-delivery-progress', class extends HTMLElement {
+          connectedCallback() {
+            this.checkMilestone(Number(this.dataset.total));
+            this.events = ['theme:cart:change', 'theme:cart:refresh', 'theme:cart-drawer:open'];
+            this.refresh = () => {
+              clearTimeout(this.timer);
+              this.request?.abort();
+              this.timer = setTimeout(() => this.loadCart(), 120);
+            };
+            this.events.forEach(name => document.addEventListener(name, this.refresh));
+          }
+          checkMilestone(total) {
+            const drawer = this.closest("cart-drawer");
+            if(drawer && !drawer.classList.contains("is-open")) return;
+            const stage = total >= Number(this.dataset.last) ? 2 : total >= Number(this.dataset.first) ? 1 : 0;
+            const key = this.dataset.country + ":" + this.dataset.first + ":" + this.dataset.last;
+            const states = window.__bestiniDeliveryMilestones ||= {};
+            const previous = states[key] ?? 0;
+            states[key] = stage;
+            if(stage > previous && !matchMedia("(prefers-reduced-motion: reduce)").matches){
+              this.classList.remove("is-success");
+              void this.offsetWidth;
+              this.sparkleFrame = requestAnimationFrame(() => this.classList.add("is-success"));
+            }
+          }
+          disconnectedCallback() {
+            cancelAnimationFrame(this.sparkleFrame);
+            clearTimeout(this.timer);
+            this.request?.abort();
+            this.events?.forEach(name => document.removeEventListener(name, this.refresh));
+          }
+          async loadCart() {
+            this.request = new AbortController();
+            try {
+              const response = await fetch(this.dataset.cartUrl, {signal:this.request.signal, credentials:'same-origin', cache:'no-store'});
+              if (!response.ok) return;
+              const cart = await response.json();
+              if (!this.isConnected || cart.currency !== 'EUR') return;
+              this.renderTotal(cart.total_price);
+            } catch (error) {
+              if (error.name !== 'AbortError') console.warn('Delivery progress could not refresh.');
+            }
+          }
+          renderTotal(value) {
+            if (!Number.isFinite(value)) return;
+            const total = Math.max(0, value);
+            const first = Number(this.dataset.first);
+            const last = Number(this.dataset.last);
+            const relayReached = total >= first;
+            const homeReached = total >= last;
+            const base = relayReached ? first : 0;
+            const target = relayReached ? last : first;
+            const money = amount => new Intl.NumberFormat(this.dataset.locale || document.documentElement.lang || 'en', {style:'currency', currency:'EUR'}).format(amount / 100);
+            const earned = this.querySelector('[data-delivery-earned]');
+            earned.hidden = !relayReached;
+            earned.textContent = homeReached ? this.dataset.bothEarned : this.dataset.relayEarned;
+            earned.style.whiteSpace = 'pre-line';
+            const pending = this.querySelector('[data-delivery-pending]');
+            pending.hidden = homeReached;
+            pending.textContent = (relayReached ? this.dataset.remainingHome : this.dataset.remainingRelay).replace('__amount__', money(Math.max(0, target - total)));
+            const percent = Math.min(100, Math.max(0, (total - base) / (target - base) * 100));
+            this.querySelector('[data-delivery-fill]').style.width = percent + '%';
+            const track = this.querySelector('[data-delivery-track]');
+            track.hidden = false;
+            track.setAttribute('aria-valuenow', percent);
+            track.setAttribute('aria-label', relayReached ? this.dataset.progressHome : this.dataset.progressRelay);
+            track.setAttribute('aria-valuetext', homeReached ? earned.textContent : pending.textContent);
+            this.checkMilestone(total);
+            this.dataset.total = total;
+          }
+        });
+      }
+    </script>
+  {%- else -%}
+    <p class="drawer__message">{{ 'bestini.delivery.calculated' | t }}</p>
+  {%- endif -%}
+{%- else -%}
+{% comment %}
+  Renders Free shipping message
+
+  Accepts:
+  - message: {String} Free shipping text (required)
+  - show_wheel: {Boolean} Show progress wheel
+  - show_progress_bar: {Boolean} Show progress bar
+  - is_cart_drawer: {Boolean} Is cart drawer
+
+  Usage:
+  {% render 'free-shipping', message: block.settings.message, show_wheel: true, show_progress_bar: false, is_cart_drawer: false %}
+{% endcomment %}
+
+{%- liquid
+  assign free_shipping_limit = settings.free_shipping_limit
+  assign show_message = false
+  if message != blank
+    assign show_message = true
+  endif
+-%}
+
+{%- if show_message -%}
+  {%- render 'stylesheet', name: 'free-shipping.css' -%}
+
+  {%- liquid
+    assign limit = free_shipping_limit | plus: 0
+    assign limit_currency = limit | times: 100
+    assign subtotal_without_currency = cart.total_price | plus: 0 | divided_by: 100
+    assign percent = limit | minus: subtotal_without_currency | times: 100 | divided_by: limit
+    assign percent = 100 | minus: percent
+
+    if settings.currency_code_enable
+      assign limit_currency = limit_currency | minus: cart.total_price | money_with_currency
+    else
+      assign limit_currency = limit_currency | minus: cart.total_price | money_without_trailing_zeros
+    endif
+
+    capture left_to_spend
+      echo '<span data-left-to-spend>' | append: limit_currency | append: '</span>'
+    endcapture
+
+    assign message = message | replace: '||amount||', left_to_spend
+    assign qualified_shipping_message = 'cart.general.qualified_shipping_message' | t
+
+    capture free_shipping_classes
+      if is_cart_drawer
+        echo 'drawer__message '
+      endif
+
+      if template.name == 'cart'
+        echo 'cart__message '
+      endif
+
+      echo 'free-shipping'
+
+      if subtotal_without_currency >= limit and qualified_shipping_message != blank
+        echo ' is-success'
+      endif
+    endcapture
+  -%}
+
+  <div
+    class="{{ free_shipping_classes }}"
+    data-free-shipping="{% if qualified_shipping_message != blank %}true{% else %}false{% endif %}"
+    data-free-shipping-limit="{{ limit }}"
+  >
+    {%- if show_wheel -%}
+      <div class="free-shipping__graph" data-progress-graph style="--stroke-dashoffset: 87.96459430051421;">
+        <svg height="18" width="18" viewBox="0 0 18 18">
+          <circle r="7" cx="9" cy="9" />
+          <circle class="free-shipping__graph-progress" stroke-dasharray="87.96459430051421 87.96459430051421" r="7" cx="9" cy="9" />
+        </svg>
+      </div>
+    {%- endif -%}
+
+    {%- if qualified_shipping_message != blank -%}
+      <span class="free-shipping__success-message">{{ qualified_shipping_message }}</span>
+    {%- endif -%}
+
+    <span class="free-shipping__default-message">
+      {{ message }}
+    </span>
+
+    {%- if show_progress_bar -%}
+      <progress
+        class="free-shipping__progress-bar"
+        data-progress-bar
+        value="{{ percent }}"
+        max="100"
+      ></progress>
+    {%- endif -%}
+
+    <div class="confetti">
+      <span class="confetti__dot confetti__dot--1"></span>
+      <span class="confetti__dot confetti__dot--2"></span>
+      <span class="confetti__dot confetti__dot--3"></span>
+      <span class="confetti__dot confetti__dot--4"></span>
+      <span class="confetti__dot confetti__dot--5"></span>
+      <span class="confetti__dot confetti__dot--6"></span>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- endif -%}

@@ -1,0 +1,186 @@
+{% comment %}
+  Renders Quick add button
+
+  Accepts:
+  - product: {Object} product (required)
+  - btn_style: {String} Button classes
+  - sibling_property_value: {String} Sibling property value
+  - mobile_mini_button: {Boolean} Mini button on mobile
+  - use_icon: {Boolean} Use icon instead of text (default: false)
+
+  Usage:
+  {% render 'quick-add-product', product: product, holder_modifier: holder_modifier, btn_style: btn_style, sibling_property_value: sibling_property_value %}
+{% endcomment %}
+
+{%- liquid
+  assign unique = section.id | append: '-' | append: product.id
+  assign product_form_id = 'ProductForm--' | append: unique
+  assign current_variant = product.first_available_variant
+  assign preorder = false
+  assign preorder_date = product.metafields.custom.preorder_date.value
+  assign sibling_property_name = 'general.siblings.label' | t | strip_html | escape
+  assign sibling_property_value = sibling_property_value | default: ''
+  assign mobile_mini_button = mobile_mini_button | default: false
+  assign use_icon = use_icon | default: false
+
+  # 1. Précommande custom pilotée par date (custom.preorder_date)
+  if preorder_date != blank
+    assign today = 'now' | date: '%Y-%m-%d'
+    if preorder_date >= today
+      assign preorder = true
+    endif
+  endif
+
+  # 2. Précommande native du thème (booléen theme.preorder), gardée pour compatibilité
+  if current_variant.available and product.metafields.theme.preorder.type == 'boolean' and product.metafields.theme.preorder.value == true
+    assign preorder = true
+  endif
+
+  if current_variant.available and product.tags contains '_preorder'
+    assign preorder = true
+  endif
+
+  if current_variant.available and current_variant.metafields.theme.preorder.type == 'boolean' and current_variant.metafields.theme.preorder.value == true
+    assign preorder = true
+  endif
+
+  if preorder
+    assign preorder_name = 'products.product.sale_type' | t | strip_html | escape
+    assign preorder_value = 'products.product.pre_order' | t | strip_html | escape
+
+    if preorder_date != blank
+      assign preorder_month_num = preorder_date | date: '%m'
+      assign preorder_day = preorder_date | date: '%d'
+      assign preorder_year = preorder_date | date: '%Y'
+
+      case preorder_month_num
+        when '01'
+          assign preorder_month_name = 'janvier'
+        when '02'
+          assign preorder_month_name = 'février'
+        when '03'
+          assign preorder_month_name = 'mars'
+        when '04'
+          assign preorder_month_name = 'avril'
+        when '05'
+          assign preorder_month_name = 'mai'
+        when '06'
+          assign preorder_month_name = 'juin'
+        when '07'
+          assign preorder_month_name = 'juillet'
+        when '08'
+          assign preorder_month_name = 'août'
+        when '09'
+          assign preorder_month_name = 'septembre'
+        when '10'
+          assign preorder_month_name = 'octobre'
+        when '11'
+          assign preorder_month_name = 'novembre'
+        when '12'
+          assign preorder_month_name = 'décembre'
+      endcase
+
+      assign preorder_date_formatted = preorder_day | append: ' ' | append: preorder_month_name | append: ' ' | append: preorder_year
+    endif
+  endif
+
+  assign one_variant = false
+  if product.variants.size == 1
+    assign one_variant = true
+  endif
+-%}
+
+<quick-add-product>
+  <div class="quick-add__holder{{ holder_modifier }}" data-quick-add-holder="{{ product.id }}">
+    {%- if one_variant -%}
+      {%- form 'product', product, id: product_form_id -%}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+        {%- if sibling_property_value != blank -%}
+          <input
+            type="hidden"
+            name="properties[{{ sibling_property_name }}]"
+            value="{{ sibling_property_value }}"
+          >
+        {%- endif -%}
+
+        {%- if preorder -%}
+          <input
+            type="hidden"
+            name="properties[{{ preorder_name }}]"
+            value="{{ preorder_value }}"
+          >
+
+          {%- if preorder_date_formatted != blank -%}
+            <input
+              type="hidden"
+              name="properties[Livraison estimée]"
+              value="{{ preorder_date_formatted }}"
+            >
+          {%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+    {%- endif -%}
+
+    <button
+      class="{% if use_icon %}look__dot__button{% else %}quick-add__button {{ btn_style }}{% endif %}"
+      {% if one_variant %}
+        type="submit"
+        name="add"
+        form="{{ product_form_id }}"
+        aria-label="{{ 'products.product.add_to_cart' | t }}"
+        data-add-to-cart
+      {% else %}
+        type="button"
+        aria-label="{{ 'products.general.quick_add' | t }}"
+        data-quick-add-btn
+        data-quick-add-modal-handle="{{ product.handle }}"
+      {% endif %}
+    >
+      {%- if use_icon -%}
+        {%- render 'icon-bag' -%}
+        <span class="btn__error" data-message-error>&nbsp;</span>
+      {%- else -%}
+        {%- if mobile_mini_button -%}
+          <span class="btn__plus"></span>
+        {%- endif -%}
+
+        <span class="btn__text">
+          {%- if preorder -%}
+            {{ 'products.product.pre_order' | t }}
+          {%- else -%}
+            {{ 'products.product.add_to_cart' | t }}
+          {%- endif -%}
+        </span>
+        <span class="btn__added">&nbsp;</span>
+        <span class="btn__loader">
+          <svg height="18" width="18" class="svg-loader">
+            <circle r="7" cx="9" cy="9" />
+            <circle stroke-dasharray="87.96459430051421 87.96459430051421" r="7" cx="9" cy="9" />
+          </svg>
+        </span>
+        <span class="btn__error" data-message-error>&nbsp;</span>
+      {%- endif -%}
+    </button>
+
+    {%- unless product.has_only_default_variant -%}
+      {%- render 'product-quick-add-modal-template', product_id: product.id, unique: unique -%}
+    {%- endunless -%}
+  </div>
+</quick-add-product>
+
+{% stylesheet %}
+  @media (max-width: 749px) {
+    .product-item .quick-add__holder > .quick-add__button--mini {
+      margin-left: auto;
+      margin-right: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    .product-item .quick-add__holder > .quick-add__button--mini::before,
+    .product-item .quick-add__holder > .quick-add__button--mini::after {
+      background: transparent;
+      box-shadow: none;
+    }
+  }
+{% endstylesheet %}

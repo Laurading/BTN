@@ -1,0 +1,342 @@
+<!-- /sections/section-shop-the-look.liquid -->
+{%- liquid
+  assign heading = section.settings.heading
+  assign text = section.settings.text
+  assign media_position = section.settings.media_position
+  assign media_type = section.settings.media_type
+  assign color_scheme = 'color-' | append: section.settings.color_scheme
+  assign animation_anchor = '#ShopTheLook--' | append: section.id
+
+  assign image_desktop = section.settings.image
+  assign image_mobile = section.settings.image_mobile | default: image_desktop
+  assign video = section.settings.video
+  assign video_mobile = section.settings.video_mobile
+
+  assign product_blocks = section.blocks | where: 'type', 'product'
+-%}
+
+{%- if media_type == 'video' and video != null -%}
+  <script src="{{ 'video-background.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{%- style -%}
+  #ShopTheLook--{{ section.id }} {
+    --PT: {{ section.settings.padding_top }}px;
+    --PB: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+<section
+  id="ShopTheLook--{{ section.id }}"
+  class="shop-the-look section-padding {{ color_scheme }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="shop-the-look"
+>
+  <div class="shop-the-look__wrapper {{ section.settings.width }}{% if media_position == 'right' %} shop-the-look__wrapper--reverse{% endif %}">
+    <div class="shop-the-look__media">
+      {%- if media_type == 'video' and video != null -%}
+        <div class="shop-the-look__video-wrapper{% if video_mobile != null %} shop-the-look__video-wrapper--desktop-only{% endif %}">
+          <video-background class="shop-the-look__video is-loading" data-video-player data-video-id="{{ section.id }}-stl-desktop">
+            <template data-video-template>
+              {{ video | video_tag: autoplay: true, image_size: '1200x', loop: true, muted: true, controls: false }}
+            </template>
+          </video-background>
+        </div>
+
+        {%- if video_mobile != null -%}
+          <div class="shop-the-look__video-wrapper shop-the-look__video-wrapper--mobile-only">
+            <video-background class="shop-the-look__video is-loading" data-video-player data-video-id="{{ section.id }}-stl-mobile">
+              <template data-video-template>
+                {{ video_mobile | video_tag: autoplay: true, image_size: '1200x', loop: true, muted: true, controls: false }}
+              </template>
+            </video-background>
+          </div>
+        {%- endif -%}
+      {%- elsif image_desktop != blank -%}
+        <div class="shop-the-look__image shop-the-look__image--desktop-only">
+          {%- render 'image', image: image_desktop, sizes: '(min-width: 750px) 50vw, 100vw', widths: '480, 640, 750, 960, 1080, 1296, 1512', cover: true -%}
+        </div>
+
+        {%- if section.settings.image_mobile != blank -%}
+          <div class="shop-the-look__image shop-the-look__image--mobile-only">
+            {%- render 'image', image: image_mobile, sizes: '100vw', widths: '480, 640, 750, 960', cover: true -%}
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        <div class="shop-the-look__image image--empty"></div>
+      {%- endif -%}
+    </div>
+
+    <div class="shop-the-look__content">
+      {%- if heading != blank or text != blank -%}
+        <div class="shop-the-look__heading-holder">
+          {%- if heading != blank -%}
+            {%- liquid
+              assign heading_tag = 'h2'
+              unless section.settings.heading_tag == 'automatic' or section.settings.heading_tag == blank
+                assign heading_tag = section.settings.heading_tag
+              endunless
+            -%}
+            <{{ heading_tag }}
+              class="shop-the-look__heading {{ section.settings.heading_font_size }}"
+              data-aos="hero"
+              data-aos-anchor="{{ animation_anchor }}"
+            >
+              {{- heading -}}
+            </{{ heading_tag }}>
+          {%- endif -%}
+
+          {%- if text != blank -%}
+            <div class="shop-the-look__text {{ section.settings.text_font_size }}">
+              {{ text }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="shop-the-look__products">
+        {%- for block in product_blocks -%}
+          {%- liquid
+            assign product = block.settings.product
+          -%}
+
+          {%- if product != blank -%}
+            <a
+              href="{{ product.url }}"
+              class="shop-the-look__product"
+              {{ block.shopify_attributes }}
+              data-aos="hero"
+              data-aos-anchor="{{ animation_anchor }}"
+              data-aos-order="{{ forloop.index }}"
+            >
+              <div class="shop-the-look__product__image">
+                {%- if product.featured_media != blank -%}
+                  {%- render 'image',
+                    image: product.featured_media.preview_image,
+                    sizes: '150px',
+                    widths: '150, 225, 300',
+                    aspect_ratio: 1,
+                    cover: true
+                  -%}
+                {%- else -%}
+                  <div class="image--empty"></div>
+                {%- endif -%}
+              </div>
+
+              <div class="shop-the-look__product__info">
+                <p class="shop-the-look__product__title">{{ product.title | strip_html | escape }}</p>
+                <div class="shop-the-look__product__price">
+                  {%- render 'product-grid-price', product: product, current_variant: product.selected_or_first_available_variant -%}
+                </div>
+              </div>
+            </a>
+          {%- else -%}
+            <div class="shop-the-look__product shop-the-look__product--placeholder" {{ block.shopify_attributes }}>
+              <div class="shop-the-look__product__image image--empty"></div>
+              <div class="shop-the-look__product__info">
+                <p class="shop-the-look__product__title">{{ 'onboarding.product_title' | t | default: 'Product title' }}</p>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop the look",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "select",
+      "id": "media_type",
+      "label": "Media type",
+      "default": "image",
+      "options": [
+        {"value": "image", "label": "Image"},
+        {"value": "video", "label": "Video"}
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (desktop)",
+      "info": "1200 x 1500px .jpg recommended.",
+      "visible_if": "{{ section.settings.media_type == 'image' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image (mobile)",
+      "info": "If left empty, the desktop image is used.",
+      "visible_if": "{{ section.settings.media_type == 'image' }}"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video (desktop)",
+      "visible_if": "{{ section.settings.media_type == 'video' }}"
+    },
+    {
+      "type": "video",
+      "id": "video_mobile",
+      "label": "Video (mobile)",
+      "info": "If left empty, the desktop video is used.",
+      "visible_if": "{{ section.settings.media_type == 'video' }}"
+    },
+    {
+      "type": "select",
+      "id": "media_position",
+      "label": "Media position",
+      "default": "left",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "right", "label": "Right"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_size",
+      "label": "Heading size",
+      "default": "heading-medium",
+      "options": [
+        {"value": "heading-mini", "label": "Mini"},
+        {"value": "heading-x-small", "label": "Extra small"},
+        {"value": "heading-small", "label": "Small"},
+        {"value": "heading-medium", "label": "Medium"},
+        {"value": "heading-large", "label": "Large"},
+        {"value": "heading-x-large", "label": "Extra large"}
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "select",
+      "id": "text_font_size",
+      "label": "Text size",
+      "default": "body-medium",
+      "options": [
+        {"value": "body-x-small", "label": "Extra small"},
+        {"value": "body-small", "label": "Small"},
+        {"value": "body-medium", "label": "Medium"},
+        {"value": "body-large", "label": "Large"},
+        {"value": "body-x-large", "label": "Extra large"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper--full-padded",
+      "options": [
+        {"value": "wrapper--full", "label": "Full width"},
+        {"value": "wrapper--full-padded", "label": "Full width padded"},
+        {"value": "wrapper", "label": "Normal"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme_1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading SEO tag",
+      "default": "automatic",
+      "options": [
+        {"value": "automatic", "label": "Automatic"},
+        {"value": "h1", "label": "H1"},
+        {"value": "h2", "label": "H2"},
+        {"value": "h3", "label": "H3"},
+        {"value": "h4", "label": "H4"},
+        {"value": "h5", "label": "H5"},
+        {"value": "h6", "label": "H6"}
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the look",
+      "category": "Collections",
+      "blocks": [
+        {"type": "product"},
+        {"type": "product"},
+        {"type": "product"},
+        {"type": "product"}
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "aside", "footer"]
+  }
+}
+{% endschema %}

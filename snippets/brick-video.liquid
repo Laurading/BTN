@@ -1,0 +1,46 @@
+<div class="brick-media {{ block.settings.mobile_height }}">
+  {%- if block.settings.media_type == 'video' and block.settings.video_url != blank -%}
+    <video
+      src="{{ block.settings.video_url }}"
+      autoplay
+      loop
+      muted
+      playsinline
+      class="brick-media__video"
+    ></video>
+  {%- elsif block.settings.image != blank -%}
+    <img
+      src="{{ block.settings.image | img_url: 'master' }}"
+      alt="{{ block.settings.title | escape }}"
+      class="brick-media__image"
+    />
+  {%- endif -%}
+
+  {%- assign overlay_opacity = block.settings.overlay_opacity | times: 0.01 -%}
+  <div class="brick-media__content {{ block.settings.flex_align }}"
+       style="
+         color: {{ block.settings.color }};
+         {%- if block.settings.overlay_color and block.settings.overlay_opacity > 0 -%}
+           background-color: {{ block.settings.overlay_color }};
+           opacity: {{ overlay_opacity }};
+         {%- endif -%}
+       ">
+    {%- if block.settings.title != blank -%}
+      <h2 class="h{{ block.settings.heading_size }}">{{ block.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if block.settings.description != blank -%}
+      <div class="rte text-size--{{ block.settings.text_size }}">
+        {{ block.settings.description }}
+      </div>
+    {%- endif -%}
+
+    {%- if block.settings.link != blank -%}
+      <a href="{{ block.settings.link }}"
+         class="btn {{ block.settings.button_type }} {{ block.settings.button_size }} {{ block.settings.button_style }}">
+        {{ block.settings.link_text | default: 'Voir plus' }}
+        {%- if block.settings.show_arrow -%}<span class="btn__arrow">→</span>{%- endif -%}
+      </a>
+    {%- endif -%}
+  </div>
+</div>

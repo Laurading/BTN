@@ -1,0 +1,264 @@
+{% comment %}
+  Toast de confirmation d'ajout au panier (coin haut droit).
+
+  Usage : {% render 'cart-toast' %} dans layout/theme.liquid,
+  juste avant </body>.
+{% endcomment %}
+
+<div
+  class="cart-toast"
+  id="CartToast"
+  role="status"
+  aria-live="polite"
+  hidden
+>
+  <div class="cart-toast__inner">
+    <p class="cart-toast__heading">Ajouté au panier</p>
+
+    <div class="cart-toast__product">
+      <div class="cart-toast__info">
+        <p class="cart-toast__title" data-toast-title></p>
+        <p class="cart-toast__variant" data-toast-variant></p>
+        <p class="cart-toast__price" data-toast-price></p>
+      </div>
+
+      <div class="cart-toast__image">
+        <img src="" alt="" data-toast-image width="90" height="90" loading="lazy">
+      </div>
+    </div>
+
+    <a href="{{ routes.cart_url }}" class="btn btn--solid btn--primary cart-toast__button">
+      Votre panier
+    </a>
+
+    <button
+      type="button"
+      class="cart-toast__close"
+      aria-label="Fermer"
+      data-toast-close
+    >
+      <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .cart-toast {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    z-index: 2400;
+    width: min(420px, calc(100vw - 40px));
+    background: var(--bg, #fff);
+    color: var(--text, #000);
+    border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.12));
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+  }
+
+  .cart-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .cart-toast__inner {
+    position: relative;
+    padding: 20px;
+  }
+
+  .cart-toast__heading {
+    margin: 0 0 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.12));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.85em;
+  }
+
+  .cart-toast__product {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .cart-toast__info {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .cart-toast__title {
+    margin: 0 0 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .cart-toast__variant {
+    margin: 0 0 8px;
+    opacity: 0.65;
+  }
+
+  .cart-toast__price {
+    margin: 0;
+  }
+
+  .cart-toast__image {
+    flex: 0 0 90px;
+  }
+
+  .cart-toast__image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .cart-toast__image img[src=''] {
+    display: none;
+  }
+
+  .cart-toast__button {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .cart-toast__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 0;
+    color: currentColor;
+  }
+
+  .cart-toast__close svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .cart-toast {
+      top: auto;
+      bottom: 16px;
+      right: 16px;
+      left: 16px;
+      width: auto;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const toast = document.getElementById('CartToast');
+    if (!toast) return;
+
+    const titleEl = toast.querySelector('[data-toast-title]');
+    const variantEl = toast.querySelector('[data-toast-variant]');
+    const priceEl = toast.querySelector('[data-toast-price]');
+    const imageEl = toast.querySelector('[data-toast-image]');
+    const closeBtn = toast.querySelector('[data-toast-close]');
+
+    let hideTimer = null;
+    const DURATION = 5000;
+
+    function formatPrice(cents) {
+      if (window.theme && typeof window.theme.formatMoney === 'function') {
+        return window.theme.formatMoney(cents, window.theme.moneyFormat);
+      }
+      return (cents / 100).toFixed(2);
+    }
+
+    function show(item) {
+      if (!item) return;
+
+      titleEl.textContent = item.product_title || item.title || '';
+
+      const hasVariant = item.variant_title && item.variant_title !== 'Default Title';
+      variantEl.textContent = hasVariant ? item.variant_title : '';
+      variantEl.hidden = !hasVariant;
+
+      priceEl.textContent = formatPrice(item.final_line_price != null ? item.final_line_price : item.price);
+
+      if (item.image) {
+        imageEl.src = item.image.replace(/(\.[^.]*)$/, '_180x$1');
+        imageEl.alt = item.product_title || '';
+      } else {
+        imageEl.removeAttribute('src');
+        imageEl.alt = '';
+      }
+
+      toast.hidden = false;
+      // force reflow pour que la transition se joue
+      void toast.offsetWidth;
+      toast.classList.add('is-visible');
+
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(hide, DURATION);
+    }
+
+    function hide() {
+      clearTimeout(hideTimer);
+      toast.classList.remove('is-visible');
+      toast.addEventListener(
+        'transitionend',
+        function () {
+          if (!toast.classList.contains('is-visible')) toast.hidden = true;
+        },
+        { once: true }
+      );
+    }
+
+    closeBtn.addEventListener('click', hide);
+
+    toast.addEventListener('mouseenter', function () {
+      clearTimeout(hideTimer);
+    });
+
+    toast.addEventListener('mouseleave', function () {
+      hideTimer = setTimeout(hide, DURATION);
+    });
+
+    document.addEventListener('theme:product:add', function (event) {
+      const response = event.detail && event.detail.response;
+      if (!response) return;
+
+      // Ajout simple : l'objet est la ligne ajoutée.
+      // Ajout multiple : { items: [...] } — on affiche le premier.
+      const item = response.items && response.items.length ? response.items[0] : response;
+
+      if (!item || (!item.product_title && !item.title)) return;
+
+      show(item);
+    });
+
+    // Empêche l'ouverture automatique du tiroir à l'ajout au panier.
+    // L'ouverture manuelle (icône panier) reste inchangée : elle passe
+    // par l'évènement 'theme:cart-drawer:show', que l'on ne touche pas.
+    function blockAutoOpen() {
+      const drawer = document.querySelector('cart-drawer');
+      if (!drawer || typeof drawer.openCartDrawerOnProductAdded !== 'function') return false;
+
+      document.removeEventListener('theme:product:added', drawer.openCartDrawerOnProductAdded);
+      return true;
+    }
+
+    if (!blockAutoOpen()) {
+      // Le composant n'est pas encore initialisé : on réessaie une fois le DOM prêt.
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', blockAutoOpen, { once: true });
+      } else {
+        requestAnimationFrame(blockAutoOpen);
+      }
+    }
+  })();
+</script>

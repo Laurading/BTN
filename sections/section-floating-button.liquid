@@ -1,0 +1,138 @@
+<!-- /sections/section-floating-button.liquid -->
+{%- liquid
+  assign button_style = section.settings.button_style
+  if button_style == 'btn--text' and section.settings.show_arrow
+    assign button_style = button_style | append: ' btn--text-no-underline'
+  endif
+-%}
+
+{%- if section.settings.button_text != blank -%}
+  <div
+    class="floating-button{% unless section.settings.show_on_mobile %} floating-button--desktop-only{% endunless %}"
+    data-section-id="{{ section.id }}"
+    data-section-type="floating-button"
+  >
+    <a
+      href="{{ section.settings.button_url | default: '#!' }}"
+      class="btn {{ button_style }} {{ section.settings.button_size }} {{ section.settings.button_type }}"
+      {% if section.settings.open_new_tab %}
+        target="_blank"
+        rel="noopener"
+      {% endif %}
+    >
+      <span>{{ section.settings.button_text }}</span>
+
+      {%- if section.settings.show_arrow -%}
+        {%- render 'icon-nav-arrow-right' -%}
+      {%- endif -%}
+    </a>
+  </div>
+
+  <style>
+    .floating-button {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      z-index: 20;
+    }
+
+    .floating-button .btn {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    @media screen and (max-width: 749px) {
+      .floating-button {
+        bottom: 16px;
+      }
+
+      .floating-button--desktop-only {
+        display: none;
+      }
+    }
+  </style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Bouton flottant",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Bouton fixé en bas à droite de l'écran, visible en permanence au scroll."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texte",
+      "default": "Nous contacter"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Lien"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_new_tab",
+      "label": "Ouvrir dans un nouvel onglet",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Apparence"
+    },
+    {
+      "type": "select",
+      "id": "button_type",
+      "label": "Couleur",
+      "default": "btn--primary",
+      "options": [
+        {"value": "btn--black", "label": "Black"},
+        {"value": "btn--white", "label": "White"},
+        {"value": "btn--primary", "label": "Primary"},
+        {"value": "btn--secondary", "label": "Secondary"}
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_size",
+      "label": "Taille",
+      "default": "btn--small",
+      "options": [
+        {"label": "Small", "value": "btn--small"},
+        {"label": "Medium", "value": ""},
+        {"label": "Large", "value": "btn--large"}
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Style",
+      "default": "btn--solid",
+      "options": [
+        {"label": "Solid", "value": "btn--solid"},
+        {"label": "Outline", "value": "btn--outline"},
+        {"label": "Text", "value": "btn--text"}
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow",
+      "label": "Afficher la flèche",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bouton flottant"
+    }
+  ]
+}
+{% endschema %}

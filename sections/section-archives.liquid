@@ -1,0 +1,360 @@
+<!-- /sections/section-archives.liquid -->
+{%- liquid
+  assign color_scheme = 'color-' | append: section.settings.color_scheme
+  assign campaign_blocks = section.blocks | where: 'type', 'campaign'
+-%}
+
+{%- style -%}
+  #Archives--{{ section.id }} {
+    --PT: {{ section.settings.padding_top }}px;
+    --PB: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+<section
+  id="Archives--{{ section.id }}"
+  class="archives section-padding {{ color_scheme }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="archives"
+>
+  <div class="{{ section.settings.width }}">
+    {%- for block in campaign_blocks -%}
+      {%- liquid
+        assign title = block.settings.title
+        assign text = block.settings.text
+      -%}
+
+      <div class="archives__row" {{ block.shopify_attributes }}>
+        <div class="archives__row__content">
+          {%- if title != blank -%}
+            <p class="archives__row__title">{{ title }}</p>
+          {%- endif -%}
+
+          {%- if text != blank -%}
+            <div class="archives__row__text">{{ text }}</div>
+          {%- endif -%}
+        </div>
+
+        <div class="archives__row__slider">
+          <div class="archives__slider__track" data-archives-track>
+            {%- for i in (1..6) -%}
+              {%- liquid
+                assign media_type_key = 'media_type_' | append: i
+                assign image_key = 'image_' | append: i
+                assign video_key = 'video_' | append: i
+                assign link_key = 'link_' | append: i
+
+                assign media_type = block.settings[media_type_key]
+                assign slot_image = block.settings[image_key]
+                assign slot_video = block.settings[video_key]
+                assign slot_link = block.settings[link_key]
+              -%}
+
+              {%- if media_type == 'video' and slot_video != null -%}
+                <div class="archives__slide">
+                  {%- if slot_link != blank -%}
+                    <a href="{{ slot_link }}" class="archives__slide__link">
+                  {%- endif -%}
+
+                  <video-background class="archives__slide__video is-loading" data-video-player data-video-id="{{ section.id }}-archives-{{ block.id }}-{{ i }}">
+                    <template data-video-template>
+                      {{ slot_video | video_tag: autoplay: true, image_size: '1000x', loop: true, muted: true, controls: false }}
+                    </template>
+                  </video-background>
+
+                  {%- if slot_link != blank -%}
+                    </a>
+                  {%- endif -%}
+                </div>
+                <script src="{{ 'video-background.js' | asset_url }}" defer="defer"></script>
+              {%- elsif media_type == 'image' and slot_image != blank -%}
+                <div class="archives__slide">
+                  {%- if slot_link != blank -%}
+                    <a href="{{ slot_link }}" class="archives__slide__link">
+                      {%- render 'image',
+                        image: slot_image,
+                        sizes: '(min-width: 750px) 40vw, 80vw',
+                        widths: '480, 640, 800, 960, 1200',
+                        show_backfill: false
+                      -%}
+                    </a>
+                  {%- else -%}
+                    {%- render 'image',
+                      image: slot_image,
+                      sizes: '(min-width: 750px) 40vw, 80vw',
+                      widths: '480, 640, 800, 960, 1200',
+                      show_backfill: false
+                    -%}
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+
+    {%- if campaign_blocks.size == 0 -%}
+      {%- render 'no-blocks' -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Archives",
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper--full-padded",
+      "options": [
+        {"value": "wrapper--full", "label": "Full width"},
+        {"value": "wrapper--full-padded", "label": "Full width padded"},
+        {"value": "wrapper", "label": "Normal"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme_1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "campaign",
+      "name": "Campaign",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "\"Campaign name\""
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Season<br>Location</p>"
+        },
+        {
+          "type": "header",
+          "content": "Media 1"
+        },
+        {
+          "type": "select",
+          "id": "media_type_1",
+          "label": "Type",
+          "default": "image",
+          "options": [
+            {"value": "image", "label": "Image"},
+            {"value": "video", "label": "Video"}
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video_1",
+          "label": "Video"
+        },
+        {
+          "type": "url",
+          "id": "link_1",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Media 2"
+        },
+        {
+          "type": "select",
+          "id": "media_type_2",
+          "label": "Type",
+          "default": "image",
+          "options": [
+            {"value": "image", "label": "Image"},
+            {"value": "video", "label": "Video"}
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video_2",
+          "label": "Video"
+        },
+        {
+          "type": "url",
+          "id": "link_2",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Media 3"
+        },
+        {
+          "type": "select",
+          "id": "media_type_3",
+          "label": "Type",
+          "default": "image",
+          "options": [
+            {"value": "image", "label": "Image"},
+            {"value": "video", "label": "Video"}
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video_3",
+          "label": "Video"
+        },
+        {
+          "type": "url",
+          "id": "link_3",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Media 4"
+        },
+        {
+          "type": "select",
+          "id": "media_type_4",
+          "label": "Type",
+          "default": "image",
+          "options": [
+            {"value": "image", "label": "Image"},
+            {"value": "video", "label": "Video"}
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video_4",
+          "label": "Video"
+        },
+        {
+          "type": "url",
+          "id": "link_4",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Media 5"
+        },
+        {
+          "type": "select",
+          "id": "media_type_5",
+          "label": "Type",
+          "default": "image",
+          "options": [
+            {"value": "image", "label": "Image"},
+            {"value": "video", "label": "Video"}
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video_5",
+          "label": "Video"
+        },
+        {
+          "type": "url",
+          "id": "link_5",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Media 6"
+        },
+        {
+          "type": "select",
+          "id": "media_type_6",
+          "label": "Type",
+          "default": "image",
+          "options": [
+            {"value": "image", "label": "Image"},
+            {"value": "video", "label": "Video"}
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_6",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video_6",
+          "label": "Video"
+        },
+        {
+          "type": "url",
+          "id": "link_6",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Archives",
+      "category": "Custom content",
+      "blocks": [
+        {"type": "campaign"}
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "aside", "footer"]
+  }
+}
+{% endschema %}
