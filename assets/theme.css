@@ -14127,6 +14127,17 @@ ul li span {
 .grid-video-item {
   position: relative;
   overflow: hidden;
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+/* Sur mobile la vidéo est seule sur ses lignes : sans hauteur propre elle s'écrase */
+@media only screen and (max-width: 749px) {
+  .grid-video-item {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    aspect-ratio: 1 / 1;
+  }
 }
 
 .grid-video-item__wrapper {

@@ -297,7 +297,7 @@
           {% endif %}
         >
           {%- if section.settings.enable_grid_video and section.settings.grid_video != null and paginate.current_page == 1 -%}
-  <div class="grid-item grid-video-item" style="grid-column: span 2; grid-row: span 2;">
+  <div class="grid-item grid-video-item">
     {%- liquid
       assign gv_mobile = section.settings.grid_video_mobile
       assign gv_desktop_class = ''
@@ -313,7 +313,7 @@
         </div>
       {%- endif -%}
 
-      <video-background class="grid-video-item__player is-loading" data-video-player data-video-id="{{ section.id }}-grid-video-mobile">
+      <video-background class="grid-video-item__player is-loading" data-video-player data-video-id="{{ section.id }}-grid-video">
         <template data-video-template>
           {{ section.settings.grid_video | video_tag: autoplay: true, image_size: '800x', loop: true, muted: true, controls: false }}
         </template>
