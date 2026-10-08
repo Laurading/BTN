@@ -156,8 +156,11 @@
     width: 100%;
     aspect-ratio: 1;
     overflow: hidden;
-    border: 1.5px solid transparent;
     border-radius: 7px;
+    /* Même état « sélectionné » que les swatches du thème : cadre fin décalé, en fondu */
+    outline: 1px solid transparent;
+    outline-offset: 2px;
+    transition: outline-color 0.3s ease;
   }
   .bestini-color-card__photo img {
     display: block;
@@ -165,10 +168,8 @@
     height: 100%;
     object-fit: contain;
   }
-  .bestini-color-card.is-current .bestini-color-card__photo { border-color: #79554b; }
-  @media (hover: hover) and (pointer: fine) {
-    .bestini-color-card:not(.is-current):hover .bestini-color-card__photo { border-color: #bbaaa4; }
-  }
+  .bestini-color-card.is-current { cursor: default; pointer-events: none; }
+  .bestini-color-card.is-current .bestini-color-card__photo { outline-color: var(--swatch-default, #ccc); }
   .bestini-color-card:focus-visible { outline: 2px solid #79554b; outline-offset: 3px; border-radius: 7px; }
   .bestini-color-card__name { font-size: 14px; line-height: 1.3; }
   .bestini-color-card__status { color: #843c28; font-size: 11px; line-height: 1.3; }
