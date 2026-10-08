@@ -37,6 +37,41 @@
 {%- render 'stylesheet', name: 'custom-content.css' -%}
 
 {%- style -%}
+  /* Bloc Grille d'images 3x3 */
+  #MenuBrickSection--{{ section.id }} .brick__block--image-grid {
+    display: flex;
+    align-items: center;
+  }
+  #MenuBrickSection--{{ section.id }} .image-grid-3x3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--grid-gap, 8px);
+    width: 100%;
+  }
+  #MenuBrickSection--{{ section.id }} .image-grid-3x3__cell {
+    display: block;
+    aspect-ratio: var(--cell-ratio, 1);
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.04);
+  }
+  #MenuBrickSection--{{ section.id }} .image-grid-3x3__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    #MenuBrickSection--{{ section.id }} a.image-grid-3x3__cell:hover .image-grid-3x3__img {
+      transform: scale(1.04);
+    }
+  }
+  @media only screen and (min-width: 750px) {
+    #MenuBrickSection--{{ section.id }} .brick__block--span-two {
+      grid-column: span 2;
+    }
+  }
+
   #MenuBrickSection--{{ section.id }} {
     --PT: {{ section.settings.padding_top }}px;
     --PB: {{ section.settings.padding_bottom }}px;
@@ -523,6 +558,39 @@
                 </slider-component>
               </div>
             </div>
+          {%- when 'image_grid' -%}
+            <div
+              class="brick__block brick__block--image-grid{% if block.settings.span_two %} brick__block--span-two{% endif %}"
+              style="--grid-gap: {{ block.settings.gap }}px; --cell-ratio: {{ block.settings.aspect_ratio }};{{ style }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="image-grid-3x3">
+                {%- for i in (1..9) -%}
+                  {%- liquid
+                    assign image_key = 'image_' | append: i
+                    assign link_key = 'link_' | append: i
+                    assign cell_image = block.settings[image_key]
+                    assign cell_link = block.settings[link_key]
+                  -%}
+                  {%- if cell_link != blank -%}
+                    <a class="image-grid-3x3__cell" href="{{ cell_link }}">
+                  {%- else -%}
+                    <div class="image-grid-3x3__cell">
+                  {%- endif -%}
+                    {%- if cell_image != blank -%}
+                      {{ cell_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '200, 300, 450, 600, 900', sizes: '(min-width: 750px) 20vw, 33vw', class: 'image-grid-3x3__img' }}
+                    {%- elsif request.design_mode -%}
+                      {{ 'image' | placeholder_svg_tag: 'image-grid-3x3__img image-grid-3x3__img--placeholder' }}
+                    {%- endif -%}
+                  {%- if cell_link != blank -%}
+                    </a>
+                  {%- else -%}
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+
           {%- when 'before-and-after' -%}
             <div
               class="brick__block brick__block--compare {{ desktop_height }} {{ mobile_height }}"
@@ -1767,6 +1835,179 @@
           "id": "image_2",
           "label": "Image 2",
           "info": "2000 x 1400px .jpg recommended. [Learn more](http://presidiodev.com/link/broadcast/images)"
+        }
+      ]
+    },
+    {
+      "type": "image_grid",
+      "name": "Grille d'images 3x3",
+      "settings": [
+        {
+          "type": "select",
+          "id": "aspect_ratio",
+          "label": "Format des cases",
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": "Carré (1:1)"
+            },
+            {
+              "value": "0.8",
+              "label": "Portrait (4:5)"
+            },
+            {
+              "value": "0.6667",
+              "label": "Portrait (2:3)"
+            },
+            {
+              "value": "1.3333",
+              "label": "Paysage (4:3)"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "gap",
+          "label": "Espacement entre les images",
+          "min": 0,
+          "max": 30,
+          "step": 2,
+          "unit": "px",
+          "default": 8
+        },
+        {
+          "type": "checkbox",
+          "id": "span_two",
+          "label": "Occuper la largeur de deux blocs",
+          "info": "Sur ordinateur. Pensez à n'avoir que le menu et ce bloc dans la section.",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Case 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_1",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_2",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_3",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_4",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_5",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 6"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_6",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_6",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 7"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_7",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_7",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 8"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_8",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_8",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 9"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_9",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_9",
+          "label": "Lien"
         }
       ]
     }
