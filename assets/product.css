@@ -22,6 +22,14 @@ product-sticky {
   .product__wrapper:not(.product__wrapper--small):not(.product__wrapper--stretch) .product__wrapper__inner > .product__page {
     grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   }
+  /* Test : images collées au bord gauche de l'écran, bord droit inchangé */
+  .product__wrapper:not(.product__wrapper--small):not(.product__wrapper--stretch):has(> .product__wrapper__inner) {
+    margin-left: 0;
+  }
+  .product__wrapper:not(.product__wrapper--small):not(.product__wrapper--stretch) > .product__wrapper__inner {
+    max-width: calc(50% + 700px);
+    margin-left: 0;
+  }
 }
 .product__page .form__wrapper.is-sticky {
   position: sticky;
