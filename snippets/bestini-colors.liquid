@@ -157,10 +157,6 @@
     aspect-ratio: 1;
     overflow: hidden;
     border-radius: 7px;
-    /* Même état « sélectionné » que les swatches du thème : cadre fin décalé, en fondu */
-    outline: 1px solid transparent;
-    outline-offset: 2px;
-    transition: outline-color 0.3s ease;
   }
   .bestini-color-card__photo img {
     display: block;
@@ -169,18 +165,31 @@
     object-fit: contain;
   }
   .bestini-color-card.is-current { cursor: default; pointer-events: none; }
-  .bestini-color-card.is-current .bestini-color-card__photo { outline-color: var(--swatch-default, #ccc); }
+  /* Sélectionné : nom en gras souligné · Survol : soulignement plus clair */
+  .bestini-color-card__name {
+    text-decoration: underline 1px transparent;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.3s ease;
+  }
+  .bestini-color-card.is-current .bestini-color-card__name { font-weight: 600; text-decoration-color: currentColor; }
+  @media (hover: hover) and (pointer: fine) {
+    .bestini-color-card:hover .bestini-color-card__name { text-decoration-color: #bbb; }
+  }
   .bestini-color-card:focus-visible { outline: 2px solid #79554b; outline-offset: 3px; border-radius: 7px; }
   .bestini-color-card__name { font-size: 14px; line-height: 1.3; }
   .bestini-color-card__status { color: #843c28; font-size: 11px; line-height: 1.3; }
   #bestini-product-photo:focus { outline: none; }
   #bestini-product-photo { scroll-margin-top: calc(var(--header-height, 80px) + 12px); }
+  /* Cartes par ligne : 4 mobile · 6 de 750 à 1399px · 8 à partir de 1400px */
   @media (min-width: 750px) {
-    .bestini-colors__grid { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 12px 8px; }
+    .bestini-colors__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px 8px; }
     .bestini-colors__group + .bestini-colors__group { margin-top: 16px; }
     .bestini-colors__heading { margin-bottom: 6px; }
     .bestini-color-card__name { font-size: 12px; }
     .bestini-color-card__status { font-size: 10px; }
+  }
+  @media (min-width: 1400px) {
+    .bestini-colors__grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
   }
   /* Fenêtre d'ajout rapide : colonne étroite */
   .bestini-colors--compact .bestini-colors__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
