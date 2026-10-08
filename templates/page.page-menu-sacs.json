@@ -86,10 +86,10 @@
           "type": "image_grid",
           "settings": {
             "aspect_ratio": "1",
-            "gap": 8,
+            "gap": 4,
             "span_two": false,
             "padding_x": 8,
-            "padding_y": 8,
+            "padding_y": 0,
             "text_align": "center",
             "text_font_size": "body-medium",
             "caption_color": "",
