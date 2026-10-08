@@ -21,6 +21,11 @@ product-sticky {
 @media only screen and (min-width: 990px) {
   .product__wrapper:not(.product__wrapper--small):not(.product__wrapper--stretch) .product__wrapper__inner > .product__page {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    /* Espace entre colonnes partagé à parts égales (le thème le prenait sur la colonne infos) */
+    column-gap: var(--outer);
+  }
+  .product__wrapper:not(.product__wrapper--small):not(.product__wrapper--stretch) > .product__wrapper__inner .product__content {
+    padding-left: 0;
   }
   /* Bloc d'infos sur toute la largeur de sa colonne (le thème le limite à 550px) */
   .product__wrapper:not(.product__wrapper--small):not(.product__wrapper--stretch) > .product__wrapper__inner .form__width {
