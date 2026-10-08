@@ -17,6 +17,12 @@ product-sticky {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+/* Fiche produit desktop : images 40% / infos 60% */
+@media only screen and (min-width: 990px) {
+  .product__wrapper:not(.product__wrapper--small):not(.product__wrapper--stretch) .product__wrapper__inner > .product__page {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  }
+}
 .product__page .form__wrapper.is-sticky {
   position: sticky;
   top: var(--sticky-top, 0);
