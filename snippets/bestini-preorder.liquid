@@ -1,0 +1,35 @@
+{% doc %}
+  Règle unique de précommande. Affiche "true" si le produit est en précommande, rien sinon.
+  À utiliser avec capture : {% capture is_preorder %}{% render 'bestini-preorder', product: p %}{% endcapture %}
+  @param {product} product - Le produit.
+  @param {variant} [variant] - La variante sélectionnée.
+{% enddoc %}
+
+{%- liquid
+  assign preorder = false
+  assign preorder_date = product.metafields.custom.preorder_date.value
+
+  if preorder_date != blank
+    assign today = 'now' | date: '%Y-%m-%d'
+    if preorder_date >= today
+      assign preorder = true
+    endif
+  endif
+
+  if product.metafields.theme.preorder.type == 'boolean' and product.metafields.theme.preorder.value == true
+    assign preorder = true
+  endif
+
+  if variant.metafields.theme.preorder.type == 'boolean' and variant.metafields.theme.preorder.value == true
+    assign preorder = true
+  endif
+
+  assign product_tags = product.tags | join: ','
+  if product_tags contains '_preorder'
+    assign preorder = true
+  endif
+
+  if preorder
+    echo 'true'
+  endif
+-%}

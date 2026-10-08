@@ -84,13 +84,18 @@
     assign quickview_class = 'product-item--has-quickbuy'
   endif
 
+  comment
+    Source des produits frères — même ordre que dans snippets/product-siblings.liquid
+  endcomment
   assign has_siblings = false
-  if settings.show_siblings and product.metafields.theme.siblings.value != blank and product.metafields.theme.siblings.type == 'single_line_text_field'
-    assign has_siblings = true
-  endif
-
-  if settings.show_siblings and product.metafields.theme.sibling_products != blank and product.metafields.theme.sibling_products.type == 'list.product_reference'
-    assign has_siblings = true
+  if settings.show_siblings
+    assign sibling_products = product.metafields.theme.sibling_products.value | default: collections[product.metafields.theme.siblings.value].products
+    if sibling_products == blank and product.handle contains 'bowling-lacet'
+      assign sibling_products = collections['sac-bowling-lacet'].products
+    endif
+    if sibling_products.size > 0
+      assign has_siblings = true
+    endif
   endif
 
   if sizes == blank
@@ -310,8 +315,7 @@
 
 {%- if has_siblings -%}
   {%- liquid
-    assign sibling_products = product.metafields.theme.sibling_products.value | default: collections[product.metafields.theme.siblings.value].products
-    assign count = product.metafields.theme.sibling_products.value.count | default: collections[product.metafields.theme.siblings.value].products.size
+    assign count = sibling_products.size
     assign count_string_one = 'collections.general.colors_with_count.one' | t
     assign count_string_other = 'collections.general.colors_with_count.other' | t
 
@@ -365,6 +369,9 @@
                 assign sib_cutline = sib_product.metafields.theme.cutline | strip_html
                 assign sib_color = sib_product.metafields.theme.sibling_color.value | default: sib_product.metafields.theme.sibling_colour.value | default: sib_product.metafields.theme.siblings_color.value | default: sib_product.metafields.theme.siblings_colour.value | default: sib_product.metafields.theme.siblings_colors.value | default: sib_product.metafields.theme.siblings_colours.value
                 assign swatch_color = sib_color | handle
+                capture sib_color
+                  render 'bestini-color-name', product: sib_product
+                endcapture
 
                 if sib_cutline != blank
                   assign any_sibling_cutline = true
@@ -442,7 +449,6 @@
 {%- capture over_image_content -%}
   {%- liquid
     assign product_tags = product.tags | join: ',' | append: ','
-    assign is_preorder_meta = false
     assign preorder = false
     assign on_sale = false
     assign badge_container_class = 'badge-box-container' | append: ' ' | append: settings.badge_alignment | append: ' ' | append: settings.badge_font_size
@@ -450,15 +456,11 @@
     assign show_saving = settings.show_saving_badge
 
     if settings.show_preorder_badge
-      if product.metafields.theme.preorder.type == 'boolean' and product.metafields.theme.preorder.value == true
-        assign is_preorder_meta = true
-      endif
+      capture preorder_check
+        render 'bestini-preorder', product: product, variant: current_variant
+      endcapture
 
-      if current_variant.metafields.theme.preorder.type == 'boolean' and current_variant.metafields.theme.preorder.value == true
-        assign is_preorder_meta = true
-      endif
-
-      if product_tags contains '_preorder' or is_preorder_meta
+      if preorder_check == 'true'
         assign preorder_badge_text = 'products.product.pre_order' | t
         assign preorder_badge_class = badge_class | append: ' preorder-box'
         assign preorder = true

@@ -73,7 +73,10 @@
   assign product_form_id = 'product-form-' | append: section.id
   assign show_cart_bar = false
 
-  assign sibling_color = product.metafields.theme.sibling_color.value | default: product.metafields.theme.sibling_colour.value | default: product.metafields.theme.siblings_color.value | default: product.metafields.theme.siblings_colour.value | default: product.metafields.theme.siblings_colors.value | default: product.metafields.theme.siblings_colours.value
+  capture sibling_color
+    render 'bestini-color-name', product: product
+  endcapture
+  assign siblings_blocks = section.blocks | where: 'type', 'siblings'
 
   if section.settings.show_cart_bar and featured_product == false
     assign show_cart_bar = true
@@ -95,28 +98,17 @@
     endif
   endcapture
 
-  assign preorder = false
   assign preorder_date = product.metafields.custom.preorder_date.value
 
-  if preorder_date != blank
-    assign today = 'now' | date: '%Y-%m-%d'
-    if preorder_date >= today
-      assign preorder = true
-    endif
-  endif
-
-  if product.metafields.theme.preorder.type == 'boolean' and product.metafields.theme.preorder.value == true
-    assign preorder = true
-  endif
-
-  if current_variant.metafields.theme.preorder.type == 'boolean' and current_variant.metafields.theme.preorder.value == true
+  capture preorder_check
+    render 'bestini-preorder', product: product, variant: current_variant
+  endcapture
+  assign preorder = false
+  if preorder_check == 'true'
     assign preorder = true
   endif
 
   assign product_tags = product.tags | join: ','
-  if product_tags contains '_preorder'
-    assign preorder = true
-  endif
 
 assign preorder_month_num = preorder_date | date: '%m'
 assign preorder_day = preorder_date | date: '%d'
@@ -197,7 +189,7 @@ assign preorder_date_formatted = preorder_day | append: ' ' | append: preorder_m
     <div class="{% if featured_product %}{{ section.settings.width }}{% else %}product__wrapper__inner{% endif %}">
       <div class="product__page">
         <product-images
-          {% if product.handle contains 'bowling-lacet' and template.name == 'product' and featured_product != true %}id="bestini-product-photo"{% endif %}
+          {% if featured_product != true %}id="bestini-product-photo"{% endif %}
           class="{{ product_images_classlist }}"
           data-active-media="{{ section.id }}-{{ featured_media.id }}"
           {% if enable_thumbs %}
@@ -398,7 +390,8 @@ assign preorder_date_formatted = preorder_day | append: ' ' | append: preorder_m
                 {% endif %}
               </div>
 
-              {%- if sibling_color != blank -%}
+              {%- comment -%} Le bloc Couleurs envoie déjà cette propriété {%- endcomment -%}
+              {%- if sibling_color != blank and siblings_blocks.size == 0 -%}
                 <input
                   type="hidden"
                   form="{{ product_form_id }}"

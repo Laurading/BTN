@@ -1,0 +1,193 @@
+{% doc %}
+  Sélecteur de couleurs en cartes photo, pour tous les produits ayant des produits frères.
+  Les cartes sont regroupées par finition (Lisse / Suède) seulement si les deux finitions existent.
+  @param {product} product - Le produit courant.
+  @param {product[]} sibling_products - Produits frères.
+  @param {string} sibling_color - Nom de la couleur courante.
+  @param {string} product_form_id - Identifiant du formulaire produit.
+  @param {block} [block] - Bloc de l'éditeur de thème.
+  @param {string} [block_style] - Attributs d'espacement du bloc.
+  @param {string} [option_font_size] - Typographie du libellé.
+  @param {string} [value_font_size] - Typographie de la valeur.
+  @param {boolean} [product_api] - Rendu dans la fenêtre d'ajout rapide (upsell).
+{% enddoc %}
+
+{%- liquid
+  assign has_smooth = false
+  assign has_suede = false
+  for sibling in sibling_products limit: 50
+    if sibling.handle contains 'suede'
+      assign has_suede = true
+    else
+      assign has_smooth = true
+    endif
+  endfor
+
+  assign finishes = 'all' | split: ','
+  if has_smooth and has_suede
+    assign finishes = 'smooth,suede' | split: ','
+    if product.handle contains 'suede'
+      assign finishes = 'suede,smooth' | split: ','
+    endif
+  endif
+-%}
+
+<div class="product__block product__siblings bestini-colors block-padding{% if settings.show_lines %} product__block--lines{% endif %}{% if product_api %} bestini-colors--compact{% endif %}" {{ block_style }} {{ block.shopify_attributes }}>
+  <input type="hidden" form="{{ product_form_id }}" name="properties[{{ 'general.siblings.label' | t | escape }}]" value="{{ sibling_color | escape }}">
+  <p class="bestini-colors__legend">
+    <span class="{{ option_font_size }}">{{ 'general.siblings.label' | t }} :</span>
+    <span class="{{ value_font_size }}">{{ sibling_color | escape }}</span>
+  </p>
+
+  {%- for finish in finishes -%}
+    {%- capture cards -%}
+      {%- for sibling in sibling_products limit: 50 -%}
+        {%- liquid
+          assign sibling_finish = 'smooth'
+          if sibling.handle contains 'suede'
+            assign sibling_finish = 'suede'
+          endif
+          if finish != 'all' and sibling_finish != finish
+            continue
+          endif
+
+          capture color_name
+            render 'bestini-color-name', product: sibling, fallback_title: true
+          endcapture
+
+          capture is_preorder
+            render 'bestini-preorder', product: sibling
+          endcapture
+
+          assign current_class = ''
+          if sibling.id == product.id
+            assign current_class = ' is-current sibling__link--current'
+          endif
+        -%}
+        {%- capture card_inner -%}
+          <span class="bestini-color-card__photo">
+            {%- if sibling.featured_image -%}
+              {{ sibling.featured_image | image_url: width: 300, height: 300, crop: 'center' | image_tag: loading: 'lazy', widths: '100, 200, 300', sizes: '(max-width: 749px) 23vw, 130px', alt: '' }}
+            {%- endif -%}
+          </span>
+          <span class="bestini-color-card__name">{{ color_name | escape }}</span>
+          {%- if sibling.available == false -%}
+            <span class="bestini-color-card__status">{{ 'products.product.sold_out' | t }}</span>
+          {%- elsif is_preorder == 'true' -%}
+            <span class="bestini-color-card__status">{{ 'bestini.color_picker.preorder' | t }}</span>
+          {%- endif -%}
+        {%- endcapture -%}
+
+        {%- if product_api -%}
+          {%- assign unique = section.id | append: '-' | append: sibling.id -%}
+          <quick-add-product class="bestini-color-card__holder">
+            <div data-quick-add-holder="{{ sibling.id }}">
+              <a
+                href="{{ sibling.url }}"
+                class="bestini-color-card sibling__link{{ current_class }}"
+                data-quick-add-btn
+                data-swap-url="{{ sibling.url }}"
+                data-swap-target="{{ section.id }}--{{ sibling.handle }}"
+                data-sibling-swapper
+                data-quick-add-modal-handle="{{ sibling.handle }}"
+                {% if sibling.id == product.id %}aria-current="page"{% endif %}
+              >
+                {{- card_inner -}}
+              </a>
+              {%- render 'product-quick-add-modal-template', product_id: sibling.id, unique: unique -%}
+            </div>
+          </quick-add-product>
+        {%- else -%}
+          <a class="bestini-color-card{{ current_class }}" href="{{ sibling.url }}#bestini-product-photo"{% if sibling.id == product.id %} aria-current="page"{% endif %}>
+            {{- card_inner -}}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if cards != blank -%}
+      {%- if finish == 'all' -%}
+        <div class="bestini-colors__grid">{{ cards }}</div>
+      {%- else -%}
+        <section class="bestini-colors__group" aria-labelledby="BestiniFinish-{{ section.id }}-{{ block.id }}-{{ finish }}">
+          <h3 class="bestini-colors__heading" id="BestiniFinish-{{ section.id }}-{{ block.id }}-{{ finish }}">
+            {%- if finish == 'smooth' -%}{{ 'bestini.color_picker.smooth' | t }}{%- else -%}{{ 'bestini.color_picker.suede' | t }}{%- endif -%}
+          </h3>
+          <div class="bestini-colors__grid">{{ cards }}</div>
+        </section>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+
+{% stylesheet %}
+  .bestini-colors__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin: 0 0 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .bestini-colors__group + .bestini-colors__group { margin-top: 22px; }
+  .bestini-colors__heading {
+    margin: 0 0 10px;
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .bestini-colors__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px 10px;
+  }
+  .bestini-color-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: inherit;
+    text-align: center;
+    text-decoration: none;
+  }
+  .bestini-color-card__photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1.5px solid transparent;
+    border-radius: 7px;
+  }
+  .bestini-color-card__photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .bestini-color-card.is-current .bestini-color-card__photo { border-color: #79554b; }
+  @media (hover: hover) and (pointer: fine) {
+    .bestini-color-card:not(.is-current):hover .bestini-color-card__photo { border-color: #bbaaa4; }
+  }
+  .bestini-color-card:focus-visible { outline: 2px solid #79554b; outline-offset: 3px; border-radius: 7px; }
+  .bestini-color-card__name { font-size: 14px; line-height: 1.3; }
+  .bestini-color-card__status { color: #843c28; font-size: 11px; line-height: 1.3; }
+  #bestini-product-photo:focus { outline: none; }
+  #bestini-product-photo { scroll-margin-top: calc(var(--header-height, 80px) + 12px); }
+  @media (min-width: 750px) {
+    .bestini-colors__grid { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 12px 8px; }
+    .bestini-colors__group + .bestini-colors__group { margin-top: 16px; }
+    .bestini-colors__heading { margin-bottom: 6px; }
+    .bestini-color-card__name { font-size: 12px; }
+    .bestini-color-card__status { font-size: 10px; }
+  }
+  /* Fenêtre d'ajout rapide : colonne étroite */
+  .bestini-colors--compact .bestini-colors__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .bestini-color-card__holder { display: contents; }
+  .bestini-color-card__holder > [data-quick-add-holder] { display: contents; }
+  @media (max-width: 749px) {
+    .bestini-colors__grid { gap: 16px 8px; }
+    .bestini-color-card__name { font-size: 12px; }
+    .bestini-color-card__status { font-size: 10px; }
+  }
+{% endstylesheet %}
