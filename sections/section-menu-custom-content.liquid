@@ -48,6 +48,14 @@
     width: 100%;
   }
   #MenuBrickSection--{{ section.id }} .image-grid-3x3__cell {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 0;
+    color: var(--caption-color, inherit);
+    text-decoration: none;
+  }
+  #MenuBrickSection--{{ section.id }} .image-grid-3x3__media {
     position: relative;
     display: block;
     aspect-ratio: var(--cell-ratio, 1);
@@ -63,23 +71,10 @@
     object-fit: cover;
     transition: transform 0.4s ease;
   }
-  #MenuBrickSection--{{ section.id }} .image-grid-3x3__overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    color: var(--overlay-text, #fff);
-    text-align: center;
-    text-decoration: none;
-    background: rgba(0, 0, 0, var(--overlay-opacity, 0.2));
-    pointer-events: none;
-  }
-  #MenuBrickSection--{{ section.id }} .image-grid-3x3__overlay--top { align-items: flex-start; }
-  #MenuBrickSection--{{ section.id }} .image-grid-3x3__overlay--center { align-items: center; }
-  #MenuBrickSection--{{ section.id }} .image-grid-3x3__overlay--bottom { align-items: flex-end; }
-  #MenuBrickSection--{{ section.id }} .image-grid-3x3__text {
+  #MenuBrickSection--{{ section.id }} .image-grid-3x3__caption {
+    display: block;
     line-height: 1.25;
+    text-align: var(--caption-align, center);
     overflow-wrap: anywhere;
   }
   @media (hover: hover) and (pointer: fine) {
@@ -87,12 +82,15 @@
       transform: scale(1.04);
     }
   }
-  /* La grille remplit tout le bloc (3 rangées égales) quand la section a une hauteur définie */
+  /* La grille remplit tout le bloc (3 rangées égales) quand la section a une hauteur définie.
+     L'image prend la place restante au-dessus du texte. */
   @media only screen and (min-width: 750px) {
     #MenuBrickSection--{{ section.id }} .image-grid--fill-desktop .image-grid-3x3 {
       grid-template-rows: repeat(3, minmax(0, 1fr));
     }
-    #MenuBrickSection--{{ section.id }} .image-grid--fill-desktop .image-grid-3x3__cell {
+    #MenuBrickSection--{{ section.id }} .image-grid--fill-desktop .image-grid-3x3__media {
+      flex: 1 1 auto;
+      min-height: 0;
       aspect-ratio: auto;
     }
   }
@@ -100,7 +98,9 @@
     #MenuBrickSection--{{ section.id }} .image-grid--fill-mobile .image-grid-3x3 {
       grid-template-rows: repeat(3, minmax(0, 1fr));
     }
-    #MenuBrickSection--{{ section.id }} .image-grid--fill-mobile .image-grid-3x3__cell {
+    #MenuBrickSection--{{ section.id }} .image-grid--fill-mobile .image-grid-3x3__media {
+      flex: 1 1 auto;
+      min-height: 0;
       aspect-ratio: auto;
     }
   }
@@ -599,7 +599,7 @@
           {%- when 'image_grid' -%}
             <div
               class="brick__block brick__block--image-grid {{ desktop_height }} {{ mobile_height }}{% if desktop_height != 'image-height' %} image-grid--fill-desktop{% endif %}{% if mobile_height != 'image-height--mobile' %} image-grid--fill-mobile{% endif %}{% if block.settings.span_two %} brick__block--span-two{% endif %}"
-              style="--grid-gap: {{ block.settings.gap }}px; --cell-ratio: {{ block.settings.aspect_ratio }}; --overlay-text: {{ block.settings.overlay_text_color }}; --overlay-opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};{{ style }}"
+              style="--grid-gap: {{ block.settings.gap }}px; --cell-ratio: {{ block.settings.aspect_ratio }}; --caption-align: {{ block.settings.text_align }};{% if block.settings.caption_color != blank and block.settings.caption_color.alpha != 0.0 %} --caption-color: {{ block.settings.caption_color }};{% endif %}{{ style }}"
               {{ block.shopify_attributes }}
             >
               <div class="image-grid-3x3">
@@ -617,15 +617,15 @@
                   {%- else -%}
                     <div class="image-grid-3x3__cell">
                   {%- endif -%}
-                    {%- if cell_image != blank -%}
-                      {{ cell_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '200, 300, 450, 600, 900', sizes: '(min-width: 750px) 20vw, 33vw', class: 'image-grid-3x3__img' }}
-                    {%- elsif request.design_mode -%}
-                      {{ 'image' | placeholder_svg_tag: 'image-grid-3x3__img image-grid-3x3__img--placeholder' }}
-                    {%- endif -%}
+                    <span class="image-grid-3x3__media">
+                      {%- if cell_image != blank -%}
+                        {{ cell_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '200, 300, 450, 600, 900', sizes: '(min-width: 750px) 20vw, 33vw', class: 'image-grid-3x3__img' }}
+                      {%- elsif request.design_mode -%}
+                        {{ 'image' | placeholder_svg_tag: 'image-grid-3x3__img image-grid-3x3__img--placeholder' }}
+                      {%- endif -%}
+                    </span>
                     {%- if cell_text != blank -%}
-                      <span class="image-grid-3x3__overlay image-grid-3x3__overlay--{{ block.settings.text_position }}">
-                        <span class="image-grid-3x3__text {{ block.settings.text_font_size }}">{{ cell_text }}</span>
-                      </span>
+                      <span class="image-grid-3x3__caption {{ block.settings.text_font_size }}">{{ cell_text }}</span>
                     {%- endif -%}
                   {%- if cell_link != blank -%}
                     </a>
@@ -1931,25 +1931,25 @@
         },
         {
           "type": "header",
-          "content": "Texte sur les images"
+          "content": "Texte sous les images"
         },
         {
           "type": "select",
-          "id": "text_position",
-          "label": "Position du texte",
+          "id": "text_align",
+          "label": "Alignement du texte",
           "default": "center",
           "options": [
             {
-              "value": "top",
-              "label": "En haut"
+              "value": "left",
+              "label": "À gauche"
             },
             {
               "value": "center",
-              "label": "Au centre"
+              "label": "Centré"
             },
             {
-              "value": "bottom",
-              "label": "En bas"
+              "value": "right",
+              "label": "À droite"
             }
           ]
         },
@@ -1987,20 +1987,10 @@
         },
         {
           "type": "color",
-          "id": "overlay_text_color",
+          "id": "caption_color",
           "label": "Couleur du texte",
-          "default": "#ffffff"
-        },
-        {
-          "type": "range",
-          "id": "overlay_opacity",
-          "label": "Assombrir l'image sous le texte",
-          "info": "S'applique seulement aux cases qui ont un texte.",
-          "min": 0,
-          "max": 80,
-          "step": 5,
-          "unit": "%",
-          "default": 20
+          "info": "Laisser vide pour la couleur du thème.",
+          "alpha": true
         },
         {
           "type": "header",
