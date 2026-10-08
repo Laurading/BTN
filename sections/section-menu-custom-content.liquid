@@ -39,8 +39,7 @@
 {%- style -%}
   /* Bloc Grille d'images 3x3 */
   #MenuBrickSection--{{ section.id }} .brick__block--image-grid {
-    display: flex;
-    align-items: center;
+    display: grid;
   }
   #MenuBrickSection--{{ section.id }} .image-grid-3x3 {
     display: grid;
@@ -56,6 +55,8 @@
     background: rgba(0, 0, 0, 0.04);
   }
   #MenuBrickSection--{{ section.id }} .image-grid-3x3__img {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
     height: 100%;
@@ -84,6 +85,23 @@
   @media (hover: hover) and (pointer: fine) {
     #MenuBrickSection--{{ section.id }} a.image-grid-3x3__cell:hover .image-grid-3x3__img {
       transform: scale(1.04);
+    }
+  }
+  /* La grille remplit tout le bloc (3 rangées égales) quand la section a une hauteur définie */
+  @media only screen and (min-width: 750px) {
+    #MenuBrickSection--{{ section.id }} .image-grid--fill-desktop .image-grid-3x3 {
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+    }
+    #MenuBrickSection--{{ section.id }} .image-grid--fill-desktop .image-grid-3x3__cell {
+      aspect-ratio: auto;
+    }
+  }
+  @media only screen and (max-width: 749px) {
+    #MenuBrickSection--{{ section.id }} .image-grid--fill-mobile .image-grid-3x3 {
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+    }
+    #MenuBrickSection--{{ section.id }} .image-grid--fill-mobile .image-grid-3x3__cell {
+      aspect-ratio: auto;
     }
   }
   @media only screen and (min-width: 750px) {
@@ -580,7 +598,7 @@
             </div>
           {%- when 'image_grid' -%}
             <div
-              class="brick__block brick__block--image-grid{% if block.settings.span_two %} brick__block--span-two{% endif %}"
+              class="brick__block brick__block--image-grid {{ desktop_height }} {{ mobile_height }}{% if desktop_height != 'image-height' %} image-grid--fill-desktop{% endif %}{% if mobile_height != 'image-height--mobile' %} image-grid--fill-mobile{% endif %}{% if block.settings.span_two %} brick__block--span-two{% endif %}"
               style="--grid-gap: {{ block.settings.gap }}px; --cell-ratio: {{ block.settings.aspect_ratio }}; --overlay-text: {{ block.settings.overlay_text_color }}; --overlay-opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};{{ style }}"
               {{ block.shopify_attributes }}
             >
@@ -1873,6 +1891,7 @@
           "type": "select",
           "id": "aspect_ratio",
           "label": "Format des cases",
+          "info": "Utilisé seulement si la hauteur de la section est réglée sur la hauteur de l'image. Sinon, la grille remplit tout le bloc.",
           "default": "1",
           "options": [
             {
