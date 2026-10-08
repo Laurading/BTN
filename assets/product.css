@@ -17,18 +17,10 @@ product-sticky {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-/* Fiche produit desktop : images 50% / infos 50% */
+/* Fiche produit desktop : images 40% / infos 60% */
 @media only screen and (min-width: 990px) {
   .product__wrapper:not(.product__wrapper--small):not(.product__wrapper--stretch) .product__wrapper__inner > .product__page {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-  /* Test : images collées au bord gauche de l'écran, bord droit inchangé */
-  .product__wrapper:not(.product__wrapper--small):not(.product__wrapper--stretch):has(> .product__wrapper__inner) {
-    margin-left: 0;
-  }
-  .product__wrapper:not(.product__wrapper--small):not(.product__wrapper--stretch) > .product__wrapper__inner {
-    max-width: calc(50% + 700px);
-    margin-left: 0;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   }
   /* Bloc d'infos sur toute la largeur de sa colonne (le thème le limite à 550px) */
   .product__wrapper:not(.product__wrapper--small):not(.product__wrapper--stretch) > .product__wrapper__inner .form__width {
