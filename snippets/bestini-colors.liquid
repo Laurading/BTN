@@ -73,7 +73,7 @@
           <span class="bestini-color-card__name">{{ color_name | escape }}</span>
           {%- if sibling.available == false -%}
             <span class="bestini-color-card__status">{{ 'products.product.sold_out' | t }}</span>
-          {%- elsif is_preorder == 'true' -%}
+          {%- elsif is_preorder contains 'true' -%}
             <span class="bestini-color-card__status">{{ 'bestini.color_picker.preorder' | t }}</span>
           {%- endif -%}
         {%- endcapture -%}

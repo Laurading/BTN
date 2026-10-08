@@ -460,7 +460,7 @@
         render 'bestini-preorder', product: product, variant: current_variant
       endcapture
 
-      if preorder_check == 'true'
+      if preorder_check contains 'true'
         assign preorder_badge_text = 'products.product.pre_order' | t
         assign preorder_badge_class = badge_class | append: ' preorder-box'
         assign preorder = true

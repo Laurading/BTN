@@ -1,6 +1,6 @@
 {% doc %}
   Règle unique de précommande. Affiche "true" si le produit est en précommande, rien sinon.
-  À utiliser avec capture : {% capture is_preorder %}{% render 'bestini-preorder', product: p %}{% endcapture %}
+  À utiliser dans un capture, puis tester le résultat avec « contains 'true' ».
   @param {product} product - Le produit.
   @param {variant} [variant] - La variante sélectionnée.
 {% enddoc %}

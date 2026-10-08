@@ -104,7 +104,7 @@
     render 'bestini-preorder', product: product, variant: current_variant
   endcapture
   assign preorder = false
-  if preorder_check == 'true'
+  if preorder_check contains 'true'
     assign preorder = true
   endif
 
