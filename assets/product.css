@@ -30,6 +30,10 @@ product-sticky {
     max-width: calc(50% + 700px);
     margin-left: 0;
   }
+  /* Bloc d'infos sur toute la largeur de sa colonne (le thème le limite à 550px) */
+  .product__wrapper:not(.product__wrapper--small):not(.product__wrapper--stretch) > .product__wrapper__inner .form__width {
+    max-width: none;
+  }
 }
 .product__page .form__wrapper.is-sticky {
   position: sticky;
