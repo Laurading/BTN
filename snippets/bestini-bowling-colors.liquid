@@ -1,7 +1,7 @@
 {% doc %}
   Renders Bowling & lacet color choices grouped by finish.
   @param {product} product - The current bag.
-  @param {array} sibling_products - Related bags.
+  @param {product[]} sibling_products - Related bags.
   @param {string} sibling_color - Current color name.
   @param {string} product_form_id - Product form identifier.
   @param {block} block - Theme editor block.
@@ -43,7 +43,9 @@
             assign color_name = color_key | t
           endif
           assign is_preorder = false
-          if sibling.tags contains 'preorder' or sibling.tags contains '_preorder' or sibling.metafields.theme.preorder.value
+          if sibling.handle == 'sac-bowling-lacet-beige' or sibling.handle == 'sac-bowling-lacet-chocolat'
+            assign is_preorder = false
+          elsif sibling.tags contains 'preorder' or sibling.tags contains '_preorder' or sibling.metafields.theme.preorder.value
             assign is_preorder = true
           endif
         -%}
