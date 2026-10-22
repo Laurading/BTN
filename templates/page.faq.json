@@ -296,6 +296,7 @@
         },
         "text_ztitHH": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "<p><a href=\"https://www.bestiniparis.com/#kodaswap-return\" title=\"https://www.bestiniparis.com/#kodaswap-return\">Faire un retour</a></p>"
           }
