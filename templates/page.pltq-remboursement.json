@@ -100,7 +100,7 @@
         "text_T9jL7M": {
           "type": "text",
           "settings": {
-            "text": "<p>Nos équipes s’efforcent de traiter vos commandes dans un délai de&nbsp;<strong>12 heures</strong>. Pour cette raison, vous disposez d’un délai de&nbsp;<strong>12 heures après la validation de votre commande</strong>&nbsp;pour demander une annulation ou une modification via notre&nbsp;<a href=\"https://www.bestiniparis.com/pages/contact\" title=\"Contacter le Service Client\">formulaire de&nbsp;contact.</a><br/>Au-delà de ce délai, votre commande sera probablement déjà en cours d’expédition et ne pourra plus être modifiée.</p>",
+            "text": "<p>Nos équipes s’efforcent de traiter vos commandes dans un délai de&nbsp;<strong>12 heures</strong>. Pour cette raison, vous disposez d’un délai de&nbsp;<strong>12 heures après la validation de votre commande</strong>&nbsp;pour demander une annulation ou une modification via notre&nbsp;<a href=\"https://www.bestiniparis.com/pages/contactez-nous\" title=\"Contacter le Service Client\">formulaire de&nbsp;contact.</a><br/>Au-delà de ce délai, votre commande sera probablement déjà en cours d’expédition et ne pourra plus être modifiée.</p>",
             "text_font_size": "body-small",
             "padding_bottom": 16
           }
@@ -185,7 +185,7 @@
         "text_7gAkCG": {
           "type": "text",
           "settings": {
-            "text": "<p>Si un article arrive endommagé, nous vous invitons à contacter<a href=\"https://www.bestiniparis.com/pages/contact\" title=\"Contacter le Service Client\">&nbsp;<strong>contactez-nous</strong></a>&nbsp;en fournissant :</p><ul><li><strong>Votre numéro de commande</strong>.</li><li><strong>Une description détaillée du problème</strong>, précisant la nature du défaut (article endommagé, erroné, etc.).</li><li><strong>Une vidéo de la réception de votre colis</strong>, montrant clairement que le dommage est dû au transport.</li></ul><p>Pour que votre demande soit prise en compte, il sera également nécessaire de&nbsp;<strong>nous retourner l’article endommagé</strong>. Une fois réceptionné et inspecté par nos équipes, nous vous proposerons une solution adaptée :</p><ul><li><strong>Réparation ou remplacement</strong>&nbsp;de l’article, selon sa disponibilité.</li><li><strong>Remboursement intégral</strong>, si la réparation ou le remplacement est impossible.</li></ul>",
+            "text": "<p>Si un article arrive endommagé, nous vous invitons à contacter<a href=\"https://www.bestiniparis.com/pages/contactez-nous\" title=\"Contacter le Service Client\">&nbsp;<strong>contactez-nous</strong></a>&nbsp;en fournissant :</p><ul><li><strong>Votre numéro de commande</strong>.</li><li><strong>Une description détaillée du problème</strong>, précisant la nature du défaut (article endommagé, erroné, etc.).</li><li><strong>Une vidéo de la réception de votre colis</strong>, montrant clairement que le dommage est dû au transport.</li></ul><p>Pour que votre demande soit prise en compte, il sera également nécessaire de&nbsp;<strong>nous retourner l’article endommagé</strong>. Une fois réceptionné et inspecté par nos équipes, nous vous proposerons une solution adaptée :</p><ul><li><strong>Réparation ou remplacement</strong>&nbsp;de l’article, selon sa disponibilité.</li><li><strong>Remboursement intégral</strong>, si la réparation ou le remplacement est impossible.</li></ul>",
             "text_font_size": "body-small",
             "padding_bottom": 16
           }
