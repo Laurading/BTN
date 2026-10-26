@@ -599,7 +599,7 @@
           {%- when 'image_grid' -%}
             <div
               class="brick__block brick__block--image-grid {{ desktop_height }} {{ mobile_height }}{% if desktop_height != 'image-height' %} image-grid--fill-desktop{% endif %}{% if mobile_height != 'image-height--mobile' %} image-grid--fill-mobile{% endif %}{% if block.settings.span_two %} brick__block--span-two{% endif %}"
-              style="--grid-gap: {{ block.settings.gap }}px; padding: {{ block.settings.padding_y }}px {{ block.settings.padding_x }}px; --cell-ratio: {{ block.settings.aspect_ratio }}; --caption-align: {{ block.settings.text_align }};{% if block.settings.caption_color != blank and block.settings.caption_color.alpha != 0.0 %} --caption-color: {{ block.settings.caption_color }};{% endif %}{{ style }}"
+              style="--grid-gap: {{ block.settings.gap }}px; padding: {{ block.settings.padding_top }}px {{ block.settings.padding_right }}px {{ block.settings.padding_bottom }}px {{ block.settings.padding_left }}px; --cell-ratio: {{ block.settings.aspect_ratio }}; --caption-align: {{ block.settings.text_align }};{% if block.settings.caption_color != blank and block.settings.caption_color.alpha != 0.0 %} --caption-color: {{ block.settings.caption_color }};{% endif %}{{ style }}"
               {{ block.shopify_attributes }}
             >
               <div class="image-grid-3x3">
@@ -1935,8 +1935,8 @@
         },
         {
           "type": "range",
-          "id": "padding_x",
-          "label": "Gauche / droite",
+          "id": "padding_top",
+          "label": "Haut",
           "min": 0,
           "max": 100,
           "step": 4,
@@ -1945,8 +1945,28 @@
         },
         {
           "type": "range",
-          "id": "padding_y",
-          "label": "Haut / bas",
+          "id": "padding_bottom",
+          "label": "Bas",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_left",
+          "label": "Gauche",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_right",
+          "label": "Droite",
           "min": 0,
           "max": 100,
           "step": 4,
