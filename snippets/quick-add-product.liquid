@@ -23,25 +23,12 @@
   assign mobile_mini_button = mobile_mini_button | default: false
   assign use_icon = use_icon | default: false
 
-  # 1. Précommande custom pilotée par date (custom.preorder_date)
+  # Précommande uniquement si une date est renseignée (custom.preorder_date) et pas encore passée
   if preorder_date != blank
     assign today = 'now' | date: '%Y-%m-%d'
     if preorder_date >= today
       assign preorder = true
     endif
-  endif
-
-  # 2. Précommande native du thème (booléen theme.preorder), gardée pour compatibilité
-  if current_variant.available and product.metafields.theme.preorder.type == 'boolean' and product.metafields.theme.preorder.value == true
-    assign preorder = true
-  endif
-
-  if current_variant.available and product.tags contains '_preorder'
-    assign preorder = true
-  endif
-
-  if current_variant.available and current_variant.metafields.theme.preorder.type == 'boolean' and current_variant.metafields.theme.preorder.value == true
-    assign preorder = true
   endif
 
   if preorder

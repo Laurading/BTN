@@ -58,9 +58,6 @@
           capture is_preorder
             render 'bestini-preorder', product: sibling
           endcapture
-          if sibling.handle == 'sac-bowling-lacet-beige' or sibling.handle == 'sac-bowling-lacet-chocolat'
-            assign is_preorder = 'false'
-          endif
 
           assign current_class = ''
           if sibling.id == product.id

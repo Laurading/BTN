@@ -1,8 +1,8 @@
 {% doc %}
   Règle unique de précommande. Affiche "true" si le produit est en précommande, rien sinon.
   À utiliser dans un capture, puis tester le résultat avec « contains 'true' ».
+  Précommande uniquement si une date est renseignée dans custom.preorder_date et qu'elle n'est pas passée.
   @param {product} product - Le produit.
-  @param {variant} [variant] - La variante sélectionnée.
 {% enddoc %}
 
 {%- liquid
@@ -14,19 +14,6 @@
     if preorder_date >= today
       assign preorder = true
     endif
-  endif
-
-  if product.metafields.theme.preorder.type == 'boolean' and product.metafields.theme.preorder.value == true
-    assign preorder = true
-  endif
-
-  if variant.metafields.theme.preorder.type == 'boolean' and variant.metafields.theme.preorder.value == true
-    assign preorder = true
-  endif
-
-  assign product_tags = product.tags | join: ','
-  if product_tags contains '_preorder'
-    assign preorder = true
   endif
 
   if preorder

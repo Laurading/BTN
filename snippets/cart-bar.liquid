@@ -92,13 +92,9 @@
             {% endif %}
           >
             {%- if button_add -%}
-              {%- assign preorder_check = false -%}
+              {%- capture preorder_check -%}{%- render 'bestini-preorder', product: product -%}{%- endcapture -%}
 
-              {%- if product.tags contains '_preorder' or product.tags contains 'preorder' or product.metafields.theme.preorder.value -%}
-                {%- assign preorder_check = true -%}
-              {%- endif -%}
-
-              {%- if current_variant.available and preorder_check -%}
+              {%- if current_variant.available and preorder_check contains 'true' -%}
                 {{ 'products.product.pre_order' | t }}
               {%- elsif current_variant.available -%}
                 {{ 'products.product.add_to_cart' | t }}

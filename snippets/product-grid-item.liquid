@@ -457,7 +457,7 @@
 
     if settings.show_preorder_badge
       capture preorder_check
-        render 'bestini-preorder', product: product, variant: current_variant
+        render 'bestini-preorder', product: product
       endcapture
 
       if preorder_check contains 'true'

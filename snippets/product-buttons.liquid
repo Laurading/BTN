@@ -30,18 +30,11 @@
   assign button_style = block.settings.button_style | default: 'btn--solid'
   assign button_type = block.settings.button_type | default: 'btn--primary'
 
-  assign preorder = preorder | default: false
-
-  if product.metafields.theme.preorder.type == 'boolean' and product.metafields.theme.preorder.value == true
-    assign preorder = true
-  endif
-
-  if current_variant.metafields.theme.preorder.type == 'boolean' and current_variant.metafields.theme.preorder.value == true
-    assign preorder = true
-  endif
-
-  assign product_tags = product.tags | join: ','
-  if product_tags contains '_preorder'
+  capture preorder_check
+    render 'bestini-preorder', product: product
+  endcapture
+  assign preorder = false
+  if preorder_check contains 'true'
     assign preorder = true
   endif
 
