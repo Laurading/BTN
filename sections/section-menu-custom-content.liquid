@@ -149,7 +149,8 @@
     content: none;
   }
 
-  #MenuBrickSection--{{ section.id }} .navlink--child:hover span:first-of-type {
+  #MenuBrickSection--{{ section.id }} .navlink--child:hover span:first-of-type,
+  #MenuBrickSection--{{ section.id }} a.image-grid-3x3__cell:hover .navlink--child span:first-of-type {
     text-decoration: underline;
     text-underline-offset: 3px;
   }
@@ -619,7 +620,7 @@
                       {%- endif -%}
                     </span>
                     {%- if cell_text != blank -%}
-                      <span class="image-grid-3x3__caption {{ block.settings.text_font_size }}">{{ cell_text }}</span>
+                      <span class="image-grid-3x3__caption parent"><span class="navlink navlink--child"><span>{{ cell_text }}</span></span></span>
                     {%- endif -%}
                   {%- if cell_link != blank -%}
                     </a>
