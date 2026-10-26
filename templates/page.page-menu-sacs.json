@@ -89,7 +89,7 @@
             "gap": 4,
             "span_two": false,
             "padding_x": 4,
-            "padding_y": 0,
+            "padding_y": 24,
             "text_align": "center",
             "text_font_size": "body-medium",
             "caption_color": "",
