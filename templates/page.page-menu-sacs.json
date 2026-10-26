@@ -82,6 +82,48 @@
             "color": ""
           }
         },
+        "image_grid_JMMAww": {
+          "type": "image_grid",
+          "settings": {
+            "aspect_ratio": "1",
+            "gap": 8,
+            "span_two": false,
+            "padding_top": 0,
+            "padding_bottom": 24,
+            "padding_left": 0,
+            "padding_right": 0,
+            "text_align": "center",
+            "text_font_size": "body-medium",
+            "caption_color": "",
+            "image_1": "shopify://shop_images/Chargement.jpg",
+            "text_1": "DOLTO",
+            "link_1": "",
+            "image_2": "shopify://shop_images/91212-1_CYRUS_CHOCOLAT_2.jpg",
+            "text_2": "CYRUS",
+            "link_2": "shopify://collections/cyrus",
+            "image_3": "shopify://shop_images/Image_Codex_19_oct._2026_23_13_25.png",
+            "text_3": "WINNICOTT",
+            "link_3": "shopify://collections/winnicott",
+            "image_4": "shopify://shop_images/95271-2_DUCTI_27_CARAMEL_3.jpg",
+            "text_4": "DUCTI 27",
+            "link_4": "shopify://collections/ducti-27",
+            "image_5": "shopify://shop_images/951992COMETEBURGUNDY_2.jpg",
+            "text_5": "COMÈTE",
+            "link_5": "shopify://collections/comete",
+            "image_6": "shopify://shop_images/Image_Codex_19_oct._2026_22_54_42.png",
+            "text_6": "BONDI",
+            "link_6": "shopify://collections/bondi-besti",
+            "image_7": "shopify://shop_images/1_2d4fdad0-477a-44c7-affd-1878131aede2.jpg",
+            "text_7": "LINGOT",
+            "link_7": "shopify://collections/lingot",
+            "image_8": "shopify://shop_images/LINGOT-TINI.jpg",
+            "text_8": "LINGOT TINI",
+            "link_8": "shopify://collections/lingot-tini",
+            "image_9": "shopify://shop_images/ANZIEUNOBAND.jpg",
+            "text_9": "ANZIEU",
+            "link_9": "shopify://products/anzieu"
+          }
+        },
         "image_DzCLKy": {
           "type": "image",
           "settings": {
@@ -103,34 +145,12 @@
             "show_arrow": false,
             "heading_tag": "automatic"
           }
-        },
-        "image_MgMxrG": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/5_a16ef9c5-02d9-4ed9-9b4e-c81d32e01c11.jpg",
-            "title": "",
-            "heading_font_size": "heading-large",
-            "text": "",
-            "text_font_size": "body-medium",
-            "flex_align": "align--bottom-left",
-            "show_text_background": false,
-            "bg_color": "",
-            "color": "",
-            "overlay_type": "disabled",
-            "link_text": "BONDI",
-            "link": "shopify://collections/bondi-besti",
-            "button_type": "btn--white",
-            "button_size": "",
-            "button_style": "btn--text",
-            "show_arrow": false,
-            "heading_tag": "automatic"
-          }
         }
       },
       "block_order": [
         "menu_DLJYPN",
-        "image_DzCLKy",
-        "image_MgMxrG"
+        "image_grid_JMMAww",
+        "image_DzCLKy"
       ],
       "name": "Menu + contenu",
       "settings": {
