@@ -1,0 +1,25 @@
+{% doc %}
+  Nom de couleur d'un produit frère. En anglais, traduit via bestini.colors.<fin du handle>
+  quand la clé existe, sinon garde la valeur du metafield.
+  @param {product} product - Le produit.
+  @param {boolean} [fallback_title] - Utiliser le titre du produit si aucune couleur n'est renseignée.
+{% enddoc %}
+
+{%- liquid
+  assign color_name = product.metafields.theme.sibling_color.value | default: product.metafields.theme.sibling_colour.value | default: product.metafields.theme.siblings_color.value | default: product.metafields.theme.siblings_colour.value | default: product.metafields.theme.siblings_colors.value | default: product.metafields.theme.siblings_colours.value
+
+  if request.locale.iso_code == 'en'
+    assign color_key = product.handle | split: '-' | last | prepend: 'bestini.colors.'
+    assign translated = color_key | t
+    assign translated_check = translated | downcase
+    unless translated_check contains 'translation missing'
+      assign color_name = translated
+    endunless
+  endif
+
+  if color_name == blank and fallback_title
+    assign color_name = product.title
+  endif
+
+  echo color_name
+-%}

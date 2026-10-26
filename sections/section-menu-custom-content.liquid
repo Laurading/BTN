@@ -37,6 +37,79 @@
 {%- render 'stylesheet', name: 'custom-content.css' -%}
 
 {%- style -%}
+  /* Bloc Grille d'images 3x3 */
+  #MenuBrickSection--{{ section.id }} .brick__block--image-grid {
+    display: grid;
+  }
+  #MenuBrickSection--{{ section.id }} .image-grid-3x3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--grid-gap, 8px);
+    width: 100%;
+  }
+  #MenuBrickSection--{{ section.id }} .image-grid-3x3__cell {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 0;
+    color: var(--caption-color, inherit);
+    text-decoration: none;
+  }
+  #MenuBrickSection--{{ section.id }} .image-grid-3x3__media {
+    position: relative;
+    display: block;
+    aspect-ratio: var(--cell-ratio, 1);
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.04);
+  }
+  #MenuBrickSection--{{ section.id }} .image-grid-3x3__img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  #MenuBrickSection--{{ section.id }} .image-grid-3x3__caption {
+    display: block;
+    line-height: 1.25;
+    text-align: var(--caption-align, center);
+    overflow-wrap: anywhere;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    #MenuBrickSection--{{ section.id }} a.image-grid-3x3__cell:hover .image-grid-3x3__img {
+      transform: scale(1.04);
+    }
+  }
+  /* La grille remplit tout le bloc (3 rangées égales) quand la section a une hauteur définie.
+     L'image prend la place restante au-dessus du texte. */
+  @media only screen and (min-width: 750px) {
+    #MenuBrickSection--{{ section.id }} .image-grid--fill-desktop .image-grid-3x3 {
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+    }
+    #MenuBrickSection--{{ section.id }} .image-grid--fill-desktop .image-grid-3x3__media {
+      flex: 1 1 auto;
+      min-height: 0;
+      aspect-ratio: auto;
+    }
+  }
+  @media only screen and (max-width: 749px) {
+    #MenuBrickSection--{{ section.id }} .image-grid--fill-mobile .image-grid-3x3 {
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+    }
+    #MenuBrickSection--{{ section.id }} .image-grid--fill-mobile .image-grid-3x3__media {
+      flex: 1 1 auto;
+      min-height: 0;
+      aspect-ratio: auto;
+    }
+  }
+  @media only screen and (min-width: 750px) {
+    #MenuBrickSection--{{ section.id }} .brick__block--span-two {
+      grid-column: span 2;
+    }
+  }
+
   #MenuBrickSection--{{ section.id }} {
     --PT: {{ section.settings.padding_top }}px;
     --PB: {{ section.settings.padding_bottom }}px;
@@ -523,6 +596,46 @@
                 </slider-component>
               </div>
             </div>
+          {%- when 'image_grid' -%}
+            <div
+              class="brick__block brick__block--image-grid {{ desktop_height }} {{ mobile_height }}{% if desktop_height != 'image-height' %} image-grid--fill-desktop{% endif %}{% if mobile_height != 'image-height--mobile' %} image-grid--fill-mobile{% endif %}{% if block.settings.span_two %} brick__block--span-two{% endif %}"
+              style="--grid-gap: {{ block.settings.gap }}px; padding: {{ block.settings.padding_top }}px {{ block.settings.padding_right }}px {{ block.settings.padding_bottom }}px {{ block.settings.padding_left }}px; --cell-ratio: {{ block.settings.aspect_ratio }}; --caption-align: {{ block.settings.text_align }};{% if block.settings.caption_color != blank and block.settings.caption_color.alpha != 0.0 %} --caption-color: {{ block.settings.caption_color }};{% endif %}{{ style }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="image-grid-3x3">
+                {%- for i in (1..9) -%}
+                  {%- liquid
+                    assign image_key = 'image_' | append: i
+                    assign link_key = 'link_' | append: i
+                    assign cell_image = block.settings[image_key]
+                    assign cell_link = block.settings[link_key]
+                    assign text_key = 'text_' | append: i
+                    assign cell_text = block.settings[text_key]
+                  -%}
+                  {%- if cell_link != blank -%}
+                    <a class="image-grid-3x3__cell" href="{{ cell_link }}">
+                  {%- else -%}
+                    <div class="image-grid-3x3__cell">
+                  {%- endif -%}
+                    <span class="image-grid-3x3__media">
+                      {%- if cell_image != blank -%}
+                        {{ cell_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '200, 300, 450, 600, 900', sizes: '(min-width: 750px) 20vw, 33vw', class: 'image-grid-3x3__img' }}
+                      {%- elsif request.design_mode -%}
+                        {{ 'image' | placeholder_svg_tag: 'image-grid-3x3__img image-grid-3x3__img--placeholder' }}
+                      {%- endif -%}
+                    </span>
+                    {%- if cell_text != blank -%}
+                      <span class="image-grid-3x3__caption {{ block.settings.text_font_size }}">{{ cell_text }}</span>
+                    {%- endif -%}
+                  {%- if cell_link != blank -%}
+                    </a>
+                  {%- else -%}
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+
           {%- when 'before-and-after' -%}
             <div
               class="brick__block brick__block--compare {{ desktop_height }} {{ mobile_height }}"
@@ -1767,6 +1880,332 @@
           "id": "image_2",
           "label": "Image 2",
           "info": "2000 x 1400px .jpg recommended. [Learn more](http://presidiodev.com/link/broadcast/images)"
+        }
+      ]
+    },
+    {
+      "type": "image_grid",
+      "name": "Grille d'images 3x3",
+      "settings": [
+        {
+          "type": "select",
+          "id": "aspect_ratio",
+          "label": "Format des cases",
+          "info": "Utilisé seulement si la hauteur de la section est réglée sur la hauteur de l'image. Sinon, la grille remplit tout le bloc.",
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": "Carré (1:1)"
+            },
+            {
+              "value": "0.8",
+              "label": "Portrait (4:5)"
+            },
+            {
+              "value": "0.6667",
+              "label": "Portrait (2:3)"
+            },
+            {
+              "value": "1.3333",
+              "label": "Paysage (4:3)"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "gap",
+          "label": "Espacement entre les images",
+          "min": 0,
+          "max": 30,
+          "step": 2,
+          "unit": "px",
+          "default": 8
+        },
+        {
+          "type": "checkbox",
+          "id": "span_two",
+          "label": "Occuper la largeur de deux blocs",
+          "info": "Sur ordinateur. Pensez à n'avoir que le menu et ce bloc dans la section.",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Marges intérieures"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Haut",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bas",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_left",
+          "label": "Gauche",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_right",
+          "label": "Droite",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Texte sous les images"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "label": "Alignement du texte",
+          "default": "center",
+          "options": [
+            {
+              "value": "left",
+              "label": "À gauche"
+            },
+            {
+              "value": "center",
+              "label": "Centré"
+            },
+            {
+              "value": "right",
+              "label": "À droite"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "text_font_size",
+          "label": "Taille du texte",
+          "default": "body-medium",
+          "options": [
+            {
+              "value": "body-x-small",
+              "label": "Très petit"
+            },
+            {
+              "value": "body-small",
+              "label": "Petit"
+            },
+            {
+              "value": "body-medium",
+              "label": "Moyen"
+            },
+            {
+              "value": "body-large",
+              "label": "Grand"
+            },
+            {
+              "value": "heading-x-small",
+              "label": "Titre petit"
+            },
+            {
+              "value": "heading-small",
+              "label": "Titre moyen"
+            }
+          ]
+        },
+        {
+          "type": "color",
+          "id": "caption_color",
+          "label": "Couleur du texte",
+          "info": "Laisser vide pour la couleur du thème.",
+          "alpha": true
+        },
+        {
+          "type": "header",
+          "content": "Case 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text_1",
+          "label": "Texte"
+        },
+        {
+          "type": "url",
+          "id": "link_1",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text_2",
+          "label": "Texte"
+        },
+        {
+          "type": "url",
+          "id": "link_2",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text_3",
+          "label": "Texte"
+        },
+        {
+          "type": "url",
+          "id": "link_3",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text_4",
+          "label": "Texte"
+        },
+        {
+          "type": "url",
+          "id": "link_4",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text_5",
+          "label": "Texte"
+        },
+        {
+          "type": "url",
+          "id": "link_5",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 6"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_6",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text_6",
+          "label": "Texte"
+        },
+        {
+          "type": "url",
+          "id": "link_6",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 7"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_7",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text_7",
+          "label": "Texte"
+        },
+        {
+          "type": "url",
+          "id": "link_7",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 8"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_8",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text_8",
+          "label": "Texte"
+        },
+        {
+          "type": "url",
+          "id": "link_8",
+          "label": "Lien"
+        },
+        {
+          "type": "header",
+          "content": "Case 9"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_9",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text_9",
+          "label": "Texte"
+        },
+        {
+          "type": "url",
+          "id": "link_9",
+          "label": "Lien"
         }
       ]
     }
