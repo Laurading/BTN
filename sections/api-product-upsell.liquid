@@ -10,29 +10,13 @@
   assign preorder = false
   assign preorder_date = product.metafields.custom.preorder_date.value
 
-  # 1. Précommande custom pilotée par date (custom.preorder_date)
+  # Précommande uniquement si une date est renseignée (custom.preorder_date) et pas encore passée
   if preorder_date != blank
     assign today = 'now' | date: '%Y-%m-%d'
     if preorder_date >= today
       assign preorder = true
       assign preorder_type = 'product'
     endif
-  endif
-
-  # 2. Précommande native du thème (booléen theme.preorder), gardée pour compatibilité
-  if product.metafields.theme.preorder.type == 'boolean' and product.metafields.theme.preorder.value == true
-    assign preorder = true
-    assign preorder_type = 'product'
-  endif
-
-  if current_variant.metafields.theme.preorder.type == 'boolean' and current_variant.metafields.theme.preorder.value == true
-    assign preorder = true
-  endif
-
-  assign product_tags = product.tags | join: ','
-  if product_tags contains '_preorder'
-    assign preorder = true
-    assign preorder_type = 'product'
   endif
 
   if preorder and preorder_date != blank

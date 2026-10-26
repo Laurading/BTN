@@ -101,7 +101,7 @@
   assign preorder_date = product.metafields.custom.preorder_date.value
 
   capture preorder_check
-    render 'bestini-preorder', product: product, variant: current_variant
+    render 'bestini-preorder', product: product
   endcapture
   assign preorder = false
   if preorder_check contains 'true'
