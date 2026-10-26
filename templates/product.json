@@ -47,7 +47,7 @@
           "type": "title",
           "settings": {
             "subheading_option": "none",
-            "heading_font_size": "heading-x-small",
+            "heading_font_size": "heading-small",
             "padding_bottom": 4
           }
         },
