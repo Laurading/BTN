@@ -69,18 +69,12 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
   }
   #MenuBrickSection--{{ section.id }} .image-grid-3x3__caption {
     display: block;
     line-height: 1.25;
     text-align: var(--caption-align, center);
     overflow-wrap: anywhere;
-  }
-  @media (hover: hover) and (pointer: fine) {
-    #MenuBrickSection--{{ section.id }} a.image-grid-3x3__cell:hover .image-grid-3x3__img {
-      transform: scale(1.04);
-    }
   }
   /* La grille remplit tout le bloc (3 rangées égales) quand la section a une hauteur définie.
      L'image prend la place restante au-dessus du texte. */
