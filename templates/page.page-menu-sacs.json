@@ -89,7 +89,7 @@
             "gap": 8,
             "span_two": false,
             "padding_top": 8,
-            "padding_bottom": 24,
+            "padding_bottom": 12,
             "padding_left": 0,
             "padding_right": 8,
             "text_align": "center",
