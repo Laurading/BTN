@@ -82,16 +82,16 @@
             "color": ""
           }
         },
-        "image_grid_zKXq3j": {
+        "image_grid_JMMAww": {
           "type": "image_grid",
           "settings": {
             "aspect_ratio": "1",
-            "gap": 4,
+            "gap": 8,
             "span_two": false,
             "padding_top": 0,
             "padding_bottom": 24,
-            "padding_left": 4,
-            "padding_right": 4,
+            "padding_left": 0,
+            "padding_right": 0,
             "text_align": "center",
             "text_font_size": "body-medium",
             "caption_color": "",
@@ -108,7 +108,7 @@
             "text_4": "DUCTI 27",
             "link_4": "shopify://collections/ducti-27",
             "image_5": "shopify://shop_images/951992COMETEBURGUNDY_2.jpg",
-            "text_5": "COMETE",
+            "text_5": "COMÈTE",
             "link_5": "shopify://collections/comete",
             "image_6": "shopify://shop_images/Image_Codex_19_oct._2026_22_54_42.png",
             "text_6": "BONDI",
@@ -121,13 +121,13 @@
             "link_8": "shopify://collections/lingot-tini",
             "image_9": "shopify://shop_images/ANZIEUNOBAND.jpg",
             "text_9": "ANZIEU",
-            "link_9": "shopify://collections/anzieu"
+            "link_9": "shopify://products/anzieu"
           }
         },
         "image_DzCLKy": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/20_8227df6b-927d-410e-9af8-1d1056bf8f29.jpg",
+            "image": "shopify://shop_images/DSC8217_c6de5583-5371-4622-934f-20e6207c557d.jpg",
             "title": "",
             "heading_font_size": "heading-large",
             "text": "",
@@ -149,7 +149,7 @@
       },
       "block_order": [
         "menu_DLJYPN",
-        "image_grid_zKXq3j",
+        "image_grid_JMMAww",
         "image_DzCLKy"
       ],
       "name": "Menu + contenu",
