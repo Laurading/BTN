@@ -61,7 +61,7 @@
     "show_grid_swatches": false,
     "form_style": "classic",
     "show_variant_image": true,
-    "show_newsletter": false,
+    "show_newsletter": true,
     "final_sale": false,
     "quantity_style": "standard",
     "enable_swatches": true,
