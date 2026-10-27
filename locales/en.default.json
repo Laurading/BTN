@@ -804,7 +804,13 @@
           "many": "Ships in %{count} weeks"
         },
         "split_shipping_merchandise_quantity_label_inline_primary": "Quantity: %{quantity}",
-        "split_shipping_merchandise_quantity_label_inline": "%{merchandise_title} × %{quantity}"
+        "split_shipping_merchandise_quantity_label_inline": "%{merchandise_title} × %{quantity}",
+        "split_shipping_shipment_count_notice_one_time_purchase": {
+          "many": "Your order will arrive in %{count} shipments"
+        },
+        "split_shipping_arrives_in_shipments": {
+          "many": "Arrives in %{count} shipments"
+        }
       },
       "payment": {
         "order_covered_by_gift_cards_notice": {
@@ -835,6 +841,16 @@
         },
         "discount_codes_removed_or_modified_summary": {
           "many": "%{count} discount codes have been removed or modified"
+        },
+        "pending_payment": {
+          "oxxo": {
+            "days_left": {
+              "many": "%{count} days"
+            }
+          }
+        },
+        "shop_pay_hsa": {
+          "pay_button_label": "Go to the health questionnaire"
         }
       },
       "shipping_errors": {
@@ -1048,6 +1064,46 @@
         },
         "location_far_away_other_items": {
           "many": "%{count} locations with your items"
+        },
+        "stock_details": {
+          "ship_separately": {
+            "many": "Will be shipped separately"
+          },
+          "remove_items": {
+            "many": "Will be removed from your order"
+          }
+        },
+        "unavailable_item_count": {
+          "many": "%{count} items unavailable"
+        },
+        "ship_separately_notice": {
+          "many": "%{count} items will be shipped separately"
+        },
+        "stock_details_modal": {
+          "can_ship_description": {
+            "many": "These items are out of stock at the selected pickup location."
+          },
+          "cannot_ship_description": {
+            "many": "These items are out of stock at the selected pickup location and cannot be shipped."
+          }
+        },
+        "stock_details_banner": {
+          "heading": {
+            "many": "%{count} items are not available for pickup at %{location}"
+          },
+          "ship_separately": {
+            "many": "ship them separately"
+          }
+        }
+      },
+      "field_errors": {
+        "custom_field": {
+          "cart_metafield_value_too_long_with_limit": {
+            "many": "Enter %{count} characters or fewer."
+          },
+          "cart_metafield_value_too_short_with_limit": {
+            "many": "Enter at least %{count} characters."
+          }
         }
       }
     },
@@ -1103,6 +1159,11 @@
         },
         "gift_card_resend_button": {
           "many": "Resend gift cards"
+        },
+        "fulfillment_tracking": {
+          "gift_card_sent_to_recipient": {
+            "many": "The gift cards have been sent to the recipients."
+          }
         }
       }
     },
@@ -1294,7 +1355,16 @@
       "whisky": "Whisky",
       "beige": "Beige",
       "kaki": "Khaki",
-      "marine": "Navy"
+      "marine": "Navy",
+      "black": "Black",
+      "white": "White",
+      "chocolate": "Chocolate",
+      "brown": "Brown",
+      "khaki": "Persimmon",
+      "navy": "Marine",
+      "red": "Red",
+      "green": "Green",
+      "ecru": "Ecru"
     },
     "months": {
       "january": "January",
