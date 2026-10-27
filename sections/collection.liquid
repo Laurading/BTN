@@ -226,7 +226,14 @@
           </div>
         {%- endif -%}
 
-        {%- assign collection_menu = linklists[section.settings.collection_menu] -%}
+        {%- liquid
+          # Menu propre à la collection (champ méta custom.collection_menu = identifiant du menu), sinon menu de la section
+          assign collection_menu_handle = collection.metafields.custom.collection_menu.value | default: section.settings.collection_menu
+          assign collection_menu = linklists[collection_menu_handle]
+          if collection_menu.links.size == 0
+            assign collection_menu = linklists[section.settings.collection_menu]
+          endif
+        -%}
 
         {%- if collection_menu.links.size > 0 -%}
           <div class="collection__nav__menu">
@@ -466,7 +473,7 @@
       "type": "link_list",
       "id": "collection_menu",
       "label": "Menu entre filtres et tri",
-      "info": "Affiché sous forme de boutons dans la barre d'outils de la collection."
+      "info": "Affiché sous forme de boutons dans la barre d'outils de la collection. Remplacé par le menu indiqué dans le champ méta de collection custom.collection_menu (identifiant du menu) s'il est renseigné."
     },
     {
       "type": "checkbox",
