@@ -133,6 +133,54 @@
         "heading_tag": "automatic"
       }
     },
+    "section_hero_d7yhrU": {
+      "type": "section-hero",
+      "blocks": {
+        "heading_tF8LDR": {
+          "type": "heading",
+          "settings": {
+            "title": "BOWLING & LACET",
+            "heading_font_size": "heading-large",
+            "heading_tag": "automatic",
+            "padding_bottom": 8
+          }
+        },
+        "button_hEgt6F": {
+          "type": "button",
+          "settings": {
+            "link_text": "Découvrir",
+            "link": "shopify://collections/sac-bowling-lacet",
+            "button_type": "btn--primary",
+            "button_size": "",
+            "button_style": "btn--solid",
+            "show_arrow": false,
+            "full_width": false,
+            "padding_bottom": 8
+          }
+        }
+      },
+      "block_order": [
+        "heading_tF8LDR",
+        "button_hEgt6F"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "image_1": "shopify://shop_images/DSC02451.jpg",
+        "link": "",
+        "width": "wrapper--full",
+        "height": "screen-height-three-quarters",
+        "flex_align_desktop": "align--middle-center-desktop",
+        "content_width": 50,
+        "mobile_height": "screen-height-three-quarters--mobile",
+        "flex_align_mobile": "align--middle-center-mobile",
+        "color_scheme": "",
+        "show_text_background": false,
+        "overlay_type": "disabled",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_placeholder": true
+      }
+    },
     "section_collection_3xXcNt": {
       "type": "section-collection",
       "name": "Featured collection",
@@ -1280,6 +1328,7 @@
     "section_video_8MAWWb",
     "section_custom_content_aV4bjn",
     "section_collection_rWMhyb",
+    "section_hero_d7yhrU",
     "section_collection_3xXcNt",
     "section_picked_products_cawXDh",
     "section_rich_text_CDKjbp",
