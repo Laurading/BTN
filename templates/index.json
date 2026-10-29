@@ -181,6 +181,17 @@
         "show_placeholder": true
       }
     },
+    "section_divider_djndck": {
+      "type": "section-divider",
+      "name": "Divider",
+      "settings": {
+        "show_line": true,
+        "width": "wrapper--full-padded",
+        "color_scheme": "",
+        "padding_top": 50,
+        "padding_bottom": 50
+      }
+    },
     "section_collection_3xXcNt": {
       "type": "section-collection",
       "name": "Featured collection",
@@ -1329,6 +1340,7 @@
     "section_custom_content_aV4bjn",
     "section_collection_rWMhyb",
     "section_hero_d7yhrU",
+    "section_divider_djndck",
     "section_collection_3xXcNt",
     "section_picked_products_cawXDh",
     "section_rich_text_CDKjbp",
