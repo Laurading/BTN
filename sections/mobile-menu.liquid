@@ -325,7 +325,7 @@
               {%- when 'image_grid' -%}
                 <div
                   class="mobile-menu__image-grid"
-                  style="--grid-gap: {{ block.settings.gap }}px; --cell-ratio: {{ block.settings.aspect_ratio }}; --caption-align: {{ block.settings.text_align }};{% if block.settings.caption_color != blank and block.settings.caption_color.alpha != 0.0 %} --caption-color: {{ block.settings.caption_color }};{% endif %}"
+                  style="padding-top: {{ block.settings.padding_top | default: 0 }}px; --grid-gap: {{ block.settings.gap }}px; --cell-ratio: {{ block.settings.aspect_ratio }}; --caption-align: {{ block.settings.text_align }};{% if block.settings.caption_color != blank and block.settings.caption_color.alpha != 0.0 %} --caption-color: {{ block.settings.caption_color }};{% endif %}"
                 >
                   {%- render 'bestini-image-grid', block: block, sizes: '33vw' -%}
                 </div>
@@ -877,6 +877,16 @@
         {
           "type": "header",
           "content": "Block spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "min": 0,
+          "max": 50,
+          "step": 2,
+          "unit": "px",
+          "label": "Padding top",
+          "default": 16
         },
         {
           "type": "range",
