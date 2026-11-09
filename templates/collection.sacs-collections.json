@@ -111,7 +111,7 @@
     "main": {
       "type": "collection",
       "settings": {
-        "collection_menu": "menu-desktop-sacs",
+        "collection_menu": "sacs-collections",
         "enable_sort": true,
         "enable_filters": true,
         "filter_layout": "slide-out",
