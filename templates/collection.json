@@ -157,7 +157,7 @@
         "flex_align_desktop": "align--middle-center-desktop",
         "content_width": 50,
         "mobile_image": "{{ collection.metafields.custom.photo_landing_mobile.value }}",
-        "mobile_height": "screen-height-three-quarters--mobile",
+        "mobile_height": "image-height--mobile",
         "flex_align_mobile": "align--middle-center-mobile",
         "color_scheme": "",
         "show_text_background": false,
