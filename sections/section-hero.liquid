@@ -1,5 +1,21 @@
 <!-- /sections/section-hero.liquid -->
-{%- render 'hero' -%}
+{%- liquid
+  # Section masquée si aucune image n'est renseignée (principale, secondaire ou mobile)
+  assign has_image = false
+  if section.settings.image_1 != blank or section.settings.image_2 != blank or section.settings.mobile_image != blank
+    assign has_image = true
+  endif
+-%}
+
+{%- if has_image -%}
+  {%- render 'hero' -%}
+{%- else -%}
+  {%- comment -%} Empêche le header transparent de se superposer à une section vide {%- endcomment -%}
+  <div class="prevent-transparent-header" hidden></div>
+  {%- if request.design_mode -%}
+    <p style="margin: 0; padding: 12px 16px; font-size: 13px; opacity: 0.6; text-align: center;">Image banner masquée sur le site : aucune image renseignée.</p>
+  {%- endif -%}
+{%- endif -%}
 
 {% schema %}
 {
