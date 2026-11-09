@@ -1,8 +1,9 @@
 <!-- /sections/section-hero.liquid -->
 {%- liquid
-  # Section masquée si aucune image n'est renseignée (principale, secondaire ou mobile)
+  # Section masquée si aucune image n'est renseignée (principale, secondaire ou mobile).
+  # On teste .src : une image reliée à un champ méta vide n'est pas toujours « blank ».
   assign has_image = false
-  if section.settings.image_1 != blank or section.settings.image_2 != blank or section.settings.mobile_image != blank
+  if section.settings.image_1.src != blank or section.settings.image_2.src != blank or section.settings.mobile_image.src != blank
     assign has_image = true
   endif
 -%}
