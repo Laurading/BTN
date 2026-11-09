@@ -4,6 +4,20 @@
   --PB: {{ section.settings.padding_bottom }}px;
 {%- endcapture -%}
 
+{%- liquid
+  # Section masquée si aucune vidéo n'est renseignée (fond desktop, fond mobile ou popup activée)
+  assign has_video = false
+  if section.settings.video != null or section.settings.mobile_video != null
+    assign has_video = true
+  endif
+  if section.settings.show_video_popup
+    if section.settings.video_popup != null or section.settings.video_popup_social != blank
+      assign has_video = true
+    endif
+  endif
+-%}
+
+{%- if has_video -%}
 {%- if section.settings.video != null -%}
   <script src="{{ 'video-background.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
@@ -24,6 +38,13 @@
     {%- render 'video' -%}
   </div>
 </div>
+{%- else -%}
+  {%- comment -%} Empêche le header transparent de se superposer à une section vide {%- endcomment -%}
+  <div class="prevent-transparent-header" hidden></div>
+  {%- if request.design_mode -%}
+    <p style="margin: 0; padding: 12px 16px; font-size: 13px; opacity: 0.6; text-align: center;">Section vidéo masquée sur le site : aucune vidéo renseignée.</p>
+  {%- endif -%}
+{%- endif -%}
 
 {% schema %}
 {
