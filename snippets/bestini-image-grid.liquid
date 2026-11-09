@@ -5,6 +5,7 @@
   @param {string} [sizes] - Attribut sizes des images. Par défaut '(min-width: 750px) 20vw, 33vw'.
 {% enddoc %}
 
+{%- assign sizes = sizes | default: '(min-width: 750px) 20vw, 33vw' -%}
 {%- render 'stylesheet', name: 'bestini-image-grid.css' -%}
 <div class="image-grid-3x3">
   {%- for i in (1..9) -%}
@@ -23,7 +24,7 @@
     {%- endif -%}
       <span class="image-grid-3x3__media">
         {%- if cell_image != blank -%}
-          {{ cell_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '200, 300, 450, 600, 900', sizes: sizes | default: '(min-width: 750px) 20vw, 33vw', class: 'image-grid-3x3__img' }}
+          {{ cell_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '200, 300, 450, 600, 900', sizes: sizes, class: 'image-grid-3x3__img' }}
         {%- elsif request.design_mode -%}
           {{ 'image' | placeholder_svg_tag: 'image-grid-3x3__img image-grid-3x3__img--placeholder' }}
         {%- endif -%}
