@@ -14556,3 +14556,8 @@ body:has(.main-content > .shopify-section.section-overlay-header:first-of-type):
 .product-upsell__holder--button .product-upsell__actions {
   flex: 0 0 auto;
 }
+/* Bestini : masquer les messages de l'app Pre-order Globo (au-dessus et sous le bouton) */
+.gPreorderTopMessage,
+.gPreorderBottomMessage {
+  display: none !important;
+}
