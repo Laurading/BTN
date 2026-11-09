@@ -153,7 +153,7 @@
         "image_1": "{{ collection.metafields.custom.photo_landing_collection.value }}",
         "link": "",
         "width": "wrapper--full",
-        "height": "screen-height-three-quarters",
+        "height": "screen-height-one-half",
         "flex_align_desktop": "align--middle-center-desktop",
         "content_width": 50,
         "mobile_image": "{{ collection.metafields.custom.photo_landing_mobile.value }}",
