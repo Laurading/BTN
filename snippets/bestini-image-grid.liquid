@@ -1,0 +1,40 @@
+{% doc %}
+  Grille d'images 3x3 avec texte et lien par case (Menu + contenu, menu mobile).
+  Lit les réglages image_1..9, text_1..9 et link_1..9 du bloc.
+  @param {block} block - Le bloc contenant les réglages des cases.
+  @param {string} [sizes] - Attribut sizes des images. Par défaut '(min-width: 750px) 20vw, 33vw'.
+{% enddoc %}
+
+{%- render 'stylesheet', name: 'bestini-image-grid.css' -%}
+<div class="image-grid-3x3">
+  {%- for i in (1..9) -%}
+    {%- liquid
+      assign image_key = 'image_' | append: i
+      assign link_key = 'link_' | append: i
+      assign text_key = 'text_' | append: i
+      assign cell_image = block.settings[image_key]
+      assign cell_link = block.settings[link_key]
+      assign cell_text = block.settings[text_key]
+    -%}
+    {%- if cell_link != blank -%}
+      <a class="image-grid-3x3__cell" href="{{ cell_link }}">
+    {%- else -%}
+      <div class="image-grid-3x3__cell">
+    {%- endif -%}
+      <span class="image-grid-3x3__media">
+        {%- if cell_image != blank -%}
+          {{ cell_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '200, 300, 450, 600, 900', sizes: sizes | default: '(min-width: 750px) 20vw, 33vw', class: 'image-grid-3x3__img' }}
+        {%- elsif request.design_mode -%}
+          {{ 'image' | placeholder_svg_tag: 'image-grid-3x3__img image-grid-3x3__img--placeholder' }}
+        {%- endif -%}
+      </span>
+      {%- if cell_text != blank -%}
+        <span class="image-grid-3x3__caption parent"><span class="navlink navlink--child"><span>{{ cell_text }}</span></span></span>
+      {%- endif -%}
+    {%- if cell_link != blank -%}
+      </a>
+    {%- else -%}
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+</div>

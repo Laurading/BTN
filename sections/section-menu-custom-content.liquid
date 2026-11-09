@@ -41,41 +41,6 @@
   #MenuBrickSection--{{ section.id }} .brick__block--image-grid {
     display: grid;
   }
-  #MenuBrickSection--{{ section.id }} .image-grid-3x3 {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--grid-gap, 8px);
-    width: 100%;
-  }
-  #MenuBrickSection--{{ section.id }} .image-grid-3x3__cell {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    min-height: 0;
-    color: var(--caption-color, inherit);
-    text-decoration: none;
-  }
-  #MenuBrickSection--{{ section.id }} .image-grid-3x3__media {
-    position: relative;
-    display: block;
-    aspect-ratio: var(--cell-ratio, 1);
-    overflow: hidden;
-    background: rgba(0, 0, 0, 0.04);
-  }
-  #MenuBrickSection--{{ section.id }} .image-grid-3x3__img {
-    position: absolute;
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  #MenuBrickSection--{{ section.id }} .image-grid-3x3__caption {
-    display: block;
-    line-height: 1.25;
-    text-align: var(--caption-align, center);
-    overflow-wrap: anywhere;
-  }
   /* La grille remplit tout le bloc (3 rangées égales) quand la section a une hauteur définie.
      L'image prend la place restante au-dessus du texte. */
   @media only screen and (min-width: 750px) {
@@ -149,8 +114,7 @@
     content: none;
   }
 
-  #MenuBrickSection--{{ section.id }} .navlink--child:hover span:first-of-type,
-  #MenuBrickSection--{{ section.id }} a.image-grid-3x3__cell:hover .navlink--child span:first-of-type {
+  #MenuBrickSection--{{ section.id }} .navlink--child:hover span:first-of-type {
     text-decoration: underline;
     text-underline-offset: 3px;
   }
@@ -597,38 +561,7 @@
               style="--grid-gap: {{ block.settings.gap }}px; padding: {{ block.settings.padding_top }}px {{ block.settings.padding_right }}px {{ block.settings.padding_bottom }}px {{ block.settings.padding_left }}px; --cell-ratio: {{ block.settings.aspect_ratio }}; --caption-align: {{ block.settings.text_align }};{% if block.settings.caption_color != blank and block.settings.caption_color.alpha != 0.0 %} --caption-color: {{ block.settings.caption_color }};{% endif %}{{ style }}"
               {{ block.shopify_attributes }}
             >
-              <div class="image-grid-3x3">
-                {%- for i in (1..9) -%}
-                  {%- liquid
-                    assign image_key = 'image_' | append: i
-                    assign link_key = 'link_' | append: i
-                    assign cell_image = block.settings[image_key]
-                    assign cell_link = block.settings[link_key]
-                    assign text_key = 'text_' | append: i
-                    assign cell_text = block.settings[text_key]
-                  -%}
-                  {%- if cell_link != blank -%}
-                    <a class="image-grid-3x3__cell" href="{{ cell_link }}">
-                  {%- else -%}
-                    <div class="image-grid-3x3__cell">
-                  {%- endif -%}
-                    <span class="image-grid-3x3__media">
-                      {%- if cell_image != blank -%}
-                        {{ cell_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '200, 300, 450, 600, 900', sizes: '(min-width: 750px) 20vw, 33vw', class: 'image-grid-3x3__img' }}
-                      {%- elsif request.design_mode -%}
-                        {{ 'image' | placeholder_svg_tag: 'image-grid-3x3__img image-grid-3x3__img--placeholder' }}
-                      {%- endif -%}
-                    </span>
-                    {%- if cell_text != blank -%}
-                      <span class="image-grid-3x3__caption parent"><span class="navlink navlink--child"><span>{{ cell_text }}</span></span></span>
-                    {%- endif -%}
-                  {%- if cell_link != blank -%}
-                    </a>
-                  {%- else -%}
-                    </div>
-                  {%- endif -%}
-                {%- endfor -%}
-              </div>
+              {%- render 'bestini-image-grid', block: block -%}
             </div>
 
           {%- when 'before-and-after' -%}

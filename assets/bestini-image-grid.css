@@ -1,0 +1,61 @@
+/* Grille d'images 3x3 (snippet bestini-image-grid) */
+.image-grid-3x3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--grid-gap, 8px);
+  width: 100%;
+}
+
+.image-grid-3x3__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+  color: var(--caption-color, inherit);
+  text-decoration: none;
+}
+
+.image-grid-3x3__media {
+  position: relative;
+  display: block;
+  aspect-ratio: var(--cell-ratio, 1);
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.image-grid-3x3__img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-grid-3x3__caption {
+  display: block;
+  line-height: 1.25;
+  text-align: var(--caption-align, center);
+  overflow-wrap: anywhere;
+}
+
+/* Texte au format des liens de menu */
+.image-grid-3x3__caption .navlink {
+  color: var(--caption-color, var(--link));
+  text-transform: uppercase;
+}
+
+.image-grid-3x3__caption .navlink--child span:first-of-type::after {
+  content: none;
+}
+
+a.image-grid-3x3__cell:hover .navlink--child span:first-of-type {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Bloc du menu mobile : pleine largeur */
+.mobile-menu__block--image_grid {
+  flex-basis: 100%;
+  width: 100%;
+}
