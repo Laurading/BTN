@@ -1,0 +1,22 @@
+{% doc %}
+  Affiche un menu sous forme de boutons (collections, pages).
+  @param {object} menu - Le menu (linklist) à afficher.
+  @param {string} [align] - Alignement desktop : 'flex-start', 'center' ou 'flex-end'. Par défaut 'center'.
+{% enddoc %}
+
+{%- if menu.links.size > 0 -%}
+  {%- render 'stylesheet', name: 'bestini-menu-buttons.css' -%}
+  <nav class="bestini-menu-buttons" style="--menu-buttons-align: {{ align | default: 'center' }};">
+    {%- for link in menu.links -%}
+      <a
+        href="{{ link.url }}"
+        class="bestini-menu-buttons__link{% if link.active or link.current %} is-active{% endif %}"
+        {% if link.current %}
+          aria-current="page"
+        {% endif %}
+      >
+        {{- link.title -}}
+      </a>
+    {%- endfor -%}
+  </nav>
+{%- endif -%}

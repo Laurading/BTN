@@ -73,49 +73,8 @@
     {% endunless %}
   }
 
-  #Collection--{{ section.id }} .collection__nav__menu {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    flex: 1 1 auto;
-  }
-
-  #Collection--{{ section.id }} .collection__nav__menu__link {
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 18px;
-    border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.15));
-    text-decoration: none;
-    white-space: nowrap;
-    transition: border-color 0.2s ease;
-  }
-
-  #Collection--{{ section.id }} .collection__nav__menu__link:hover {
-    border-color: currentColor;
-  }
-
-  #Collection--{{ section.id }} .collection__nav__menu__link.is-active {
-    border-color: currentColor;
-    border-width: 1.5px;
-  }
-
-  @media only screen and (max-width: 749px) {
-    #Collection--{{ section.id }} .collection__nav__menu {
-      order: 3;
-      width: 100%;
-      justify-content: flex-start;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      padding-top: 12px;
-    }
-
-    #Collection--{{ section.id }} .collection__nav__menu::-webkit-scrollbar {
-      display: none;
-    }
+  #Collection--{{ section.id }} .collection__menu {
+    padding: 0 var(--outer) 16px;
   }
 {%- endstyle -%}
 
@@ -177,6 +136,21 @@
       {% assign align_classes = align_classes | append: ' collection__nav--filter ' %}
     {%- endif -%}
 
+    {%- liquid
+      # Menu propre à la collection (champ méta custom.collection_menu = identifiant du menu), sinon menu de la section
+      assign collection_menu_handle = collection.metafields.custom.collection_menu.value | default: section.settings.collection_menu
+      assign collection_menu = linklists[collection_menu_handle]
+      if collection_menu.links.size == 0
+        assign collection_menu = linklists[section.settings.collection_menu]
+      endif
+    -%}
+
+    {%- if collection_menu.links.size > 0 -%}
+      <div class="collection__menu">
+        {%- render 'bestini-menu-buttons', menu: collection_menu, align: section.settings.collection_menu_align -%}
+      </div>
+    {%- endif -%}
+
     {%- if enable_sort or enable_filters -%}
       <nav class="collection__nav {{ align_classes }}" data-collection-nav>
         {%- if enable_filters -%}
@@ -223,28 +197,6 @@
                 {%- render 'icon-nav-arrow-down' -%}
               {%- endunless -%}
             </button>
-          </div>
-        {%- endif -%}
-
-        {%- liquid
-          # Menu propre à la collection (champ méta custom.collection_menu = identifiant du menu), sinon menu de la section
-          assign collection_menu_handle = collection.metafields.custom.collection_menu.value | default: section.settings.collection_menu
-          assign collection_menu = linklists[collection_menu_handle]
-          if collection_menu.links.size == 0
-            assign collection_menu = linklists[section.settings.collection_menu]
-          endif
-        -%}
-
-        {%- if collection_menu.links.size > 0 -%}
-          <div class="collection__nav__menu">
-            {%- for link in collection_menu.links -%}
-              <a
-                href="{{ link.url }}"
-                class="collection__nav__menu__link{% if link.active or link.current %} is-active{% endif %}"
-              >
-                {{ link.title }}
-              </a>
-            {%- endfor -%}
           </div>
         {%- endif -%}
 
@@ -472,8 +424,19 @@
     {
       "type": "link_list",
       "id": "collection_menu",
-      "label": "Menu entre filtres et tri",
-      "info": "Affiché sous forme de boutons dans la barre d'outils de la collection. Remplacé par le menu indiqué dans le champ méta de collection custom.collection_menu (identifiant du menu) s'il est renseigné."
+      "label": "Menu au-dessus des filtres et du tri",
+      "info": "Affiché sous forme de boutons au-dessus de la barre filtres / tri. Remplacé par le menu indiqué dans le champ méta de collection custom.collection_menu (identifiant du menu) s'il est renseigné."
+    },
+    {
+      "type": "select",
+      "id": "collection_menu_align",
+      "label": "Alignement du menu",
+      "default": "center",
+      "options": [
+        {"value": "flex-start", "label": "Gauche"},
+        {"value": "center", "label": "Centre"},
+        {"value": "flex-end", "label": "Droite"}
+      ]
     },
     {
       "type": "checkbox",

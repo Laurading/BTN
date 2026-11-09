@@ -1,0 +1,111 @@
+<!-- /sections/section-menu-buttons.liquid -->
+{%- liquid
+  assign color_scheme = 'color-' | append: section.settings.color_scheme
+
+  # Menu du champ méta de la page (custom.collection_menu = identifiant du menu), sinon menu choisi dans la section
+  assign menu_handle = page.metafields.custom.collection_menu.value | default: section.settings.menu
+  assign menu = linklists[menu_handle]
+  if menu.links.size == 0
+    assign menu = linklists[section.settings.menu]
+  endif
+-%}
+
+{%- capture style -%}
+  --PT: {{ section.settings.padding_top }}px;
+  --PB: {{ section.settings.padding_bottom }}px;
+{%- endcapture -%}
+
+{%- if menu.links.size > 0 -%}
+  <section
+    id="MenuButtons--{{ section.id }}"
+    class="section-padding {{ color_scheme }}"
+    data-section-id="{{ section.id }}"
+    data-section-type="menu-buttons"
+    style="{{ style }}"
+  >
+    <div class="{{ section.settings.width }}">
+      {%- render 'bestini-menu-buttons', menu: menu, align: section.settings.align -%}
+    </div>
+  </section>
+{%- elsif request.design_mode -%}
+  <p style="margin: 0; padding: 12px 16px; font-size: 13px; opacity: 0.6; text-align: center;">Menu boutons : choisis un menu dans les réglages de la section.</p>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Menu boutons",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "Affiché sous forme de boutons. Sur une page, remplacé par le menu indiqué dans le champ méta de page custom.collection_menu (identifiant du menu) s'il est renseigné."
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Alignement",
+      "default": "center",
+      "options": [
+        {"value": "flex-start", "label": "Gauche"},
+        {"value": "center", "label": "Centre"},
+        {"value": "flex-end", "label": "Droite"}
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Largeur",
+      "default": "wrapper--full-padded",
+      "options": [
+        {"value": "wrapper--full-padded", "label": "Pleine largeur avec marges"},
+        {"value": "wrapper", "label": "Normale"},
+        {"value": "wrapper--narrow", "label": "Étroite"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme_1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Haut",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Bas",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Menu boutons",
+      "category": "Layout"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "aside"]
+  }
+}
+{% endschema %}
