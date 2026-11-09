@@ -126,10 +126,39 @@
             "padding": true,
             "padding_bottom": 14
           }
+        },
+        "image_grid_d74KiP": {
+          "type": "image_grid",
+          "settings": {
+            "aspect_ratio": "1",
+            "gap": 8,
+            "text_align": "center",
+            "caption_color": "",
+            "text_1": "",
+            "link_1": "",
+            "text_2": "",
+            "link_2": "",
+            "text_3": "",
+            "link_3": "",
+            "text_4": "",
+            "link_4": "",
+            "text_5": "",
+            "link_5": "",
+            "text_6": "",
+            "link_6": "",
+            "text_7": "",
+            "link_7": "",
+            "text_8": "",
+            "link_8": "",
+            "text_9": "",
+            "link_9": "",
+            "padding_bottom": 14
+          }
         }
       },
       "block_order": [
-        "menu_YRVajJ"
+        "menu_YRVajJ",
+        "image_grid_d74KiP"
       ],
       "name": "Mobile menu",
       "settings": {
