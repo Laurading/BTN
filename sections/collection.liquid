@@ -74,7 +74,7 @@
   }
 
   #Collection--{{ section.id }} .collection__menu {
-    padding: 0 var(--outer) 16px;
+    padding: {{ section.settings.collection_menu_padding_top | default: 0 }}px var(--outer) {{ section.settings.collection_menu_padding_bottom | default: 0 }}px;
   }
 {%- endstyle -%}
 
@@ -437,6 +437,26 @@
         {"value": "center", "label": "Centre"},
         {"value": "flex-end", "label": "Droite"}
       ]
+    },
+    {
+      "type": "range",
+      "id": "collection_menu_padding_top",
+      "label": "Marge haut du menu",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "collection_menu_padding_bottom",
+      "label": "Marge bas du menu",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
     },
     {
       "type": "checkbox",
