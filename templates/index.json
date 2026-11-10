@@ -203,7 +203,7 @@
         "grid_mobile": "2",
         "width": "wrapper--full",
         "color_scheme": "",
-        "padding_top": 32,
+        "padding_top": 64,
         "padding_bottom": 32,
         "heading_tag": "automatic"
       }
