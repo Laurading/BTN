@@ -1168,6 +1168,25 @@
             "many": "The gift cards have been sent to the recipients."
           }
         }
+      },
+      "buy_again_review": {
+        "unavailable_in_market": {
+          "body": {
+            "many": "These products were not added to your cart because they are not available in your country or region."
+          },
+          "none_body": {
+            "many": "These products are not available in your country or region."
+          },
+          "heading": {
+            "many": "Unavailable products"
+          }
+        },
+        "quantity_added": {
+          "many": "Items added: {{added}} out of {{count}}"
+        },
+        "item_count": {
+          "many": "{{count}} articles"
+        }
       }
     },
     "order_details": {
