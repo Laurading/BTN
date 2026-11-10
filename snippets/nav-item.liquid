@@ -1,6 +1,6 @@
 {%- liquid
-  assign highlight_item = highlight_item | downcase | strip_html | escape
-  assign link_title_lowercase = link.title | downcase | strip_html | escape
+  assign highlight_item = highlight_item | downcase | strip_html | escape | remove: ' ' | split: ',' | join: ',' | prepend: ',' | append: ','
+  assign link_title_lowercase = link.title | downcase | strip_html | escape | remove: ' ' | prepend: ',' | append: ','
   assign parent = false
   assign grandparent = false
   if link.levels == 1
@@ -70,7 +70,7 @@
   <a
     href="{{ link.url }}"
     data-top-link
-    class="navlink navlink--toplevel{% if highlight_item == link_title_lowercase %} navlink--highlight{% endif %}"
+    class="navlink navlink--toplevel{% if highlight_item contains link_title_lowercase %} navlink--highlight{% endif %}"
   >
     <span class="navtext">{{ link.title | strip_html | escape }}</span>
   </a>
@@ -86,12 +86,12 @@
               <div class="header__grandparent__links">
                 {% if link.levels == 2 %}
                   {% for link in link.links %}
-                    {%- assign link_title_lowercase = link.title | downcase | strip_html | escape -%}
+                    {%- assign link_title_lowercase = link.title | downcase | strip_html | escape | remove: ' ' | prepend: ',' | append: ',' -%}
                     <div class="dropdown__family">
                       <a
                         href="{{ link.url }}"
                         data-stagger-first
-                        class="navlink navlink--child{% if highlight_item == link_title_lowercase %} navlink--highlight{% endif %}"
+                        class="navlink navlink--child{% if highlight_item contains link_title_lowercase %} navlink--highlight{% endif %}"
                       >
                         <span class="navtext">
                           {{ link.title | strip_html | escape }}
@@ -100,11 +100,11 @@
                         </span>
                       </a>
                       {% for link in link.links %}
-                        {%- assign link_title_lowercase = link.title | downcase | strip_html | escape -%}
+                        {%- assign link_title_lowercase = link.title | downcase | strip_html | escape | remove: ' ' | prepend: ',' | append: ',' -%}
                         <a
                           href="{{ link.url }}"
                           data-stagger-second
-                          class="navlink navlink--grandchild{% if highlight_item == link_title_lowercase %} navlink--highlight{% endif %}"
+                          class="navlink navlink--grandchild{% if highlight_item contains link_title_lowercase %} navlink--highlight{% endif %}"
                         >
                           <span class="navtext">
                             {{ link.title | strip_html | escape }}
@@ -118,11 +118,11 @@
                 {% elsif link.levels == 1 %}
                   <div class="dropdown__family">
                     {% for link in link.links %}
-                      {%- assign link_title_lowercase = link.title | downcase | strip_html | escape -%}
+                      {%- assign link_title_lowercase = link.title | downcase | strip_html | escape | remove: ' ' | prepend: ',' | append: ',' -%}
                       <a
                         href="{{ link.url }}"
                         data-stagger
-                        class="navlink navlink--grandchild{% if highlight_item == link_title_lowercase %} navlink--highlight{% endif %}"
+                        class="navlink navlink--grandchild{% if highlight_item contains link_title_lowercase %} navlink--highlight{% endif %}"
                       >
                         <span class="navtext">
                           {{ link.title | strip_html | escape }}
@@ -159,11 +159,11 @@
           {%- else -%}
             {% comment %} Simple dropdown {% endcomment %}
             {% for link in link.links %}
-              {%- assign link_title_lowercase = link.title | downcase | strip_html | escape -%}
+              {%- assign link_title_lowercase = link.title | downcase | strip_html | escape | remove: ' ' | prepend: ',' | append: ',' -%}
               <a
                 href="{{ link.url }}"
                 data-stagger
-                class="navlink navlink--child{% if highlight_item == link_title_lowercase %} navlink--highlight{% endif %}"
+                class="navlink navlink--child{% if highlight_item contains link_title_lowercase %} navlink--highlight{% endif %}"
               >
                 <span class="navtext">
                   {{ link.title | strip_html | escape }}
