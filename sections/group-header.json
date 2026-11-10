@@ -92,7 +92,7 @@
         "show_country_selector": true,
         "show_country_name": false,
         "show_country_flag": false,
-        "highlight_item": "Sale",
+        "highlight_item": "Outlet, Blackfriday",
         "highlight_item_color": "#762d16",
         "transparent_logo": "shopify://shop_images/Bestiniparis_logo_W.png",
         "transparent_home": true,
@@ -121,8 +121,8 @@
           "settings": {
             "mobile_menu_linklist": "menu-principal-mobile-hiver-2026",
             "text_font_size": "body-large",
-            "highlight_item": "Sale",
-            "highlight_item_color": "#d02e2e",
+            "highlight_item": "Outlet, Blackfriday",
+            "highlight_item_color": "#762d16",
             "padding": true,
             "padding_bottom": 14
           }

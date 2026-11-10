@@ -3,8 +3,8 @@
   assign animation_duration = 500
   assign animation_delay_min = 50
   assign animation_delay_additional = 200
-  assign highlight_item = highlight_item | downcase | strip_html | escape
-  assign link_title_lowercase = link.title | downcase | strip_html | escape
+  assign highlight_item = highlight_item | downcase | strip_html | escape | remove: ' ' | split: ',' | join: ',' | prepend: ',' | append: ','
+  assign link_title_lowercase = link.title | downcase | strip_html | escape | remove: ' ' | prepend: ',' | append: ','
   assign expands = false
   assign block_count = 0
   assign link_level = link_level | default: 0
@@ -32,9 +32,9 @@
 
 {%- capture link_markup -%}
   {%- if link.url == "#" -%}
-    <span class="sliderow__title{% if secondary_menu %} sliderow__title--secondary{% endif %}{% if highlight_item == link_title_lowercase %} sliderow__title--highlight{% endif %}" data-sliderule-close="sliderule-{{ key }}">{{ link.title | strip_html | escape }}</span>
+    <span class="sliderow__title{% if secondary_menu %} sliderow__title--secondary{% endif %}{% if highlight_item contains link_title_lowercase %} sliderow__title--highlight{% endif %}" data-sliderule-close="sliderule-{{ key }}">{{ link.title | strip_html | escape }}</span>
   {%- else -%}
-    <a class="sliderow__title{% if secondary_menu %} sliderow__title--secondary{% endif %}{% if highlight_item == link_title_lowercase %} sliderow__title--highlight{% endif %}" href="{{ link.url }}">
+    <a class="sliderow__title{% if secondary_menu %} sliderow__title--secondary{% endif %}{% if highlight_item contains link_title_lowercase %} sliderow__title--highlight{% endif %}" href="{{ link.url }}">
       <span>
         {{ link.title | strip_html | escape }}
 
@@ -58,7 +58,7 @@
         data-animation-duration="{{ animation_duration }}"
         data-sliderule-open="sliderule-{{ key }}"
       >
-        <span class="sliderow__title{% if secondary_menu %} sliderow__title--secondary{% endif %}{% if highlight_item == link_title_lowercase %} sliderow__title--highlight{% endif %}">
+        <span class="sliderow__title{% if secondary_menu %} sliderow__title--secondary{% endif %}{% if highlight_item contains link_title_lowercase %} sliderow__title--highlight{% endif %}">
           <span>
             {{ link.title | strip_html | escape }}
 
