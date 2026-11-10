@@ -67,8 +67,8 @@
         "image_d3R8fV": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/4_6f533805-8b07-474a-9736-219f9d09ff89.jpg",
-            "title": "Nouveauté",
+            "image": "shopify://shop_images/7_4a0857cc-5fa7-449b-90fc-8be00adc1df1.jpg",
+            "title": "",
             "heading_font_size": "heading-x-small",
             "text": "<p>LINGOT Tini</p>",
             "text_font_size": "body-medium",
@@ -186,7 +186,7 @@
       "name": "Featured collection",
       "settings": {
         "featured_collection": "fw2026-capsule-mimosa",
-        "heading": "DROP II Capsule",
+        "heading": "LASTEST NEW DROP",
         "heading_font_size": "heading-x-small",
         "description": "<p>Ces pièces que vous nous demandez sans cesse.&nbsp;</p>",
         "text_font_size": "body-x-small",
