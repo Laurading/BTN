@@ -109,95 +109,6 @@
         "color_scheme": ""
       }
     },
-    "section_video_qFnFiT": {
-      "type": "section-video",
-      "name": "Video",
-      "settings": {
-        "video": "{{ collection.metafields.custom.video_landing_banniere.value }}",
-        "show_video_popup": false,
-        "video_popup_social": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "title": "Video",
-        "heading_font_size": "heading-large",
-        "text": "<p>Tell your brand's story through images.</p>",
-        "text_font_size": "body-medium",
-        "flex_align": "align--middle-center",
-        "link_text": "View products",
-        "link": "",
-        "button_type": "btn--primary",
-        "button_size": "",
-        "button_style": "btn--solid",
-        "show_arrow": false,
-        "desktop_height": "screen-height-three-quarters",
-        "mobile_video": "{{ collection.metafields.custom.video_landing_collection_mobile.value }}",
-        "mobile_height": "screen-height-three-quarters--mobile",
-        "width": "wrapper--full",
-        "color_scheme": "",
-        "show_text_background": false,
-        "color": "",
-        "overlay_type": "disabled",
-        "padding_top": 0,
-        "padding_bottom": 24,
-        "heading_tag": "automatic"
-      }
-    },
-    "section_hero_7QnLnk": {
-      "type": "section-hero",
-      "blocks": {
-        "heading_JzKhxh": {
-          "type": "heading",
-          "settings": {
-            "title": "Image banner",
-            "heading_font_size": "heading-x-large",
-            "heading_tag": "automatic",
-            "padding_bottom": 8
-          }
-        },
-        "text_Phn7eL": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Tell your brand's story through images.</p>",
-            "text_font_size": "body-large",
-            "padding_bottom": 8
-          }
-        },
-        "button_YFLiWr": {
-          "type": "button",
-          "settings": {
-            "link_text": "View products",
-            "link": "",
-            "button_type": "btn--primary",
-            "button_size": "",
-            "button_style": "btn--solid",
-            "show_arrow": false,
-            "full_width": false,
-            "padding_bottom": 8
-          }
-        }
-      },
-      "block_order": [
-        "heading_JzKhxh",
-        "text_Phn7eL",
-        "button_YFLiWr"
-      ],
-      "name": "Image banner",
-      "settings": {
-        "image_1": "{{ collection.metafields.custom.photo_landing_collection.value }}",
-        "link": "",
-        "width": "wrapper--full",
-        "height": "screen-height-three-quarters",
-        "flex_align_desktop": "align--middle-center-desktop",
-        "content_width": 50,
-        "mobile_image": "{{ collection.metafields.custom.photo_landing_mobile.value }}",
-        "mobile_height": "screen-height-three-quarters--mobile",
-        "flex_align_mobile": "align--middle-center-mobile",
-        "color_scheme": "",
-        "show_text_background": false,
-        "overlay_type": "disabled",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "show_placeholder": true
-      }
-    },
     "main": {
       "type": "collection",
       "settings": {
@@ -218,9 +129,61 @@
         "grid": 4,
         "grid_mobile": "2",
         "products_per_page": 24,
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "section_video_46dXVt": {
+      "type": "section-video",
+      "name": "Video",
+      "settings": {
+        "video": "{{ collection.metafields.custom.video_landing_banniere.value }}",
+        "show_video_popup": false,
+        "video_popup_social": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "title": "",
+        "heading_font_size": "heading-large",
+        "text": "",
+        "text_font_size": "body-medium",
+        "flex_align": "align--middle-center",
+        "link_text": "",
+        "link": "",
+        "button_type": "btn--primary",
+        "button_size": "",
+        "button_style": "btn--solid",
+        "show_arrow": false,
+        "desktop_height": "screen-height-three-quarters",
+        "mobile_video": "{{ collection.metafields.custom.video_landing_collection_mobile.value }}",
+        "mobile_height": "screen-height-three-quarters--mobile",
+        "width": "wrapper--full",
+        "color_scheme": "",
+        "show_text_background": false,
+        "color": "",
+        "overlay_type": "disabled",
+        "padding_top": 0,
+        "padding_bottom": 24,
+        "heading_tag": "automatic"
+      }
+    },
+    "section_hero_ecCQGe": {
+      "type": "section-hero",
+      "name": "Image banner",
+      "settings": {
+        "image_1": "{{ collection.metafields.custom.photo_landing_collection.value }}",
+        "link": "",
+        "width": "wrapper--full",
+        "height": "five-fifty-height-hero",
+        "flex_align_desktop": "align--middle-center-desktop",
+        "content_width": 50,
+        "mobile_image": "{{ collection.metafields.custom.photo_landing_mobile.value }}",
+        "mobile_height": "image-height--mobile",
+        "flex_align_mobile": "align--middle-center-mobile",
+        "color_scheme": "",
+        "show_text_background": false,
+        "overlay_type": "disabled",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_placeholder": true
       }
     }
   },
@@ -229,8 +192,8 @@
     "hero",
     "subcollections",
     "section_product_P3gYGC",
-    "section_video_qFnFiT",
-    "section_hero_7QnLnk",
+    "section_video_46dXVt",
+    "section_hero_ecCQGe",
     "main"
   ]
 }
