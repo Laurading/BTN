@@ -201,6 +201,9 @@
       "type": "collection",
       "settings": {
         "collection_menu": "",
+        "collection_menu_align": "center",
+        "collection_menu_padding_top": 20,
+        "collection_menu_padding_bottom": 20,
         "enable_sort": true,
         "enable_filters": true,
         "filter_layout": "slide-out",
@@ -209,6 +212,8 @@
         "enable_grid_video": true,
         "grid_video": "{{ collection.metafields.custom.video_landing_collection.value }}",
         "grid_video_mobile": "{{ collection.metafields.custom.video_landing_collection_mobile.value }}",
+        "grid_image": "{{ collection.metafields.custom.photo_landing_side.value }}",
+        "grid_image_mobile": "{{ collection.metafields.custom.photo_landing_mobile.value }}",
         "grid": 4,
         "grid_mobile": "2",
         "products_per_page": 24,
