@@ -146,27 +146,6 @@
         "color_scheme": ""
       }
     },
-    "section_hero_ecCQGe": {
-      "type": "section-hero",
-      "name": "Image banner",
-      "settings": {
-        "image_1": "{{ collection.metafields.custom.photo_landing_collection.value }}",
-        "link": "",
-        "width": "wrapper--full",
-        "height": "five-fifty-height-hero",
-        "flex_align_desktop": "align--middle-center-desktop",
-        "content_width": 50,
-        "mobile_image": "{{ collection.metafields.custom.photo_landing_mobile.value }}",
-        "mobile_height": "image-height--mobile",
-        "flex_align_mobile": "align--middle-center-mobile",
-        "color_scheme": "",
-        "show_text_background": false,
-        "overlay_type": "disabled",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "show_placeholder": true
-      }
-    },
     "section_video_46dXVt": {
       "type": "section-video",
       "name": "Video",
@@ -196,6 +175,27 @@
         "padding_top": 0,
         "padding_bottom": 24,
         "heading_tag": "automatic"
+      }
+    },
+    "section_hero_ecCQGe": {
+      "type": "section-hero",
+      "name": "Image banner",
+      "settings": {
+        "image_1": "{{ collection.metafields.custom.photo_landing_collection.value }}",
+        "link": "",
+        "width": "wrapper--full",
+        "height": "five-fifty-height-hero",
+        "flex_align_desktop": "align--middle-center-desktop",
+        "content_width": 50,
+        "mobile_image": "{{ collection.metafields.custom.photo_landing_mobile.value }}",
+        "mobile_height": "image-height--mobile",
+        "flex_align_mobile": "align--middle-center-mobile",
+        "color_scheme": "",
+        "show_text_background": false,
+        "overlay_type": "disabled",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_placeholder": true
       }
     },
     "main": {
@@ -231,8 +231,8 @@
     "section_custom_code_qpFxL9",
     "subcollections",
     "section_product_P3gYGC",
-    "section_hero_ecCQGe",
     "section_video_46dXVt",
+    "section_hero_ecCQGe",
     "main"
   ]
 }
