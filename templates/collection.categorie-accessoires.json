@@ -139,10 +139,71 @@
         "heading_tag": "automatic"
       }
     },
+    "section_hero_7QnLnk": {
+      "type": "section-hero",
+      "blocks": {
+        "heading_JzKhxh": {
+          "type": "heading",
+          "settings": {
+            "title": "Image banner",
+            "heading_font_size": "heading-x-large",
+            "heading_tag": "automatic",
+            "padding_bottom": 8
+          }
+        },
+        "text_Phn7eL": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Tell your brand's story through images.</p>",
+            "text_font_size": "body-large",
+            "padding_bottom": 8
+          }
+        },
+        "button_YFLiWr": {
+          "type": "button",
+          "settings": {
+            "link_text": "View products",
+            "link": "",
+            "button_type": "btn--primary",
+            "button_size": "",
+            "button_style": "btn--solid",
+            "show_arrow": false,
+            "full_width": false,
+            "padding_bottom": 8
+          }
+        }
+      },
+      "block_order": [
+        "heading_JzKhxh",
+        "text_Phn7eL",
+        "button_YFLiWr"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "image_1": "{{ collection.metafields.custom.photo_landing_collection.value }}",
+        "link": "",
+        "width": "wrapper--full",
+        "height": "screen-height-three-quarters",
+        "flex_align_desktop": "align--middle-center-desktop",
+        "content_width": 50,
+        "mobile_image": "{{ collection.metafields.custom.photo_landing_mobile.value }}",
+        "mobile_height": "screen-height-three-quarters--mobile",
+        "flex_align_mobile": "align--middle-center-mobile",
+        "color_scheme": "",
+        "show_text_background": false,
+        "overlay_type": "disabled",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_placeholder": true
+      }
+    },
     "main": {
       "type": "collection",
       "settings": {
         "collection_menu": "header-desktop-menu-accessoires",
+        "collection_menu_align": "center",
+        "collection_menu_padding_top": 20,
+        "collection_menu_padding_bottom": 20,
         "enable_sort": true,
         "enable_filters": true,
         "filter_layout": "slide-out",
@@ -151,6 +212,8 @@
         "enable_grid_video": true,
         "grid_video": "{{ collection.metafields.custom.video_landing_collection.value }}",
         "grid_video_mobile": "{{ collection.metafields.custom.video_landing_collection_mobile.value }}",
+        "grid_image": "{{ collection.metafields.custom.photo_landing_side.value }}",
+        "grid_image_mobile": "{{ collection.metafields.custom.photo_landing_mobile.value }}",
         "grid": 4,
         "grid_mobile": "2",
         "products_per_page": 24,
@@ -166,6 +229,7 @@
     "subcollections",
     "section_product_P3gYGC",
     "section_video_qFnFiT",
+    "section_hero_7QnLnk",
     "main"
   ]
 }
