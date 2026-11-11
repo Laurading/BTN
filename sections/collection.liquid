@@ -297,6 +297,30 @@
   </div>
 
   <script src="{{ 'video-background.js' | asset_url }}" defer="defer"></script>
+{%- elsif section.settings.enable_grid_video and section.settings.grid_image != blank and paginate.current_page == 1 -%}
+  {%- comment -%} Bestini : image au début de la grille, affichée seulement s'il n'y a pas de vidéo {%- endcomment -%}
+  {%- liquid
+    assign gi_mobile = section.settings.grid_image_mobile
+    assign gi_desktop_class = ''
+    if gi_mobile != blank
+      assign gi_desktop_class = ' grid-video-item__player--desktop-only'
+    endif
+  -%}
+  <div class="grid-item grid-video-item grid-image-item">
+    <div class="grid-video-item__wrapper{{ gi_desktop_class }}">
+      <div class="grid-video-item__poster">
+        {%- render 'image', image: section.settings.grid_image, sizes: '(min-width: 750px) 50vw, 100vw', cover: true -%}
+      </div>
+    </div>
+
+    {%- if gi_mobile != blank -%}
+      <div class="grid-video-item__wrapper grid-video-item__player--mobile-only">
+        <div class="grid-video-item__poster">
+          {%- render 'image', image: gi_mobile, sizes: '100vw', cover: true -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
 {%- endif -%}
           {%- if collection.products_count > 0 -%}
             {%- if featured_images_array.size > 0 -%}
@@ -500,7 +524,8 @@
     {
       "type": "checkbox",
       "id": "enable_grid_video",
-      "label": "Show video at the start of the grid",
+      "label": "Show video or image at the start of the grid",
+      "info": "If both a video and an image are set, the video is shown.",
       "default": false
     },
     {
@@ -521,6 +546,20 @@
      "id": "grid_video_poster",
      "label": "Poster image",
       "info": "Displayed while the video loads. 800 x 800px recommended.",
+      "visible_if": "{{ section.settings.enable_grid_video }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "grid_image",
+      "label": "Image",
+      "info": "Shown only when no video is set. 800 x 800px recommended.",
+      "visible_if": "{{ section.settings.enable_grid_video }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "grid_image_mobile",
+      "label": "Image (mobile)",
+      "info": "If left empty, the image above is used on mobile too.",
       "visible_if": "{{ section.settings.enable_grid_video }}"
     },
     {
