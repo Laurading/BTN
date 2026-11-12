@@ -73,7 +73,7 @@
       "name": "Image banner",
       "settings": {
         "image_2": "shopify://shop_images/BANNIERE_site_1.png",
-        "link": "shopify://products/bondi-besti-copie-1",
+        "link": "shopify://pages/landing-sac-bondi",
         "width": "wrapper--full",
         "height": "screen-height-three-quarters",
         "flex_align_desktop": "align--middle-center-desktop",
