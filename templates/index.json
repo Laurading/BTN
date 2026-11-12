@@ -22,7 +22,7 @@
         "text_font_size": "body-large",
         "flex_align": "align--middle-right",
         "link_text": "DÉCOUVRIR",
-        "link": "shopify://collections/bondi-besti",
+        "link": "shopify://pages/landing-sac-bondi",
         "button_type": "btn--white",
         "button_size": "btn--small",
         "button_style": "btn--outline",
