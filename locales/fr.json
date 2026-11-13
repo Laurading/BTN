@@ -66,7 +66,7 @@
       "products": "Produits",
       "search_for": "Rechercher « {{ terms }} »",
       "reset": "Réinitialiser",
-      "clear": "Éclaircir",
+      "clear": "Effacer",
       "results_with_count_and_term": {
         "one": "{{ count }} résultat trouvé pour « {{ terms }} »",
         "other": "{{ count }} résultats trouvés pour « {{ terms }} »"
@@ -171,7 +171,7 @@
       "remove_discount": "Supprimer la remise",
       "subtotal": "Sous-total",
       "subtotal_items": "Articles",
-      "subtotal_note": "hors taxes et frais de livraison",
+      "subtotal_note": "hors frais de livraison",
       "customer_note": "Donnez une note au vendeur",
       "cart_notes_label": "Ajouter des notes de commande",
       "pair_products": "Paire avec",
@@ -456,7 +456,7 @@
       "sale_type": "Type de vente",
       "new": "Nouveauté",
       "pre_order": "Pré-commander",
-      "on_sale": "Offre exclusive",
+      "on_sale": "Remises",
       "save_badge_html": "Économisez {{ discount }}",
       "save_badge_up_to_html": "Économisez jusqu'à {{ discount }}",
       "final_sale": "Vente finale",
