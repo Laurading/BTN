@@ -185,10 +185,10 @@
       "type": "section-collection",
       "name": "Featured collection",
       "settings": {
-        "featured_collection": "fw2026-capsule-mimosa",
-        "heading": "COLLECTION CAPSULE : DROP III",
+        "featured_collection": "single-day",
+        "heading": "BLACKFRIDAY",
         "heading_font_size": "heading-x-small",
-        "description": "<p>Ces pièces que vous nous demandez sans cesse.&nbsp;</p>",
+        "description": "<p>Jusqu’à −30 % sur une sélection</p>",
         "text_font_size": "body-x-small",
         "layout": "inline",
         "link_text": "+",
@@ -244,8 +244,8 @@
       ],
       "name": "Picked products",
       "settings": {
-        "heading": "L’automne, bien accompagné. Un beau sac, oui. Mais un sac qui suit le rythme, c’est encore mieux. L’essentiel à portée de main, du style sans en faire trop.",
-        "heading_font_size": "heading-x-small",
+        "heading": "Viens te réchauffer dans notre univers minimaliste, pas simple. Choisis une pièce, un sac qui signe ton allure sans te déguiser.",
+        "heading_font_size": "heading-mini",
         "align_heading": "text-center",
         "grid": 4,
         "grid_mobile": "2",
@@ -311,8 +311,8 @@
         "image_WtXgqe": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/32_92a8d354-a821-48eb-9547-66b5ecbeafe1.jpg",
-            "title": "PETITS PLAISIRS",
+            "image": "shopify://shop_images/BlindboxBaby-Boitesmysteres_6.jpg",
+            "title": "BABI PLAISIRS",
             "heading_font_size": "heading-medium",
             "text": "",
             "text_font_size": "body-medium",
@@ -333,7 +333,7 @@
         "image_JEp7Pk": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/WhatsApp_Image_2026-07-20_at_21.27.32_61dbc84f-6a14-4541-bcda-8b8cd620a685.jpg",
+            "image": "shopify://shop_images/Breloques_au_crochet_suspendues_sur_fond_creme.png",
             "title": "ACCESSOIRES",
             "heading_font_size": "heading-medium",
             "text": "",
@@ -380,7 +380,7 @@
           "type": "image",
           "name": "Archives",
           "settings": {
-            "image": "shopify://shop_images/FG203086.jpg",
+            "image": "shopify://shop_images/BANNIERE_site_6.png",
             "title": "ARCHIVES",
             "heading_font_size": "heading-large",
             "text": "",
@@ -403,7 +403,7 @@
           "type": "image",
           "name": "Outlet",
           "settings": {
-            "image": "shopify://shop_images/Proposition_contenu_instagram_-_Bestini_9.jpg",
+            "image": "shopify://shop_images/taille_Publication_Instagram_3.png",
             "title": "OUTLET",
             "heading_font_size": "heading-large",
             "text": "",
