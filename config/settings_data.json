@@ -148,7 +148,7 @@
         "type": "shopify://apps/sales-discounts/blocks/price_property/29205fb1-2e68-4d81-a905-d828a51c8413",
         "disabled": false,
         "settings": {
-          "original_price_label": "🏷️ Original price",
+          "original_price_label": "Prix initial",
           "visibility": "all"
         }
       }
