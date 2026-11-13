@@ -84,7 +84,7 @@
     "show_automatic_new_badge": true,
     "new_badge_bg_color": "#794E45",
     "new_badge_text_color": "#F0EEEB",
-    "badge_new_date_limit": 20,
+    "badge_new_date_limit": 10,
     "show_preorder_badge": true,
     "preorder_bg_color": "#F0EEEB",
     "preorder_text_color": "#762C16",
@@ -99,7 +99,7 @@
     "empty_cart_products": [
       "anzieu"
     ],
-    "show_recently_viewed_products": true,
+    "show_recently_viewed_products": false,
     "currency_code_enable": true,
     "content_for_index": [],
     "blocks": {
@@ -281,15 +281,15 @@
       },
       "scheme-8": {
         "settings": {
-          "section_text": "#F0EEEB",
+          "section_text": "#f0eeeb",
           "section_bg": "#291916",
-          "section_bg_light": "#F0EEEB",
+          "section_bg_light": "#f0eeeb",
           "section_bg_gradient": "",
           "btn_primary_bg": "#291916",
-          "btn_primary_text": "#F0EEEB",
+          "btn_primary_text": "#f0eeeb",
           "btn_primary_border": "#291916",
           "btn_secondary_bg": "#ab8c52",
-          "btn_secondary_text": "#F0EEEB",
+          "btn_secondary_text": "#f0eeeb",
           "btn_secondary_border": "#ab8c52",
           "accent": "#ab8c52",
           "lines_and_border": "#d1cdc4",
