@@ -32,7 +32,7 @@
         "width": "wrapper--full",
         "color_scheme": "",
         "show_text_background": false,
-        "color": "#F0EEEB",
+        "color": "#f0eeeb",
         "overlay_type": "disabled",
         "padding_top": 0,
         "padding_bottom": 0,
@@ -45,7 +45,7 @@
         "image_dzz4r4": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/DSC00511.jpg",
+            "image": "shopify://shop_images/1_c34f26dd-f2ca-4936-92ef-09180d1c3fb0.jpg",
             "title": "DUCTI 27",
             "heading_font_size": "heading-x-small",
             "text": "",
@@ -67,10 +67,10 @@
         "image_d3R8fV": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/7_4a0857cc-5fa7-449b-90fc-8be00adc1df1.jpg",
-            "title": "",
-            "heading_font_size": "heading-x-small",
-            "text": "<p>LINGOT Tini</p>",
+            "image": "shopify://shop_images/DSC02759.jpg",
+            "title": "DOLO",
+            "heading_font_size": "heading-small",
+            "text": "",
             "text_font_size": "body-medium",
             "flex_align": "align--middle-center",
             "show_text_background": false,
