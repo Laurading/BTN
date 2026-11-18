@@ -9,68 +9,6 @@
  */
 {
   "sections": {
-    "section_double_4NnNzJ": {
-      "type": "section-double",
-      "blocks": {
-        "subheading_ddMVpi": {
-          "type": "subheading",
-          "settings": {
-            "subheading": "",
-            "padding_bottom": 16
-          }
-        },
-        "heading_eekkVq": {
-          "type": "heading",
-          "settings": {
-            "title": "DU SOUTIEN. DE LA PLACE POUR L’IMPRÉVU.",
-            "heading_font_size": "heading-medium",
-            "padding_bottom": 16,
-            "heading_tag": "automatic"
-          }
-        },
-        "text_7dUCjf": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Winnicott rappelle qu’on peut être soutenu sans être retenu. Une présence souple, pour les jours qui bougent.</p>",
-            "text_font_size": "body-small",
-            "padding_bottom": 16
-          }
-        },
-        "buttons_QHtABg": {
-          "type": "buttons",
-          "settings": {
-            "button_text": "Découvrir Winnicott",
-            "button_url": "shopify://collections/685872054616",
-            "button_type": "btn--primary",
-            "button_size": "",
-            "button_style": "btn--text",
-            "show_arrow": true,
-            "padding_bottom": 16
-          }
-        }
-      },
-      "block_order": [
-        "subheading_ddMVpi",
-        "heading_eekkVq",
-        "text_7dUCjf",
-        "buttons_QHtABg"
-      ],
-      "name": "Image with text",
-      "settings": {
-        "image_1": "shopify://shop_images/20261016_174614_194a0900-5199-4195-8464-8d83d0937609.jpg",
-        "image_width": "three-quarters",
-        "text_alignment": "text-center",
-        "layout": "is-reversed",
-        "width": "wrapper--full",
-        "height": "screen-height-full",
-        "mobile_height": "screen-height-one-half--mobile",
-        "reverse_blocks": false,
-        "color_scheme": "",
-        "padding_top": 50,
-        "padding_bottom": 50,
-        "show_placeholder": false
-      }
-    },
     "section_double_U7LT9r": {
       "type": "section-double",
       "blocks": {
@@ -85,7 +23,7 @@
           "type": "heading",
           "settings": {
             "title": "IL NE VOULAIT PAS VENIR. MAINTENANT, IL RESTE.",
-            "heading_font_size": "heading-medium",
+            "heading_font_size": "heading-small",
             "padding_bottom": 16,
             "heading_tag": "automatic"
           }
@@ -94,7 +32,7 @@
           "type": "text",
           "settings": {
             "text": "<p>Le compagnon qu’on embarque presque malgré lui. Et qui finit par profiter de la journée autant que nous.</p>",
-            "text_font_size": "body-small",
+            "text_font_size": "body-x-small",
             "padding_bottom": 16
           }
         },
@@ -128,8 +66,8 @@
         "mobile_height": "screen-height-one-half--mobile",
         "reverse_blocks": false,
         "color_scheme": "",
-        "padding_top": 50,
-        "padding_bottom": 50,
+        "padding_top": 0,
+        "padding_bottom": 0,
         "show_placeholder": false
       }
     },
@@ -147,7 +85,7 @@
           "type": "heading",
           "settings": {
             "title": "TENIR. CONTENIR. SANS EN AVOIR L’AIR.",
-            "heading_font_size": "heading-medium",
+            "heading_font_size": "heading-small",
             "padding_bottom": 16,
             "heading_tag": "automatic"
           }
@@ -156,7 +94,7 @@
           "type": "text",
           "settings": {
             "text": "<p>Du holding naît l’idée d’un contenant souple et enveloppant. Sous son allure nonchalante, Winnicott garde les affaires à leur place.</p>",
-            "text_font_size": "body-small",
+            "text_font_size": "body-x-small",
             "padding_bottom": 16
           }
         },
@@ -190,8 +128,8 @@
         "mobile_height": "screen-height-one-half--mobile",
         "reverse_blocks": false,
         "color_scheme": "",
-        "padding_top": 50,
-        "padding_bottom": 50,
+        "padding_top": 20,
+        "padding_bottom": 20,
         "show_placeholder": false
       }
     },
@@ -209,7 +147,7 @@
           "type": "heading",
           "settings": {
             "title": "DERRIÈRE LE NOM, DONALD WINNICOTT",
-            "heading_font_size": "heading-medium",
+            "heading_font_size": "heading-small",
             "padding_bottom": 16,
             "heading_tag": "automatic"
           }
@@ -218,7 +156,7 @@
           "type": "text",
           "settings": {
             "text": "<p>Pédiatre et psychanalyste, Donald Winnicott a pensé l’importance d’un environnement qui porte et soutient l’enfant.</p>",
-            "text_font_size": "body-small",
+            "text_font_size": "body-x-small",
             "padding_bottom": 16
           }
         },
@@ -252,8 +190,70 @@
         "mobile_height": "screen-height-one-half--mobile",
         "reverse_blocks": false,
         "color_scheme": "",
-        "padding_top": 50,
-        "padding_bottom": 50,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "show_placeholder": false
+      }
+    },
+    "section_double_4NnNzJ": {
+      "type": "section-double",
+      "blocks": {
+        "subheading_ddMVpi": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "",
+            "padding_bottom": 16
+          }
+        },
+        "heading_eekkVq": {
+          "type": "heading",
+          "settings": {
+            "title": "DU SOUTIEN. DE LA PLACE POUR L’IMPRÉVU.",
+            "heading_font_size": "heading-small",
+            "padding_bottom": 16,
+            "heading_tag": "automatic"
+          }
+        },
+        "text_7dUCjf": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Winnicott rappelle qu’on peut être soutenu sans être retenu. Une présence souple, pour les jours qui bougent.</p>",
+            "text_font_size": "body-x-small",
+            "padding_bottom": 16
+          }
+        },
+        "buttons_QHtABg": {
+          "type": "buttons",
+          "settings": {
+            "button_text": "Découvrir Winnicott",
+            "button_url": "shopify://collections/685872054616",
+            "button_type": "btn--primary",
+            "button_size": "",
+            "button_style": "btn--text",
+            "show_arrow": true,
+            "padding_bottom": 16
+          }
+        }
+      },
+      "block_order": [
+        "subheading_ddMVpi",
+        "heading_eekkVq",
+        "text_7dUCjf",
+        "buttons_QHtABg"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "image_1": "shopify://shop_images/20261016_174614_194a0900-5199-4195-8464-8d83d0937609.jpg",
+        "image_width": "three-quarters",
+        "text_alignment": "text-center",
+        "layout": "is-reversed",
+        "width": "wrapper--full",
+        "height": "screen-height-full",
+        "mobile_height": "screen-height-one-half--mobile",
+        "reverse_blocks": false,
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
         "show_placeholder": false
       }
     },
@@ -276,9 +276,9 @@
     }
   },
   "order": [
-    "section_double_DRjkxL",
-    "section_double_RjHgjE",
     "section_double_U7LT9r",
+    "section_double_RjHgjE",
+    "section_double_DRjkxL",
     "section_double_4NnNzJ",
     "main"
   ]
