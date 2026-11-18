@@ -195,6 +195,10 @@
         "show_placeholder": false
       }
     },
+    "1795024769a7d43d53": {
+      "type": "_blocks",
+      "settings": {}
+    },
     "section_double_4NnNzJ": {
       "type": "section-double",
       "blocks": {
@@ -279,6 +283,7 @@
     "section_double_U7LT9r",
     "section_double_RjHgjE",
     "section_double_DRjkxL",
+    "1795024769a7d43d53",
     "section_double_4NnNzJ",
     "main"
   ]
