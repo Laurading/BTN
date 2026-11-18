@@ -1,6 +1,122 @@
+{% doc %}
+  @prompt
+    {% assign video_url = 'URL_VIDEO_MP4' %}
+    
+    <div class="winnicott-video-text">
+      <div class="winnicott-video-text__content">
+        <h2 class="heading-medium">
+          LE COMPAGNON DE TOUS LES JOURS.
+        </h2>
+    
+        <div class="body-small">
+          <p>
+            Il n’avait pas prévu de venir.
+            Finalement, il suit le mouvement.
+          </p>
+          <p>
+            Sous son air nonchalant, Winnicott tient
+            et contient l’essentiel, du premier
+            rendez-vous aux détours imprévus.
+          </p>
+        </div>
+      </div>
+    
+      <div class="winnicott-video-text__media">
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          aria-label="Winnicott en mouvement"
+        >
+          <source src="{{ video_url | escape }}" type="video/mp4">
+          Votre navigateur ne prend pas en charge cette vidéo.
+        </video>
+      </div>
+    </div>
+    
+    <style>
+      .winnicott-video-text {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: stretch;
+        width: 100%;
+        padding-block: 50px;
+      }
+    
+      .winnicott-video-text__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: clamp(28px, 5vw, 80px);
+        text-align: center;
+      }
+    
+      .winnicott-video-text__content > * {
+        width: 100%;
+        max-width: 440px;
+      }
+    
+      .winnicott-video-text__content h2 {
+        margin: 0 0 24px;
+      }
+    
+      .winnicott-video-text__content p {
+        margin: 0 0 16px;
+      }
+    
+      .winnicott-video-text__content p:last-child {
+        margin-bottom: 0;
+      }
+    
+      .winnicott-video-text__media {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    
+      .winnicott-video-text__media video {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 85svh;
+        object-fit: contain;
+        background: #000;
+      }
+    
+      @media screen and (max-width: 749px) {
+        .winnicott-video-text {
+          grid-template-columns: minmax(0, 1fr);
+          padding-block: 24px;
+        }
+    
+        .winnicott-video-text__content {
+          padding: 32px 24px;
+        }
+    
+        .winnicott-video-text__media video {
+          max-height: 75svh;
+        }
+      }
+    </style>, met uune vidée déjà dans la bibliothèque
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+.ai-winnicott-video-text-{{ ai_gen_id }}{display:block;width:{{ block.settings.desktop_width_percent }}%;max-width:100%;margin-inline:auto;padding-block:{{ block.settings.vertical_padding }}px}
+.ai-winnicott-video-text-{{ ai_gen_id }}__inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;width:100%}
+.ai-winnicott-video-text-{{ ai_gen_id }}__content{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:clamp(28px,5vw,80px);text-align:center;color:{{ block.settings.text_color }};background-color:{{ block.settings.background_color }}}
+.ai-winnicott-video-text-{{ ai_gen_id }}__copy{width:100%;max-width:440px}
+.ai-winnicott-video-text-{{ ai_gen_id }}__heading{margin:0 0 24px;color:inherit;font-family:{{ settings.type_header_font.family }},{{ settings.type_header_font.fallback_families }};font-size:{{ settings.heading_medium }}px;font-weight:{{ settings.type_header_font.weight }};letter-spacing:{{ settings.heading_letter_spacing | divided_by:100.0 }}em;line-height:1.2}
+.ai-winnicott-video-text-{{ ai_gen_id }}__body{font-family:{{ settings.type_base_font.family }},{{ settings.type_base_font.fallback_families }};font-size:{{ settings.base_font_size }}px;line-height:1.7}
+.ai-winnicott-video-text-{{ ai_gen_id }}__body p{margin:0 0 16px}.ai-winnicott-video-text-{{ ai_gen_id }}__body p:last-child{margin-bottom:0}
+.ai-winnicott-video-text-{{ ai_gen_id }}__media{min-width:0;display:flex;align-items:center;justify-content:center;background:#000}
+.ai-winnicott-video-text-{{ ai_gen_id }}__media video{display:block;width:100%;height:auto;max-height:85svh;object-fit:contain;background:#000}
+.ai-winnicott-video-text-{{ ai_gen_id }}__empty{display:flex;width:100%;min-height:320px;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;color:#fff;text-align:center;font-size:14px}
+.ai-winnicott-video-text-{{ ai_gen_id }}__empty svg{width:min(100%,240px);height:160px;color:#fff}
+@media screen and (max-width:749px){.ai-winnicott-video-text-{{ ai_gen_id }}{padding-block:24px}.ai-winnicott-video-text-{{ ai_gen_id }}__inner{grid-template-columns:minmax(0,1fr)}.ai-winnicott-video-text-{{ ai_gen_id }}__content{padding:32px 24px}.ai-winnicott-video-text-{{ ai_gen_id }}__heading{font-size:{{ settings.heading_medium_mobile }}px}.ai-winnicott-video-text-{{ ai_gen_id }}__media video{max-height:75svh}}
+{% endstyle %}
+<div class="ai-winnicott-video-text-{{ ai_gen_id }}" {{ block.shopify_attributes }}><div class="ai-winnicott-video-text-{{ ai_gen_id }}__inner"><div class="ai-winnicott-video-text-{{ ai_gen_id }}__content"><div class="ai-winnicott-video-text-{{ ai_gen_id }}__copy">{% if block.settings.heading != blank %}<h2 class="ai-winnicott-video-text-{{ ai_gen_id }}__heading">{{ block.settings.heading | escape }}</h2>{% endif %}{% if block.settings.body != blank %}<div class="ai-winnicott-video-text-{{ ai_gen_id }}__body">{{ block.settings.body }}</div>{% endif %}</div></div><div class="ai-winnicott-video-text-{{ ai_gen_id }}__media">{% if block.settings.video != blank %}{{ block.settings.video | video_tag: controls: true, playsinline: true, preload: 'metadata' }}{% else %}<div class="ai-winnicott-video-text-{{ ai_gen_id }}__empty" role="status">{{ 'video' | placeholder_svg_tag }}<span>Sélectionnez une vidéo dans la bibliothèque de fichiers dans les paramètres du bloc.</span></div>{% endif %}</div></div></div>
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{"name":"Vidéo et texte","settings":[{"type":"header","content":"Contenu"},{"type":"text","id":"heading","label":"Titre","default":"LE COMPAGNON DE TOUS LES JOURS."},{"type":"richtext","id":"body","label":"Texte","default":"<p>Il n’avait pas prévu de venir. Finalement, il suit le mouvement.</p><p>Sous son air nonchalant, Winnicott tient et contient l’essentiel, du premier rendez-vous aux détours imprévus.</p>"},{"type":"video","id":"video","label":"Vidéo de la bibliothèque"},{"type":"header","content":"Mise en page"},{"type":"range","id":"desktop_width_percent","label":"Largeur sur ordinateur","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"range","id":"vertical_padding","label":"Espacement vertical","min":0,"max":100,"step":5,"unit":"px","default":50},{"type":"color","id":"background_color","label":"Fond du texte","default":"#F0EEEB"},{"type":"color","id":"text_color","label":"Texte","default":"#291916"}],"presets":[{"name":"Vidéo et texte"}],"tag":null,"class":"winnicott-video-text-block"}
 {% endschema %}
