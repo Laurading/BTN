@@ -14,6 +14,18 @@
     "announcement": {
       "type": "announcement",
       "blocks": {
+        "text_fR4niX": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"https://www.bestiniparis.com/products/bowling-lacet-mini-suede-chocolat\" title=\"https://www.bestiniparis.com/products/bowling-lacet-mini-suede-chocolat\">Nouveauté · Bowling & Lacet Mini Suède Chocolat · Précommander →</a></p>",
+            "target_url_enabled": false,
+            "target_url": "",
+            "target_referrer_enabled": false,
+            "target_referrer": "",
+            "target_device_enabled": false,
+            "target_device": "mobile"
+          }
+        },
         "text_M8DVGq": {
           "type": "text",
           "settings": {
@@ -41,6 +53,7 @@
         }
       },
       "block_order": [
+        "text_fR4niX",
         "text_M8DVGq",
         "text_qQh9fT"
       ],
