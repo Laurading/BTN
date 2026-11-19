@@ -185,7 +185,7 @@
       "type": "section-collection",
       "name": "Featured collection",
       "settings": {
-        "featured_collection": "single-day",
+        "featured_collection": "blackfriday",
         "heading": "BLACKFRIDAY",
         "heading_font_size": "heading-x-small",
         "description": "<p>Jusqu’à −30 % sur une sélection</p>",

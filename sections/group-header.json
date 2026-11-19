@@ -31,7 +31,7 @@
           "settings": {
             "text": "<h4><a href=\"/collections/single-day\" title=\"TIKTOK // 11.11 SINGLE DAY\"><strong>BLACKFRIDAY</strong></a></h4>",
             "target_url_enabled": false,
-            "target_url": "shopify://collections/single-day",
+            "target_url": "shopify://collections/blackfriday",
             "target_referrer_enabled": false,
             "target_referrer": "",
             "target_device_enabled": false,
